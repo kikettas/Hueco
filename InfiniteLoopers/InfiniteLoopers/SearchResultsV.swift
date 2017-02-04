@@ -17,10 +17,10 @@ class SearchResultsV: UITableViewController,UISearchResultsUpdating {
     
     func setupViews(){
         self.tableView.backgroundColor = UIColor(rgbValue: 0xFFFFFF, alpha: 0.35)
-        let effect = UIBlurEffect(style: .regular)
-        let blurView = UIVisualEffectView(effect: effect)
-        tableView.backgroundView = blurView
-        tableView.separatorEffect = UIVibrancyEffect(blurEffect: effect)
+        let blurEffect = UIBlurEffect(style: .regular)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        tableView.backgroundView = effectView
+        tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurEffect)
     }
 }
 
