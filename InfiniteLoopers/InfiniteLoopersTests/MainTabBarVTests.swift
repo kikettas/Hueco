@@ -1,6 +1,6 @@
 //
-//  InfiniteLoopersTests.swift
-//  InfiniteLoopersTests
+//  MainTabBarTests.swift
+//  InfiniteLoopers
 //
 //  Created by Enrique del Pozo Gómez on 2/4/17.
 //  Copyright © 2017 Infinite Loopers. All rights reserved.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import InfiniteLoopers
 
-class InfiniteLoopersTests: XCTestCase {
+
+class MainTabBarVTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,16 +22,10 @@ class InfiniteLoopersTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testViewControllersCount(){
+        let mainTabBarView = MainTabBarV(model:MainTabBarVM())
+        _ = mainTabBarView.view
+        
+        XCTAssertEqual(mainTabBarView.viewControllers?.count,5)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

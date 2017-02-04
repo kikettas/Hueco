@@ -12,15 +12,20 @@ class SharedV: UIViewController {
     
     var model:SharedVMProtocol!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
     convenience init(model:SharedVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: "Shared", image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("shared", comment: "Shared tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+    }
+}
+
+
+// MARK: - UIViewController
+
+extension SharedV{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
     }
 }

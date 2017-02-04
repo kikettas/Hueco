@@ -11,17 +11,21 @@ import UIKit
 class PublishV: UIViewController {
     
     var model:PublishVMProtocol!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     
     convenience init(model:PublishVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: "Publish", image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("publish", comment: "Publish tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
     }
+}
 
+
+// MARK: - UIViewController
+
+extension PublishV{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
 }

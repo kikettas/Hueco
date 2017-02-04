@@ -12,16 +12,20 @@ class ProfileV: UIViewController {
 
     var model:ProfileVMProtocol!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    
     convenience init(model:ProfileVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: "Me", image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("me", comment: "Profile tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+    }
+}
+
+
+// MARK: - UIViewController
+
+extension ProfileV{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
     }
 }
