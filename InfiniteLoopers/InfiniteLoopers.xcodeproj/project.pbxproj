@@ -8,14 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1C4576A0204D5AD485875072 /* Pods_InfiniteLoopersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399B02F7BF9296FCCC1CE293 /* Pods_InfiniteLoopersTests.framework */; };
+		1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */; };
+		1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */; };
+		1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */; };
+		1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */; };
 		1FA717151E450D6200CC0F39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA717141E450D6200CC0F39 /* AppDelegate.swift */; };
 		1FA7171C1E450D6200CC0F39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA7171B1E450D6200CC0F39 /* Assets.xcassets */; };
 		1FA7172A1E450D6200CC0F39 /* InfiniteLoopersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA717291E450D6200CC0F39 /* InfiniteLoopersTests.swift */; };
 		1FA717351E450D6200CC0F39 /* InfiniteLoopersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA717341E450D6200CC0F39 /* InfiniteLoopersUITests.swift */; };
 		1FCD897C1E450E3B002792F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */; };
-		1FCD897F1E451903002792F9 /* LaunchScreenV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD897D1E451903002792F9 /* LaunchScreenV.swift */; };
-		1FCD89801E451903002792F9 /* LaunchScreenV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD897E1E451903002792F9 /* LaunchScreenV.xib */; };
-		1FCD89841E451932002792F9 /* LaunchScreenVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD89831E451932002792F9 /* LaunchScreenVM.swift */; };
 		677E7890DCB65CD72EFAD500 /* Pods_InfiniteLoopers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C05A0225079DF1E4F04320 /* Pods_InfiniteLoopers.framework */; };
 		7AFB8821523F4671DA6FAF52 /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A8CB96785276EC2170F9C7 /* Pods_InfiniteLoopersUITests.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarV.swift; sourceTree = "<group>"; };
+		1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabBarV.xib; sourceTree = "<group>"; };
+		1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVM.swift; sourceTree = "<group>"; };
 		1FA717111E450D6200CC0F39 /* InfiniteLoopers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfiniteLoopers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA717141E450D6200CC0F39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FA7171B1E450D6200CC0F39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,9 +54,6 @@
 		1FA717341E450D6200CC0F39 /* InfiniteLoopersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteLoopersUITests.swift; sourceTree = "<group>"; };
 		1FA717361E450D6200CC0F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1FCD897D1E451903002792F9 /* LaunchScreenV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchScreenV.swift; path = MVVM/LaunchScreenV.swift; sourceTree = "<group>"; };
-		1FCD897E1E451903002792F9 /* LaunchScreenV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreenV.xib; path = MVVM/LaunchScreenV.xib; sourceTree = "<group>"; };
-		1FCD89831E451932002792F9 /* LaunchScreenVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenVM.swift; sourceTree = "<group>"; };
 		35C05A0225079DF1E4F04320 /* Pods_InfiniteLoopers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		399B02F7BF9296FCCC1CE293 /* Pods_InfiniteLoopersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA53BDF5E069A897B490108 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +93,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FA69EC31E45D645005FD096 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */,
+				1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */,
+				1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */,
+			);
+			name = MainTabBar;
+			sourceTree = "<group>";
+		};
 		1FA717081E450D6200CC0F39 = {
 			isa = PBXGroup;
 			children = (
@@ -143,20 +155,11 @@
 			path = InfiniteLoopersUITests;
 			sourceTree = "<group>";
 		};
-		1FCD89811E451912002792F9 /* LaunchScreen */ = {
-			isa = PBXGroup;
-			children = (
-				1FCD897D1E451903002792F9 /* LaunchScreenV.swift */,
-				1FCD897E1E451903002792F9 /* LaunchScreenV.xib */,
-				1FCD89831E451932002792F9 /* LaunchScreenVM.swift */,
-			);
-			name = LaunchScreen;
-			sourceTree = "<group>";
-		};
 		1FCD89821E451919002792F9 /* VVM */ = {
 			isa = PBXGroup;
 			children = (
-				1FCD89811E451912002792F9 /* LaunchScreen */,
+				1FA69EC31E45D645005FD096 /* MainTabBar */,
+				1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */,
 			);
 			name = VVM;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				TargetAttributes = {
 					1FA717101E450D6200CC0F39 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9E868WB98D;
 						ProvisioningStyle = Automatic;
 					};
 					1FA717241E450D6200CC0F39 = {
@@ -300,9 +304,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FCD89801E451903002792F9 /* LaunchScreenV.xib in Resources */,
 				1FCD897C1E450E3B002792F9 /* GoogleService-Info.plist in Resources */,
+				1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */,
 				1FA7171C1E450D6200CC0F39 /* Assets.xcassets in Resources */,
+				1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,9 +470,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FCD89841E451932002792F9 /* LaunchScreenVM.swift in Sources */,
+				1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */,
 				1FA717151E450D6200CC0F39 /* AppDelegate.swift in Sources */,
-				1FCD897F1E451903002792F9 /* LaunchScreenV.swift in Sources */,
+				1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +606,7 @@
 			baseConfigurationReference = 6FA53BDF5E069A897B490108 /* Pods-InfiniteLoopers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinite.loopers.InfiniteLoopers;
@@ -614,6 +620,7 @@
 			baseConfigurationReference = D3FE513BFD7E283106BCFB8B /* Pods-InfiniteLoopers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinite.loopers.InfiniteLoopers;

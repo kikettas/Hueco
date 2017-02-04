@@ -45,10 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func loadFirstView(){
-        let launchViewController = LaunchScreenV(nibName: nil, bundle: nil)
+        let mainTabBarController = MainTabBarV(nibName: nil, bundle: nil)
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = launchViewController
+        self.window?.backgroundColor = UIColor.white
+        self.window?.rootViewController = mainTabBarController
         self.window?.makeKeyAndVisible()
     }
 }

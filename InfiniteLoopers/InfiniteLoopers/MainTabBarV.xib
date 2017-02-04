@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainTabBarV" customModule="InfiniteLoopers" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tabBarController id="24i-OR-206" customClass="MainTabBarV" customModule="InfiniteLoopers" customModuleProvider="target">
+            <tabBar key="tabBar" contentMode="scaleToFill" id="ETH-oA-d9z">
+                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </tabBar>
+            <viewControllers>
+                <viewController id="jha-hI-6Bh">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TUQ-vM-cg6"/>
+                        <viewControllerLayoutGuide type="bottom" id="e81-Qd-ME9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w7w-8t-qWy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="yWp-8O-4SZ"/>
+                </viewController>
+                <viewController id="g3O-0A-TUI">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P5d-NG-Odt"/>
+                        <viewControllerLayoutGuide type="bottom" id="8fq-A5-dlH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nef-DB-98t">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="biW-ZN-g9O"/>
+                </viewController>
+                <viewController id="U6s-ZC-6kI">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9zp-yd-QZV"/>
+                        <viewControllerLayoutGuide type="bottom" id="fgF-HQ-Fbr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eng-EN-810">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="Xc1-uY-SoM"/>
+                </viewController>
+                <viewController id="UqC-4Z-jbW">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VX3-PM-IqQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="A9c-u6-12n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dZO-m7-gyC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="Ao4-4N-Wo8"/>
+                </viewController>
+                <viewController id="oUa-Zw-Vhe">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XPr-Rf-osH"/>
+                        <viewControllerLayoutGuide type="bottom" id="WtO-Yh-x1K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZEl-2N-5Oc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="opP-tL-7N9"/>
+                </viewController>
+            </viewControllers>
+            <point key="canvasLocation" x="-426" y="51"/>
+        </tabBarController>
+    </objects>
+</document>

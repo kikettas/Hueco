@@ -1,18 +1,17 @@
 //
-//  LaunchScreenV.swift
+//  MainTabBarV.swift
 //  InfiniteLoopers
 //
-//  Created by Enrique del Pozo Gómez on 2/3/17.
+//  Created by Enrique del Pozo Gómez on 2/4/17.
 //  Copyright © 2017 Infinite Loopers. All rights reserved.
 //
 
 import UIKit
 
-class LaunchScreenV: UIViewController {
+class MainTabBarV: UITabBarController {
 
-    var model:LaunchScreenVMProtocol!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 }
