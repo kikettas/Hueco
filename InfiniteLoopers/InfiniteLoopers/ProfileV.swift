@@ -16,6 +16,7 @@ class ProfileV: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("me", comment: "Profile tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.title = NSLocalizedString("profile", comment: "Profile tab title")
     }
 }
 
@@ -25,7 +26,8 @@ class ProfileV: UIViewController {
 extension ProfileV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupAppNavBarStyle()
+
         // Do any additional setup after loading the view.
     }
 }

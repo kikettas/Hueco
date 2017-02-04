@@ -24,7 +24,14 @@ class MainTabBarV: UITabBarController {
 extension MainTabBarV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTabBar()
         setupViewControllers()
+    }
+    
+    func setupTabBar(){
+        self.tabBar.barTintColor = UIColor.mainRed
+        self.tabBar.tintColor = UIColor.white
+        self.tabBar.unselectedItemTintColor = UIColor.lightGray
     }
     
     func setupViewControllers(){

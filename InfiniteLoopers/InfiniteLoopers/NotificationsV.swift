@@ -25,6 +25,7 @@ class NotificationsV: UIViewController {
 extension NotificationsV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupAppNavBarStyle()
+
     }
 }

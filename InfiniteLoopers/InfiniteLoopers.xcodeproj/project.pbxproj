@@ -19,6 +19,8 @@
 		1F7A1EFD1E4657F100FF88D3 /* InfiniteLoopersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1EFC1E4657F100FF88D3 /* InfiniteLoopersUITests.swift */; };
 		1F7A1F081E46588A00FF88D3 /* MainTabBarVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1F071E46588A00FF88D3 /* MainTabBarVTests.swift */; };
 		1F7A1F0C1E465CC200FF88D3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7A1F0E1E465CC200FF88D3 /* Localizable.strings */; };
+		1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1F101E4663A400FF88D3 /* UIColor.swift */; };
+		1F7A1F141E46686200FF88D3 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1F131E46686200FF88D3 /* UIViewController.swift */; };
 		1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */; };
 		1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */; };
 		1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */; };
@@ -75,6 +77,8 @@
 		1F7A1F071E46588A00FF88D3 /* MainTabBarVTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVTests.swift; sourceTree = "<group>"; };
 		1F7A1F0D1E465CC200FF88D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F7A1F0F1E465CCF00FF88D3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F7A1F101E4663A400FF88D3 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = Extensions/UIColor.swift; sourceTree = "<group>"; };
+		1F7A1F131E46686200FF88D3 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarV.swift; sourceTree = "<group>"; };
 		1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabBarV.xib; sourceTree = "<group>"; };
 		1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVM.swift; sourceTree = "<group>"; };
@@ -212,6 +216,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		1F7A1F121E46642200FF88D3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F7A1F101E4663A400FF88D3 /* UIColor.swift */,
+				1F7A1F131E46686200FF88D3 /* UIViewController.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		1FA69EC31E45D645005FD096 /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +262,7 @@
 		1FA717131E450D6200CC0F39 /* InfiniteLoopers */ = {
 			isa = PBXGroup;
 			children = (
+				1F7A1F121E46642200FF88D3 /* Extensions */,
 				1FCD89821E451919002792F9 /* VVM */,
 				1FA717141E450D6200CC0F39 /* AppDelegate.swift */,
 				1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */,
@@ -645,8 +659,10 @@
 				1FAEA3461E45E9DD0007A1D2 /* PublishV.swift in Sources */,
 				1F7A1E961E45EE6F00FF88D3 /* NotificationsVM.swift in Sources */,
 				1FAEA3411E45E8800007A1D2 /* ProfileVM.swift in Sources */,
+				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
 				1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */,
 				1FAEA3501E45EB900007A1D2 /* SharedVM.swift in Sources */,
+				1F7A1F141E46686200FF88D3 /* UIViewController.swift in Sources */,
 				1F7A1E9C1E46523C00FF88D3 /* SearchResultsVM.swift in Sources */,
 				1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */,
 				1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */,

@@ -25,6 +25,7 @@ class SharedV: UIViewController {
 extension SharedV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAppNavBarStyle()
         
         // Do any additional setup after loading the view.
     }

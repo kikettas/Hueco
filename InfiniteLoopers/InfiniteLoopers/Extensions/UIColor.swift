@@ -7,3 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIColor{
+    static let mainRed = UIColor(rgbValue: 0xDF0000, alpha: 1)
+}

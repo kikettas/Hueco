@@ -16,6 +16,7 @@ class PublishV: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("publish", comment: "Publish tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.title = NSLocalizedString("publish", comment: "Publish tab title")
     }
 }
 
@@ -25,7 +26,8 @@ class PublishV: UIViewController {
 extension PublishV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupAppNavBarStyle()
+
         // Do any additional setup after loading the view.
     }
 }

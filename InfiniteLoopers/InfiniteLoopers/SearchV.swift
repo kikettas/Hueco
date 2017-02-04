@@ -28,6 +28,8 @@ class SearchV: UIViewController, UISearchControllerDelegate {
 extension SearchV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAppNavBarStyle()
+
         setupSearchController()
     }
     
@@ -38,6 +40,7 @@ extension SearchV{
         self.searchController.searchResultsUpdater = searchResultsView
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.searchBar.tintColor = UIColor.white
         self.navigationItem.titleView = searchController.searchBar
         self.definesPresentationContext = true
     }

@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIViewController{
+    func setupAppNavBarStyle(){
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainRed
+        self.navigationController?.navigationBar.barStyle = .black
+    }
+}
