@@ -12,6 +12,13 @@ class MainTabBarV: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let searchTab = SearchV(model:SearchVM())
+        let notificationsTab = NotificationsV(model:NotificationsVM())
+        let publishTab = PublishV(model: PublishVM())
+        let sharedTab = SharedV(model:SharedVM())
+        let profileTab = ProfileV(model:ProfileVM())
+        
+        self.viewControllers = [searchTab, notificationsTab, publishTab, sharedTab, profileTab]
     }
 }
