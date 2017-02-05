@@ -22,7 +22,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - Kingfisher (3.3.3)
+  - Kingfisher (3.3.4)
   - ObjectMapper (2.2.2)
   - Realm (2.4.2):
     - Realm/Headers (= 2.4.2)
@@ -35,7 +35,7 @@ PODS:
     - RealmSwift (~> 2.2)
     - RxSwift (~> 3.1)
   - RxSwift (3.2.0)
-  - Swarkn (0.1.0)
+  - Swarkn (0.1.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -57,14 +57,14 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  Kingfisher: 893215a42e5c2164e916f69463c68003092b104c
+  Kingfisher: 35f289f015d26e81ea6c85048718c6205f3933c6
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
   Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
   RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
   RxRealm: c80d17d42fc362f4d8af4ac62de360b014be5c3f
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
-  Swarkn: f0a9d406c37ae8f51d29aa6cf08c1470394cdec6
+  Swarkn: d9981289d75e71cb7d97f946377813479b4846ab
 
 PODFILE CHECKSUM: d39b06ef62a67773b5432513b27786ab7ca17c46
 
