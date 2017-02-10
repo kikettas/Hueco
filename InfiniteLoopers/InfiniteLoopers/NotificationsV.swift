@@ -16,6 +16,7 @@ class NotificationsV: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("notifications", comment: "Notications tab title"), image: UIImage(named: "ic_notifications_tab_unselected"), selectedImage: UIImage(named: "ic_notifications_tab_selected"))
+        self.title = NSLocalizedString("notifications", comment: "Notications view title")
     }
 }
 
@@ -26,6 +27,5 @@ extension NotificationsV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
-
     }
 }

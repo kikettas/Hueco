@@ -27,5 +27,9 @@ target 'InfiniteLoopers' do
     inherit! :search_paths
     # Pods for testing
   end
+  
+  target 'InfiniteLoopersService' do
+      inherit! :search_paths
+  end
 
 end

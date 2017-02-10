@@ -16,7 +16,7 @@ class ProfileV: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("me", comment: "Profile tab title"), image: UIImage(named: "ic_profile_tab_unselected"), selectedImage: UIImage(named: "ic_profile_tab_selected"))
-        self.title = NSLocalizedString("profile", comment: "Profile tab title")
+        self.title = NSLocalizedString("profile", comment: "Profile view title")
     }
 }
 

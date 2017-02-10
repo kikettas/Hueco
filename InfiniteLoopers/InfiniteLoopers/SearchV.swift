@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 
-class SearchV: UIViewController, UISearchControllerDelegate {
+class SearchV: UIViewController, UISearchControllerDelegate, UICollectionViewDataSource {
 
     var model:SearchVMProtocol!
     var searchController: UISearchController!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     convenience init(model:SearchVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -29,8 +29,14 @@ extension SearchV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
-
+    
+        setupCollectionView()
         setupSearchController()
+    }
+    
+    func setupCollectionView(){
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ProductCell")
     }
     
     func setupSearchController(){
@@ -45,3 +51,19 @@ extension SearchV{
         self.definesPresentationContext = true
     }
 }
+
+// MARK: - UICollectionViewDataSource
+
+extension SearchV{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return model.dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath)
+        
+        return cell
+    }
+}
+

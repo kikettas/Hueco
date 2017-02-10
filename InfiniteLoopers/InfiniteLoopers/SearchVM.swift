@@ -7,12 +7,17 @@
 //
 
 import Foundation
-
+import RxCocoa
+import RxSwift
 
 protocol SearchVMProtocol{
-    
+    var dataSource:[Any] { get }
 }
 
 class SearchVM:SearchVMProtocol{
+    var dataSource: [Any]
     
+    init() {
+        dataSource = []
+    }
 }

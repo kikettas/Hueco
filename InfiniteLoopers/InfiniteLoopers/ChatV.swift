@@ -16,6 +16,8 @@ class ChatV: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("chat", comment: "Chat tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
+        self.title = NSLocalizedString("chat", comment: "Chat view title")
+
     }
 }
 
