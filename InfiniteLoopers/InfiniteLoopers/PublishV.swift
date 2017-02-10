@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PublishV: UIViewController {
     
     var model:PublishVMProtocol!
+    var disposeBag:DisposeBag = DisposeBag()
+    @IBOutlet weak var closeButton: UIButton!
     
     convenience init(model:PublishVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("publish", comment: "Publish tab title"), image: UIImage(named: "ic_publish_tab_unselected"), selectedImage: UIImage(named: "ic_publish_tab_selected"))
-        self.title = NSLocalizedString("publish", comment: "Publish tab title")
     }
 }
 
@@ -26,8 +28,15 @@ class PublishV: UIViewController {
 extension PublishV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAppNavBarStyle()
-
-        // Do any additional setup after loading the view.
+        
+        closeButton
+            .rx
+            .controlEvent(UIControlEvents.touchUpInside)
+            .observeOn(MainScheduler.instance)
+            .bindNext {
+                self.dismiss(animated: true, completion: nil)
+            }.addDisposableTo(disposeBag)
+        
     }
 }
+

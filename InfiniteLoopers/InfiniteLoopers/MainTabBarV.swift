@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarV: UITabBarController {
+class MainTabBarV: UITabBarController, UITabBarControllerDelegate {
 
     var model:MainTabBarVMProtocol!
     
@@ -19,11 +19,12 @@ class MainTabBarV: UITabBarController {
 
 }
 
-// MARK: - UIViewController
+// MARK: - UITabBarController
 
 extension MainTabBarV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self
         setupTabBar()
         setupViewControllers()
     }
@@ -36,10 +37,26 @@ extension MainTabBarV{
     func setupViewControllers(){
         let searchTab = SearchV(model:SearchVM())
         let notificationsTab = NotificationsV(model:NotificationsVM())
-        let publishTab = PublishV(model: PublishVM())
         let chatTab = ChatV(model:ChatVM())
         let profileTab = ProfileV(model:ProfileVM())
         
-        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: publishTab), UINavigationController(rootViewController: chatTab), UINavigationController(rootViewController: profileTab)]
+        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: DummyPublishV()), UINavigationController(rootViewController: chatTab), UINavigationController(rootViewController: profileTab)]
+    }
+}
+
+// MARK: - UITabBarDelegate
+
+extension MainTabBarV{
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if(self.tabBar.items?[2] == item){
+            Navigator.navigateToPublish(from: self)
+        }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if(viewController == tabBarController.viewControllers?[2]){
+            return false
+        }
+        return true
     }
 }
