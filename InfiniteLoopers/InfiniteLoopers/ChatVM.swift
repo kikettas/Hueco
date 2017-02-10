@@ -9,10 +9,10 @@
 import Foundation
 
 
-protocol SharedVMProtocol{
+protocol ChatVMProtocol{
     
 }
 
-class SharedVM:SharedVMProtocol{
+class ChatVM:ChatVMProtocol{
     
 }

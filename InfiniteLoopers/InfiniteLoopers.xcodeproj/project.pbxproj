@@ -30,9 +30,9 @@
 		1FAEA3461E45E9DD0007A1D2 /* PublishV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3441E45E9DD0007A1D2 /* PublishV.swift */; };
 		1FAEA3471E45E9DD0007A1D2 /* PublishV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA3451E45E9DD0007A1D2 /* PublishV.xib */; };
 		1FAEA3491E45E9FB0007A1D2 /* PublishVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3481E45E9FB0007A1D2 /* PublishVM.swift */; };
-		1FAEA34D1E45EB800007A1D2 /* SharedV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA34B1E45EB800007A1D2 /* SharedV.swift */; };
-		1FAEA34E1E45EB800007A1D2 /* SharedV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA34C1E45EB800007A1D2 /* SharedV.xib */; };
-		1FAEA3501E45EB900007A1D2 /* SharedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA34F1E45EB900007A1D2 /* SharedVM.swift */; };
+		1FAEA34D1E45EB800007A1D2 /* ChatV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA34B1E45EB800007A1D2 /* ChatV.swift */; };
+		1FAEA34E1E45EB800007A1D2 /* ChatV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA34C1E45EB800007A1D2 /* ChatV.xib */; };
+		1FAEA3501E45EB900007A1D2 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA34F1E45EB900007A1D2 /* ChatVM.swift */; };
 		1FAEA3541E45EC090007A1D2 /* SearchV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3521E45EC090007A1D2 /* SearchV.swift */; };
 		1FAEA3551E45EC090007A1D2 /* SearchV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA3531E45EC090007A1D2 /* SearchV.xib */; };
 		1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3561E45EC170007A1D2 /* SearchVM.swift */; };
@@ -90,9 +90,9 @@
 		1FAEA3441E45E9DD0007A1D2 /* PublishV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishV.swift; sourceTree = "<group>"; };
 		1FAEA3451E45E9DD0007A1D2 /* PublishV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublishV.xib; sourceTree = "<group>"; };
 		1FAEA3481E45E9FB0007A1D2 /* PublishVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishVM.swift; sourceTree = "<group>"; };
-		1FAEA34B1E45EB800007A1D2 /* SharedV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedV.swift; sourceTree = "<group>"; };
-		1FAEA34C1E45EB800007A1D2 /* SharedV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedV.xib; sourceTree = "<group>"; };
-		1FAEA34F1E45EB900007A1D2 /* SharedVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedVM.swift; sourceTree = "<group>"; };
+		1FAEA34B1E45EB800007A1D2 /* ChatV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatV.swift; sourceTree = "<group>"; };
+		1FAEA34C1E45EB800007A1D2 /* ChatV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatV.xib; sourceTree = "<group>"; };
+		1FAEA34F1E45EB900007A1D2 /* ChatVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		1FAEA3521E45EC090007A1D2 /* SearchV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchV.swift; sourceTree = "<group>"; };
 		1FAEA3531E45EC090007A1D2 /* SearchV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchV.xib; sourceTree = "<group>"; };
 		1FAEA3561E45EC170007A1D2 /* SearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
@@ -298,9 +298,9 @@
 		1FAEA34A1E45EB610007A1D2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				1FAEA34B1E45EB800007A1D2 /* SharedV.swift */,
-				1FAEA34C1E45EB800007A1D2 /* SharedV.xib */,
-				1FAEA34F1E45EB900007A1D2 /* SharedVM.swift */,
+				1FAEA34B1E45EB800007A1D2 /* ChatV.swift */,
+				1FAEA34C1E45EB800007A1D2 /* ChatV.xib */,
+				1FAEA34F1E45EB900007A1D2 /* ChatVM.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -485,7 +485,7 @@
 				1F4F37881E45DD1500D3F37F /* ProfileV.xib in Resources */,
 				1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */,
 				1F7A1F0C1E465CC200FF88D3 /* Localizable.strings in Resources */,
-				1FAEA34E1E45EB800007A1D2 /* SharedV.xib in Resources */,
+				1FAEA34E1E45EB800007A1D2 /* ChatV.xib in Resources */,
 				1FA7171C1E450D6200CC0F39 /* Assets.xcassets in Resources */,
 				1FAEA3471E45E9DD0007A1D2 /* PublishV.xib in Resources */,
 				1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */,
@@ -661,13 +661,13 @@
 				1FAEA3411E45E8800007A1D2 /* ProfileVM.swift in Sources */,
 				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
 				1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */,
-				1FAEA3501E45EB900007A1D2 /* SharedVM.swift in Sources */,
+				1FAEA3501E45EB900007A1D2 /* ChatVM.swift in Sources */,
 				1F7A1F141E46686200FF88D3 /* UIViewController.swift in Sources */,
 				1F7A1E9C1E46523C00FF88D3 /* SearchResultsVM.swift in Sources */,
 				1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */,
 				1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */,
 				1FAEA3541E45EC090007A1D2 /* SearchV.swift in Sources */,
-				1FAEA34D1E45EB800007A1D2 /* SharedV.swift in Sources */,
+				1FAEA34D1E45EB800007A1D2 /* ChatV.swift in Sources */,
 				1FA717151E450D6200CC0F39 /* AppDelegate.swift in Sources */,
 				1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */,
 				1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */,

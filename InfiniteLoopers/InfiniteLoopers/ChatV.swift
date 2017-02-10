@@ -8,21 +8,21 @@
 
 import UIKit
 
-class SharedV: UIViewController {
+class ChatV: UIViewController {
     
-    var model:SharedVMProtocol!
+    var model:ChatVMProtocol!
 
-    convenience init(model:SharedVMProtocol) {
+    convenience init(model:ChatVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("shared", comment: "Shared tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("chat", comment: "Chat tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
     }
 }
 
 
 // MARK: - UIViewController
 
-extension SharedV{
+extension ChatV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()

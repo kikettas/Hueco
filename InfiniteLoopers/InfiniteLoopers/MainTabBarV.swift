@@ -29,18 +29,17 @@ extension MainTabBarV{
     }
     
     func setupTabBar(){
-        self.tabBar.barTintColor = UIColor.mainRed
-        self.tabBar.tintColor = UIColor.white
-        self.tabBar.unselectedItemTintColor = UIColor.lightGray
+        self.tabBar.tintColor = UIColor.mainRed
+        self.tabBar.unselectedItemTintColor = UIColor.darkGray
     }
     
     func setupViewControllers(){
         let searchTab = SearchV(model:SearchVM())
         let notificationsTab = NotificationsV(model:NotificationsVM())
         let publishTab = PublishV(model: PublishVM())
-        let sharedTab = SharedV(model:SharedVM())
+        let chatTab = ChatV(model:ChatVM())
         let profileTab = ProfileV(model:ProfileVM())
         
-        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: publishTab), UINavigationController(rootViewController: sharedTab), UINavigationController(rootViewController: profileTab)]
+        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: publishTab), UINavigationController(rootViewController: chatTab), UINavigationController(rootViewController: profileTab)]
     }
 }

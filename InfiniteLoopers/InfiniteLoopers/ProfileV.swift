@@ -15,7 +15,7 @@ class ProfileV: UIViewController {
     convenience init(model:ProfileVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("me", comment: "Profile tab title"), image: UIImage.init(color: UIColor.blue), selectedImage: UIImage.init(color: UIColor.blue))
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("me", comment: "Profile tab title"), image: UIImage(named: "ic_profile_tab_unselected"), selectedImage: UIImage(named: "ic_profile_tab_selected"))
         self.title = NSLocalizedString("profile", comment: "Profile tab title")
     }
 }
