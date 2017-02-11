@@ -82,11 +82,16 @@ extension SearchV{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if(indexPath.row < model.dataSource.count){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
             let product = model.dataSource[indexPath.row]
             cell.productName.text = product.2
             cell.productOwner.text = product.0
+                        
+            for i in 0...50{
+                cell.productOwnerRating.rating = 3
+            }
             let url = URL(string: product.1)
             cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
                 (image, error, cacheType, imageUrl) in

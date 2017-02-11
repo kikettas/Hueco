@@ -18,6 +18,7 @@ class ProductCell: UICollectionViewCell {
     @IBOutlet weak var productSpaces: UILabel!
     @IBOutlet weak var productOwner: UILabel!
     @IBOutlet weak var productOwnerImage: UIImageView!
+    @IBOutlet weak var productOwnerRating: RatingView!
     
     
     override func awakeFromNib() {

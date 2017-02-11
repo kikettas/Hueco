@@ -31,7 +31,7 @@ extension PublishV{
         
         closeButton
             .rx
-            .controlEvent(UIControlEvents.touchUpInside)
+            .tap
             .observeOn(MainScheduler.instance)
             .bindNext {
                 self.dismiss(animated: true, completion: nil)

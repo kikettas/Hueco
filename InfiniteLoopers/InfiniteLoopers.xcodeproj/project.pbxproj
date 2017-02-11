@@ -38,6 +38,7 @@
 		1F7E622E1E4F3CEC001D1CA7 /* SearchVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E622D1E4F3CEC001D1CA7 /* SearchVMTests.swift */; };
 		1F7E62311E4F52CB001D1CA7 /* OnLoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E622F1E4F52CB001D1CA7 /* OnLoadMoreCell.swift */; };
 		1F7E62321E4F52CB001D1CA7 /* OnLoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7E62301E4F52CB001D1CA7 /* OnLoadMoreCell.xib */; };
+		1F7E62361E4F7AF0001D1CA7 /* RatingView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7E62351E4F7AF0001D1CA7 /* RatingView+Rx.swift */; };
 		1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */; };
 		1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */; };
 		1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */; };
@@ -153,6 +154,7 @@
 		1F7E622D1E4F3CEC001D1CA7 /* SearchVMTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVMTests.swift; sourceTree = "<group>"; };
 		1F7E622F1E4F52CB001D1CA7 /* OnLoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnLoadMoreCell.swift; sourceTree = "<group>"; };
 		1F7E62301E4F52CB001D1CA7 /* OnLoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnLoadMoreCell.xib; sourceTree = "<group>"; };
+		1F7E62351E4F7AF0001D1CA7 /* RatingView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RatingView+Rx.swift"; sourceTree = "<group>"; };
 		1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarV.swift; sourceTree = "<group>"; };
 		1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabBarV.xib; sourceTree = "<group>"; };
 		1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVM.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			children = (
 				1FAA4AE01E4E28920014768D /* Navigator.swift */,
 				1F7E62291E4F346B001D1CA7 /* CollectionController.swift */,
+				1F7E62351E4F7AF0001D1CA7 /* RatingView+Rx.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				1F7E62311E4F52CB001D1CA7 /* OnLoadMoreCell.swift in Sources */,
 				1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */,
 				1F369EA61E4E2C2100D73628 /* LoginVM.swift in Sources */,
+				1F7E62361E4F7AF0001D1CA7 /* RatingView+Rx.swift in Sources */,
 				1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */,
 				1FAEA3541E45EC090007A1D2 /* SearchV.swift in Sources */,
 				1FAEA34D1E45EB800007A1D2 /* ChatV.swift in Sources */,
