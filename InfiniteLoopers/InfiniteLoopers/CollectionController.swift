@@ -13,12 +13,14 @@ import RxSwift
 
 protocol CollectionController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
-    var onLoadItemLimit:Int! { get }
     var didRefresh:(() -> ())! { get set }
     var onLoadMore:(() -> ())! { get set }
     
+    var cellHeight:CGFloat { get set }
+    var cellWidth:CGFloat { get set }
     var collectionView:UICollectionView! { get }
     var disposeBag:DisposeBag! { get }
+    var onLoadItemLimit:Int! { get }
     var refreshControl:UIRefreshControl! { get set }
 }
 
@@ -30,6 +32,7 @@ extension CollectionController{
         refreshControl?
             .rx
             .controlEvent(.valueChanged)
+            .observeOn(MainScheduler.instance)
             .bindNext {
                 self.didRefresh()
             }.addDisposableTo(disposeBag)
