@@ -21,6 +21,7 @@
 		1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */; };
 		1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F37851E45DD1500D3F37F /* ProfileV.swift */; };
 		1F4F37881E45DD1500D3F37F /* ProfileV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37861E45DD1500D3F37F /* ProfileV.xib */; };
+		1F67125C1E4FA0C600C4B4A2 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F67125B1E4FA0C600C4B4A2 /* PopAnimator.swift */; };
 		1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1E911E45EE5200FF88D3 /* NotificationsV.swift */; };
 		1F7A1E941E45EE5200FF88D3 /* NotificationsV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7A1E921E45EE5200FF88D3 /* NotificationsV.xib */; };
 		1F7A1E961E45EE6F00FF88D3 /* NotificationsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1E951E45EE6F00FF88D3 /* NotificationsVM.swift */; };
@@ -132,6 +133,7 @@
 		1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F4F37851E45DD1500D3F37F /* ProfileV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileV.swift; sourceTree = "<group>"; };
 		1F4F37861E45DD1500D3F37F /* ProfileV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileV.xib; sourceTree = "<group>"; };
+		1F67125B1E4FA0C600C4B4A2 /* PopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		1F7A1E911E45EE5200FF88D3 /* NotificationsV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsV.swift; sourceTree = "<group>"; };
 		1F7A1E921E45EE5200FF88D3 /* NotificationsV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsV.xib; sourceTree = "<group>"; };
 		1F7A1E951E45EE6F00FF88D3 /* NotificationsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsVM.swift; sourceTree = "<group>"; };
@@ -292,6 +294,14 @@
 				1FAEA3401E45E8800007A1D2 /* ProfileVM.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		1F67125A1E4FA0A500C4B4A2 /* Product Detail */ = {
+			isa = PBXGroup;
+			children = (
+				1F67125B1E4FA0C600C4B4A2 /* PopAnimator.swift */,
+			);
+			name = "Product Detail";
 			sourceTree = "<group>";
 		};
 		1F7A1E901E45EE4000FF88D3 /* NotificationsV */ = {
@@ -485,6 +495,7 @@
 		1FCD89821E451919002792F9 /* VVM */ = {
 			isa = PBXGroup;
 			children = (
+				1F67125A1E4FA0A500C4B4A2 /* Product Detail */,
 				1F369EA21E4E2C0800D73628 /* Login */,
 				1FA69EC31E45D645005FD096 /* Tab Bar */,
 			);
@@ -966,6 +977,7 @@
 				1F7A1E961E45EE6F00FF88D3 /* NotificationsVM.swift in Sources */,
 				1F369EA91E4E2C5600D73628 /* LoginV.swift in Sources */,
 				1FAEA3411E45E8800007A1D2 /* ProfileVM.swift in Sources */,
+				1F67125C1E4FA0C600C4B4A2 /* PopAnimator.swift in Sources */,
 				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
 				1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */,
 				1FAEA3501E45EB900007A1D2 /* ChatVM.swift in Sources */,

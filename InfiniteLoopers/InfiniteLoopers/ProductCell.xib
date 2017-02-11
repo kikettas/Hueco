@@ -93,12 +93,12 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QAh-bJ-k2P" customClass="RatingView" customModule="Swarkn">
-                                <rect key="frame" x="56" y="142" width="90" height="12"/>
+                                <rect key="frame" x="48" y="140" width="106" height="18"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="buttonCount">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="interaction" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="interaction" value="NO"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="ic_star_filled"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="ic_star_empty"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="hightlighted" value="ic_star_highlighted"/>
@@ -119,7 +119,7 @@
                             <constraint firstItem="f9H-sJ-cM8" firstAttribute="leading" secondItem="qVp-TP-6da" secondAttribute="trailing" constant="8" id="ESW-li-zc6"/>
                             <constraint firstItem="qVp-TP-6da" firstAttribute="top" secondItem="J95-M3-9NR" secondAttribute="bottom" constant="8" id="FlB-xu-aDZ"/>
                             <constraint firstItem="qis-My-C49" firstAttribute="top" secondItem="3mQ-f9-c3u" secondAttribute="bottom" constant="8" id="FqE-jT-dJe"/>
-                            <constraint firstAttribute="trailing" secondItem="QAh-bJ-k2P" secondAttribute="trailing" constant="16" id="Lne-2V-nEm"/>
+                            <constraint firstAttribute="trailing" secondItem="QAh-bJ-k2P" secondAttribute="trailing" constant="8" id="Lne-2V-nEm"/>
                             <constraint firstAttribute="trailing" secondItem="gym-eJ-8Pd" secondAttribute="trailing" constant="8" id="MGx-sI-Vp9"/>
                             <constraint firstItem="gym-eJ-8Pd" firstAttribute="top" secondItem="mv3-Aq-Gzt" secondAttribute="bottom" constant="8" id="MnA-0R-kKQ"/>
                             <constraint firstItem="qis-My-C49" firstAttribute="top" secondItem="J3Q-J3-L6p" secondAttribute="bottom" constant="8" id="OkK-dj-nlQ"/>
@@ -133,10 +133,10 @@
                             <constraint firstItem="f9H-sJ-cM8" firstAttribute="bottom" secondItem="3mQ-f9-c3u" secondAttribute="bottom" id="a1z-6K-x3C"/>
                             <constraint firstItem="hNe-vQ-yDb" firstAttribute="top" secondItem="J95-M3-9NR" secondAttribute="bottom" constant="8" id="bM5-I6-83N"/>
                             <constraint firstItem="J3Q-J3-L6p" firstAttribute="leading" secondItem="3mQ-f9-c3u" secondAttribute="trailing" id="cOw-KS-Q46"/>
-                            <constraint firstItem="QAh-bJ-k2P" firstAttribute="leading" secondItem="8sw-Gl-iJc" secondAttribute="trailing" constant="16" id="caT-4R-3Fs"/>
+                            <constraint firstItem="QAh-bJ-k2P" firstAttribute="leading" secondItem="8sw-Gl-iJc" secondAttribute="trailing" constant="8" id="caT-4R-3Fs"/>
                             <constraint firstItem="Uhh-Tg-Jx2" firstAttribute="top" secondItem="qis-My-C49" secondAttribute="bottom" constant="8" id="dCu-lD-aKF"/>
                             <constraint firstItem="f9H-sJ-cM8" firstAttribute="centerX" secondItem="tU8-SH-fD5" secondAttribute="centerX" id="dJv-O1-Dv1"/>
-                            <constraint firstAttribute="bottom" secondItem="QAh-bJ-k2P" secondAttribute="bottom" constant="8" id="has-1G-m8r"/>
+                            <constraint firstAttribute="bottom" secondItem="QAh-bJ-k2P" secondAttribute="bottom" constant="4" id="has-1G-m8r"/>
                             <constraint firstAttribute="bottom" secondItem="8sw-Gl-iJc" secondAttribute="bottom" constant="7.5" id="i8Q-jj-6f1"/>
                             <constraint firstAttribute="trailing" secondItem="mv3-Aq-Gzt" secondAttribute="trailing" constant="8" id="iHf-mz-PcS"/>
                             <constraint firstItem="f9H-sJ-cM8" firstAttribute="top" secondItem="J95-M3-9NR" secondAttribute="bottom" constant="8" id="liD-Sa-T5o"/>
@@ -144,7 +144,7 @@
                             <constraint firstItem="J95-M3-9NR" firstAttribute="leading" secondItem="tU8-SH-fD5" secondAttribute="leading" constant="8" id="mRt-BK-fLJ"/>
                             <constraint firstItem="J3Q-J3-L6p" firstAttribute="top" secondItem="hNe-vQ-yDb" secondAttribute="bottom" constant="8" id="qSf-Vq-wB4"/>
                             <constraint firstItem="gym-eJ-8Pd" firstAttribute="leading" secondItem="tU8-SH-fD5" secondAttribute="leading" constant="8" id="qxr-Hw-LCo"/>
-                            <constraint firstItem="QAh-bJ-k2P" firstAttribute="top" secondItem="Uhh-Tg-Jx2" secondAttribute="bottom" constant="6" id="r59-SK-z4t"/>
+                            <constraint firstItem="QAh-bJ-k2P" firstAttribute="top" secondItem="Uhh-Tg-Jx2" secondAttribute="bottom" constant="4" id="r59-SK-z4t"/>
                             <constraint firstItem="hNe-vQ-yDb" firstAttribute="leading" secondItem="f9H-sJ-cM8" secondAttribute="trailing" constant="8" id="uIV-jh-lbd"/>
                         </constraints>
                     </view>

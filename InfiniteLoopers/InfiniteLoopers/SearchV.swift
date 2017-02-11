@@ -11,7 +11,7 @@ import Kingfisher
 import RxCocoa
 import RxSwift
 
-class SearchV: UIViewController, UISearchControllerDelegate, CollectionController {
+class SearchV: UIViewController, UISearchControllerDelegate, CollectionController, UIViewControllerTransitioningDelegate {
     
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
@@ -23,6 +23,8 @@ class SearchV: UIViewController, UISearchControllerDelegate, CollectionControlle
     var onLoadItemLimit: Int!
     var refreshControl: UIRefreshControl!
     var searchController: UISearchController!
+    let transition = PopAnimator()
+    var originFrame = CGRect.zero
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -55,8 +57,19 @@ extension SearchV{
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
         collectionView.register(UINib.init(nibName: "OnLoadMoreCell", bundle: nil), forCellWithReuseIdentifier: "OnLoadMoreCell")
+        
         model.refreshDataSource.subscribe(onNext:{
             self.collectionView.reloadData()
+        }).addDisposableTo(disposeBag)
+        
+        collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{ indexPath in
+            let loginV = PublishV(model:PublishVM())
+            let cell = self.collectionView.cellForItem(at: indexPath)
+            let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
+            self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
+            
+            loginV.transitioningDelegate = self
+            self.present(loginV, animated: true, completion: nil)
         }).addDisposableTo(disposeBag)
     }
     
@@ -88,10 +101,8 @@ extension SearchV{
             let product = model.dataSource[indexPath.row]
             cell.productName.text = product.2
             cell.productOwner.text = product.0
-                        
-            for i in 0...50{
-                cell.productOwnerRating.rating = 3
-            }
+            cell.productOwnerRating.rating = Int(arc4random_uniform(UInt32(5) - UInt32(0)) + UInt32(0))
+            
             let url = URL(string: product.1)
             cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
                 (image, error, cacheType, imageUrl) in
@@ -122,6 +133,21 @@ extension SearchV{
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         self.collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.white
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension SearchV{
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.originFrame = originFrame
+        transition.presenting = true
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.presenting = false
+        return transition
     }
 }
 
