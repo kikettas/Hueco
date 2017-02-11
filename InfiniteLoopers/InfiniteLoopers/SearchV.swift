@@ -7,10 +7,19 @@
 //
 
 import UIKit
+import Kingfisher
+import RxCocoa
+import RxSwift
 
-class SearchV: UIViewController, UISearchControllerDelegate, UICollectionViewDataSource {
+class SearchV: UIViewController, UISearchControllerDelegate, CollectionController {
 
+    var didRefresh: (() -> ())!
+    var onLoadMore: (() -> ())!
+    var onLoadItemLimit: Int!
+    
     var model:SearchVMProtocol!
+    var disposeBag: DisposeBag!
+    var refreshControl: UIRefreshControl!
     var searchController: UISearchController!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -18,6 +27,11 @@ class SearchV: UIViewController, UISearchControllerDelegate, UICollectionViewDat
     convenience init(model:SearchVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
+        self.didRefresh = model.didRefresh
+        self.onLoadMore = model.onLoadMore
+        self.onLoadItemLimit = 8
+        self.disposeBag = DisposeBag()
+        self.refreshControl = UIRefreshControl()
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("search", comment: "Search tab title"), image: UIImage(named: "ic_search_tab_unselected"), selectedImage: UIImage(named: "ic_search_tab_selected"))
     }
 
@@ -29,14 +43,15 @@ extension SearchV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
-    
         setupCollectionView()
         setupSearchController()
     }
     
     func setupCollectionView(){
+        setupRefreshControl()
+        collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ProductCell")
+        collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
     }
     
     func setupSearchController(){
@@ -52,7 +67,7 @@ extension SearchV{
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - CollectionController
 
 extension SearchV{
     
@@ -61,9 +76,19 @@ extension SearchV{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        let product = model.dataSource[indexPath.row]
+        cell.productName.text = product.2
+        cell.productOwner.text = product.0
+        let url = URL(string: product.1)
+        cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
+            (image, error, cacheType, imageUrl) in
+        })
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        willDisplay(atPosition: indexPath.row, collectionCount: model.dataSource.count)
     }
 }
 

@@ -23,7 +23,8 @@ class ProductCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.setBorderAndRadius(color: UIColor.lightGray.cgColor, width: 0.5)
+        self.productOwnerImage.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0)
     }
 
 }

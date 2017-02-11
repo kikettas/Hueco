@@ -35,7 +35,7 @@ PODS:
     - RealmSwift (~> 2.2)
     - RxSwift (~> 3.1)
   - RxSwift (3.2.0)
-  - Swarkn (0.1.5)
+  - Swarkn (0.1.6)
 
 DEPENDENCIES:
   - Alamofire
@@ -64,7 +64,7 @@ SPEC CHECKSUMS:
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
   RxRealm: c80d17d42fc362f4d8af4ac62de360b014be5c3f
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
-  Swarkn: 574e102ea37b509e8b890f293fd6059fc3615843
+  Swarkn: 6bc4537aed64a047cc588943f90bc64d2ea95822
 
 PODFILE CHECKSUM: 982baccca26d73bc64b2d9400dc03a573a676cb7
 
