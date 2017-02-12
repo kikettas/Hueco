@@ -63,6 +63,8 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                         presentedView?.transform = self.presenting ?
                             CGAffineTransform.identity : scaleTransform
                         
+                        presentedView?.alpha = self.presenting ? 1 : 0.5
+                        
                         presentedView?.center = CGPoint(x: (finalFrame?.midX)!,
                                                         y: (finalFrame?.midY)!)
                         

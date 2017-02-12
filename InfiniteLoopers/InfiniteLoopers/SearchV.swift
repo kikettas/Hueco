@@ -11,7 +11,7 @@ import Kingfisher
 import RxCocoa
 import RxSwift
 
-class SearchV: UIViewController, UISearchControllerDelegate, CollectionController, UIViewControllerTransitioningDelegate {
+class SearchV: UIViewController, UISearchControllerDelegate, CollectionController, UIViewControllerTransitioningDelegate, UIViewControllerPreviewingDelegate {
     
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
@@ -33,13 +33,14 @@ class SearchV: UIViewController, UISearchControllerDelegate, CollectionControlle
         self.model = model
         self.didRefresh = model.didRefresh
         self.onLoadMore = model.onLoadMore
-        self.onLoadItemLimit = 0
+        self.onLoadItemLimit = 6
         self.disposeBag = DisposeBag()
         self.refreshControl = UIRefreshControl()
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("search", comment: "Search tab title"), image: UIImage(named: "ic_search_tab_unselected"), selectedImage: UIImage(named: "ic_search_tab_selected"))
     }
     
 }
+
 
 // MARK: - UIViewController
 
@@ -50,7 +51,10 @@ extension SearchV{
         setupCollectionView()
         setupRefreshControl()
         setupSearchController()
+        
+        registerForPreviewing(with: self, sourceView: collectionView)
     }
+
     
     func setupCollectionView(){
         collectionView.delegate = self
@@ -86,6 +90,7 @@ extension SearchV{
         self.definesPresentationContext = true
     }
 }
+
 
 // MARK: - CollectionController
 
@@ -137,6 +142,7 @@ extension SearchV{
     }
 }
 
+
 // MARK: - UIViewControllerTransitioningDelegate
 
 extension SearchV{
@@ -152,3 +158,22 @@ extension SearchV{
     }
 }
 
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension SearchV{
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        previewingContext.sourceRect = CGRect(x: 16, y: 16, width: UIScreen.main.bounds.width - 32, height: UIScreen.main.bounds.height - 32)
+        if let indexPath = collectionView.indexPathForItem(at: location), let cellAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
+            previewingContext.sourceRect = cellAttributes.frame
+            return ProductDetailV(model:ProductDetailVM(product: (self.model.dataSource[0].2,"Cuenta compartida", "Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.")))
+        }
+        return nil
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        present(viewControllerToCommit, animated: true, completion: nil)
+    }
+}
