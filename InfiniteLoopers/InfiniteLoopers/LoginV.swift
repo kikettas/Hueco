@@ -26,6 +26,7 @@ class LoginV: UIViewController {
     @IBOutlet weak var goToForgotPasswordButton: UIButton!
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
     
     convenience init(model:LoginVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -66,6 +67,16 @@ extension LoginV{
         Observable.combineLatest(isEmailCheckHidden, isPasswordCheckHidden){
                 return ($0.0 || $0.1)
         }.distinctUntilChanged().bindTo(loginButton.rx.isHidden).addDisposableTo(disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
+            self.loginButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            
+        }).addDisposableTo(disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillHide).subscribe(onNext:{ notification in
+            self.loginButtonBottomConstraint.constant = 0
+            
+        }).addDisposableTo(disposeBag)
     }
     
     func setupButtons(){

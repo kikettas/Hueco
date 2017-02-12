@@ -17,6 +17,7 @@
                 <outlet property="goBackButton" destination="5xO-YQ-iq1" id="CcE-mY-Odo"/>
                 <outlet property="goToForgotPasswordButton" destination="Ntu-M2-7xB" id="Psc-L5-AiE"/>
                 <outlet property="loginButton" destination="E2k-2X-Z7P" id="iZf-FT-BMF"/>
+                <outlet property="loginButtonBottomConstraint" destination="Lqf-k0-oQi" id="XQq-kZ-S3W"/>
                 <outlet property="passwordCheck" destination="iNA-JH-era" id="apg-PZ-QOt"/>
                 <outlet property="passwordTF" destination="mjm-NO-Oea" id="dcd-gg-VrJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -146,7 +147,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                         </textField>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2k-2X-Z7P">
-                            <rect key="frame" x="0.0" y="401" width="375" height="50"/>
+                            <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                             <color key="backgroundColor" red="0.87450980389999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="KLY-hY-XSI"/>
@@ -172,7 +173,7 @@
                         <constraint firstItem="YzG-4k-YLg" firstAttribute="top" secondItem="U9b-Uy-Ofq" secondAttribute="bottom" constant="16" id="FVP-YI-khI"/>
                         <constraint firstAttribute="trailing" secondItem="iL5-mk-bGF" secondAttribute="trailing" constant="43" id="Ky5-cs-2zn"/>
                         <constraint firstAttribute="trailing" secondItem="iNA-JH-era" secondAttribute="trailing" constant="43" id="LdR-T7-yQs"/>
-                        <constraint firstAttribute="bottom" secondItem="E2k-2X-Z7P" secondAttribute="bottom" constant="216" id="Lqf-k0-oQi"/>
+                        <constraint firstAttribute="bottom" secondItem="E2k-2X-Z7P" secondAttribute="bottom" id="Lqf-k0-oQi"/>
                         <constraint firstItem="iNA-JH-era" firstAttribute="leading" secondItem="mjm-NO-Oea" secondAttribute="trailing" constant="8" id="O8X-gI-0vZ"/>
                         <constraint firstItem="FOU-1X-ec2" firstAttribute="leading" secondItem="Oi0-vb-TtO" secondAttribute="leading" id="Ot6-Hl-E46"/>
                         <constraint firstItem="Ejd-3S-CIj" firstAttribute="top" secondItem="MqE-Jg-giC" secondAttribute="bottom" constant="8" id="PlZ-zt-8Ub"/>
