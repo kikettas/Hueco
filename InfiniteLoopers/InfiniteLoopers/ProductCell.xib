@@ -92,7 +92,7 @@
                                     <constraint firstAttribute="width" secondItem="8sw-Gl-iJc" secondAttribute="height" multiplier="1:1" id="Zc7-DX-bqO"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QAh-bJ-k2P" customClass="RatingView" customModule="Swarkn">
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="QAh-bJ-k2P" customClass="RatingView" customModule="Swarkn">
                                 <rect key="frame" x="48" y="140" width="106" height="18"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="buttonCount">

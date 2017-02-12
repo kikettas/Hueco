@@ -73,6 +73,7 @@ extension SearchV{
             self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
             productDetailV.transitioningDelegate = self
             productDetailV.modalPresentationStyle = .overFullScreen
+            productDetailV.modalPresentationCapturesStatusBarAppearance = true
             productDetailV.view.insertSubview(UIVisualEffectView(effect: UIBlurEffect(style: .light)), at: 0)
             self.present(productDetailV, animated: true, completion: nil)
         }).addDisposableTo(disposeBag)

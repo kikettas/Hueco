@@ -43,6 +43,8 @@
 		1F8FFDF51E4FC4E300553E94 /* ProductDetailV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FFDF31E4FC4E300553E94 /* ProductDetailV.swift */; };
 		1F8FFDF61E4FC4E300553E94 /* ProductDetailV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F8FFDF41E4FC4E300553E94 /* ProductDetailV.xib */; };
 		1F8FFDF81E4FC4F600553E94 /* ProductDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FFDF71E4FC4F600553E94 /* ProductDetailVM.swift */; };
+		1F8FFDFC1E50744900553E94 /* ParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FFDFA1E50744900553E94 /* ParticipantCell.swift */; };
+		1F8FFDFD1E50744900553E94 /* ParticipantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F8FFDFB1E50744900553E94 /* ParticipantCell.xib */; };
 		1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */; };
 		1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */; };
 		1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */; };
@@ -163,6 +165,8 @@
 		1F8FFDF31E4FC4E300553E94 /* ProductDetailV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailV.swift; sourceTree = "<group>"; };
 		1F8FFDF41E4FC4E300553E94 /* ProductDetailV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailV.xib; sourceTree = "<group>"; };
 		1F8FFDF71E4FC4F600553E94 /* ProductDetailVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailVM.swift; sourceTree = "<group>"; };
+		1F8FFDFA1E50744900553E94 /* ParticipantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantCell.swift; sourceTree = "<group>"; };
+		1F8FFDFB1E50744900553E94 /* ParticipantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParticipantCell.xib; sourceTree = "<group>"; };
 		1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarV.swift; sourceTree = "<group>"; };
 		1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabBarV.xib; sourceTree = "<group>"; };
 		1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVM.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 		1F67125A1E4FA0A500C4B4A2 /* Product Detail */ = {
 			isa = PBXGroup;
 			children = (
+				1F8FFDF91E50742700553E94 /* ParticipantCell */,
 				1F8FFDF31E4FC4E300553E94 /* ProductDetailV.swift */,
 				1F8FFDF41E4FC4E300553E94 /* ProductDetailV.xib */,
 				1F8FFDF71E4FC4F600553E94 /* ProductDetailVM.swift */,
@@ -407,6 +412,15 @@
 				1F7E62351E4F7AF0001D1CA7 /* RatingView+Rx.swift */,
 			);
 			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		1F8FFDF91E50742700553E94 /* ParticipantCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F8FFDFA1E50744900553E94 /* ParticipantCell.swift */,
+				1F8FFDFB1E50744900553E94 /* ParticipantCell.xib */,
+			);
+			name = ParticipantCell;
 			sourceTree = "<group>";
 		};
 		1FA69EC31E45D645005FD096 /* Tab Bar */ = {
@@ -779,6 +793,7 @@
 				1F7E62321E4F52CB001D1CA7 /* OnLoadMoreCell.xib in Resources */,
 				1F7E621C1E4F1BD0001D1CA7 /* ProductCell.xib in Resources */,
 				1FAEA3471E45E9DD0007A1D2 /* PublishV.xib in Resources */,
+				1F8FFDFD1E50744900553E94 /* ParticipantCell.xib in Resources */,
 				1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1008,6 +1023,7 @@
 				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
 				1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */,
 				1FAEA3501E45EB900007A1D2 /* ChatVM.swift in Sources */,
+				1F8FFDFC1E50744900553E94 /* ParticipantCell.swift in Sources */,
 				1F8FFDF51E4FC4E300553E94 /* ProductDetailV.swift in Sources */,
 				1F7A1F141E46686200FF88D3 /* UIViewController.swift in Sources */,
 				1F7A1E9C1E46523C00FF88D3 /* SearchResultsVM.swift in Sources */,
