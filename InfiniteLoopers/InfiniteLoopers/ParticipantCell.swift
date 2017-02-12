@@ -16,6 +16,5 @@ class ParticipantCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         participantImage.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-    }
-
+    } 
 }

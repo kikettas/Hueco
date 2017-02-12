@@ -54,7 +54,7 @@ extension ProductDetailV{
     func syncModelAndView(){
         productName.text = model.product.0
         productType.text = model.product.1
-        productDescription.text = model.product.2 + model.product.2 + model.product.2 + model.product.2
+        productDescription.text = model.product.2 
         productOwnerRating.rating = 4
         productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
         productOwnerImage.kf.setImage(with: URL(string:"http://az616578.vo.msecnd.net/files/2016/07/12/6360394709229451671057390252_michae-scott-quotes-5.jpg"))

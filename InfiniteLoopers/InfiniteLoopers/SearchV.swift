@@ -67,15 +67,11 @@ extension SearchV{
         }).addDisposableTo(disposeBag)
         
         collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{ indexPath in
-            let productDetailV = ProductDetailV(model:ProductDetailVM(product: (self.model.dataSource[0].2,"Cuenta compartida", "Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.")))
             let cell = self.collectionView.cellForItem(at: indexPath)
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
-            productDetailV.transitioningDelegate = self
-            productDetailV.modalPresentationStyle = .overFullScreen
-            productDetailV.modalPresentationCapturesStatusBarAppearance = true
-            productDetailV.view.insertSubview(UIVisualEffectView(effect: UIBlurEffect(style: .light)), at: 0)
-            self.present(productDetailV, animated: true, completion: nil)
+
+            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: (self.model.dataSource[0].2,"Cuenta compartida", "Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends."), transitionDelegate: self)
         }).addDisposableTo(disposeBag)
     }
     

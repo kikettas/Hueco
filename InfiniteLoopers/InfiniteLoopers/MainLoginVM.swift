@@ -2,17 +2,16 @@
 //  LoginVM.swift
 //  InfiniteLoopers
 //
-//  Created by Enrique del Pozo Gómez on 2/12/17.
+//  Created by Enrique del Pozo Gómez on 2/10/17.
 //  Copyright © 2017 Infinite Loopers. All rights reserved.
 //
 
 import Foundation
 
-
-protocol LoginVMProtocol{
+protocol MainLoginVMProtocol{
     
 }
 
-class LoginVM: LoginVMProtocol{
+class MainLoginVM:MainLoginVMProtocol{
     
 }

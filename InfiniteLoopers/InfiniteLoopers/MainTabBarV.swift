@@ -50,11 +50,13 @@ extension MainTabBarV{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if(self.tabBar.items?[2] == item){
             Navigator.navigateToPublish(from: self)
+        }else if (self.tabBar.items?[4] == item){
+            Navigator.navigateToMainLogin(from: self, presentationStyle: .overFullScreen, transitionStyle: .coverVertical)
         }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if(viewController == tabBarController.viewControllers?[2]){
+        if(viewController == tabBarController.viewControllers?[2] || viewController == tabBarController.viewControllers?[4]){
             return false
         }
         return true
