@@ -15,6 +15,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var originFrame = CGRect.zero
     
     
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
@@ -37,7 +38,6 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         let scaleTransform = CGAffineTransform(scaleX: xScaleFactor, y: yScaleFactor)
         
-        
         let round = CABasicAnimation(keyPath: "cornerRadius")
         round.fromValue = presenting ? 5.0/xScaleFactor : 0.0
         round.toValue = presenting ? 0.0 : 5.0/xScaleFactor
@@ -52,9 +52,9 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                 y: initialFrame!.midY)
             presentedView?.clipsToBounds = true
         }
-        
-        
-        containerView.addSubview(transitionContext.view(forKey:UITransitionContextViewKey.to)!)
+        if(presenting){
+            containerView.addSubview((transitionContext.view(forKey: .to))!)
+        }
         containerView.bringSubview(toFront: presentedView!)
         
         UIView.animate(withDuration: duration, delay:0.0,
