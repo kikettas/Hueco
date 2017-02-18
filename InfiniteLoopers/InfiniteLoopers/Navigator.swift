@@ -30,6 +30,16 @@ class Navigator{
         from.pushViewController(loginV, animated: true)
     }
     
+    public static func navigateToForgotPassword(from:UINavigationController, presentationStyle:UIModalPresentationStyle =
+        UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
+        let forgotPass = ForgotPasswordV(model: ForgotPasswordVM())
+        from.pushViewController(forgotPass, animated: true)
+    }
+    
+    public static func navigateBack(from:UINavigationController){
+        from.popViewController(animated: true)        
+    }
+    
     // MARK: - TabBar
     
     public static func navigateToPublish(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){

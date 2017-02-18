@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Swarkn
 
 class ForgotPasswordV: UIViewController {
     
@@ -18,6 +19,12 @@ class ForgotPasswordV: UIViewController {
         return .default
     }
     
+    
+    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var goBackButton: UIButton!
+    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var checkEmailImage: UIImageView!
+    @IBOutlet weak var bottomSubmitButtonConstraint: NSLayoutConstraint!
     
     convenience init(model:ForgotPasswordVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -31,24 +38,44 @@ class ForgotPasswordV: UIViewController {
 extension ForgotPasswordV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTextFields()
+        setupButtons()
+    }
+    
+    func setupTextFields(){
+        emailTF.becomeFirstResponder()
+        let isEmailCheckHidden = emailTF
+            .rx
+            .text
+            .observeOn(MainScheduler.instance)
+            .shareReplay(1)
+            .map{!Validation.Email.isEmailValid(email: $0!)}
+            .distinctUntilChanged()
         
-        // Do any additional setup after loading the view.
+        isEmailCheckHidden.asObservable().bindTo(checkEmailImage.rx.isHidden).addDisposableTo(disposeBag)
+        isEmailCheckHidden.asObservable().bindTo(submitButton.rx.isHidden).addDisposableTo(disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
+            self.bottomSubmitButtonConstraint.constant = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            
+        }).addDisposableTo(disposeBag)
+        
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillHide).subscribe(onNext:{ notification in
+            self.bottomSubmitButtonConstraint.constant = 0
+            
+        }).addDisposableTo(disposeBag)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setupButtons(){
+        
+        goBackButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext(){
+                Navigator.navigateBack(from: self.navigationController!)
+            }
+            .addDisposableTo(disposeBag)
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
 
 }
