@@ -86,6 +86,7 @@ extension LoginV{
             .observeOn(MainScheduler.instance)
             .bindNext(){
                 print("Go to forgot password")
+                Navigator.navigateToForgotPassword(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
         

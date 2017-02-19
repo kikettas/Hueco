@@ -36,6 +36,12 @@ class Navigator{
         from.pushViewController(forgotPass, animated: true)
     }
     
+    public static func navigateToCreateAccount(from:UINavigationController, presentationStyle:UIModalPresentationStyle =
+        UIModalPresentationStyle.overFullScreen, transitionStyle: UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
+        let createAccount = CreateAccountV(model: CreateAccountVM())
+        from.pushViewController(createAccount, animated: true)
+    }
+    
     public static func navigateBack(from:UINavigationController){
         from.popViewController(animated: true)        
     }

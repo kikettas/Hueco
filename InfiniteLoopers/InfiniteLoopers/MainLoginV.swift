@@ -60,6 +60,15 @@ extension MainLoginV{
                 Navigator.navigateToLogin(from: self.navigationController!, presentationStyle: .overFullScreen, transitionStyle: .partialCurl)
             }
             .addDisposableTo(disposeBag)
+        
+        emailButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext() {
+                Navigator.navigateToCreateAccount(from: self.navigationController!)
+            }
+            .addDisposableTo(disposeBag)
     }
 }
 
