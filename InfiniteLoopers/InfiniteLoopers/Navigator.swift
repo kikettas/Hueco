@@ -77,4 +77,8 @@ class Navigator{
     public static func navigateToNewProductSecondStep(parent:NewProductPagingV){
         parent.setViewControllers([parent.pages[1]], direction: .forward, animated: true, completion: nil)
     }
+    
+    public static func navigateToNewProductFinished(parent:NewProductPagingV){
+        parent.setViewControllers([parent.pages[2]], direction: .forward, animated: true, completion: nil)
+    }
 }

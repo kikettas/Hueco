@@ -56,6 +56,13 @@ extension NewProductSecondStepV{
             .bindNext {[unowned self] in
                 Navigator.navigateToNewProductFirstStep(parent: self.parent as! NewProductPagingV, direction: .reverse)
             }.addDisposableTo(disposeBag)
+        
+        publishButton
+            .rx
+            .tap.observeOn(MainScheduler.instance)
+            .bindNext {[unowned self] in
+                Navigator.navigateToNewProductFinished(parent: self.parent as! NewProductPagingV)
+            }.addDisposableTo(disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
