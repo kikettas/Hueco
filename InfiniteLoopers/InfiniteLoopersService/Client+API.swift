@@ -60,7 +60,6 @@ extension Client{
         })
         GIDSignIn.sharedInstance()?.delegate = googleLoginDelegate
         GIDSignIn.sharedInstance()?.uiDelegate = googleLoginDelegate
-        GIDSignIn.sharedInstance()?.signOut()
         GIDSignIn.sharedInstance()?.signIn()
     }
     
@@ -73,4 +72,16 @@ extension Client{
             }
         }
     }
+    func updateEmail(withEmail: String, completion: @escaping ClientCompletion) {
+        let user = FIRAuth.auth()?.currentUser
+        user?.updateEmail(withEmail){ error in
+            if let error = error{
+                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                return
+            }else{
+                completion(nil,nil)
+            }
+        }
+    }
+    
 }

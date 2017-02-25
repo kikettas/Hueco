@@ -20,6 +20,7 @@ public enum ClientError{
     case weakPassword
     case failedLoginWithFacebook
     case logInCanceled
+    case invalidEmail
 }
 
 // MARK: - Firebase Errors
@@ -44,6 +45,8 @@ extension ClientError{
             return .wrongPassword
         case .errorCodeWeakPassword:
             return .weakPassword
+        case .errorCodeInvalidEmail:
+            return .invalidEmail
         default:
             return .unknownError
         }
