@@ -7,10 +7,26 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 extension Client{
-    public func logIn(withEmail: String, password:String){
-        
+    public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion){
+        FIRAuth.auth()?.signIn(withEmail: withEmail, password: password){(user,error) in
+            if let error = error{
+                completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+            }else{
+                completion(user, nil)
+            }
+        }
+    }
+    
+    func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion) {
+        FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
+            if let error = error{
+                completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+            }else{
+                completion(user, nil)
+            }
+        }
     }
 }

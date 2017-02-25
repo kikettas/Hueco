@@ -10,15 +10,22 @@ import Foundation
 import Alamofire
 
 
+typealias ClientCompletion = (Any?,ClientError?) -> ()
+
 protocol ClientProtocol {
     init(sessionManager:SessionManager)
+    
+    // API
+    func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion)
+    func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion)
+
 }
 
 class Client: ClientProtocol {
     
     let authHandler:AuthHandler
     
-    required init(sessionManager: SessionManager = SessionManager()) {
+    required public init(sessionManager: SessionManager = SessionManager()) {
         authHandler = AuthHandler()
     }
 }

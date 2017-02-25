@@ -84,8 +84,7 @@ extension LoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
-                print("Go to forgot password")
+            .bindNext(){ [unowned self] in
                 Navigator.navigateToForgotPassword(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
@@ -94,27 +93,20 @@ extension LoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
-                self.navigationController?.popViewController(animated: true)
+            .bindNext(){ [unowned self] in
+                _ = self.navigationController?.popViewController(animated: true)
             }
             .addDisposableTo(disposeBag)
         
+        loginButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext(){ [weak self] in
+                self?.model.logIn(withEmail: (self?.emailTF.text!)!, password: (self?.passwordTF.text!)!)
+            }
+            .addDisposableTo(disposeBag)
         
-
     }
 }
-
-/***
- pod 'Alamofire'
-	pod 'Firebase'
-	pod 'Kingfisher'
-	pod 'ObjectMapper'
-	pod 'RealmSwift'
-	pod 'RxCocoa'
-	pod 'RxRealm'
-	pod 'RxSwift'
-	pod 'Swarkn'
- 
- ***/
-
 
