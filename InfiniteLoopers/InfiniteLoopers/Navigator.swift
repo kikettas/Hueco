@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Swarkn
 
 class Navigator{
     
@@ -80,5 +81,25 @@ class Navigator{
     
     public static func navigateToNewProductFinished(parent:NewProductPagingV){
         parent.setViewControllers([parent.pages[2]], direction: .forward, animated: true, completion: nil)
+    }
+    
+    // MARK: - Common
+    
+    public static func navigateToShareProduct(from:UIViewController, sourceView:UIView, completion:@escaping () -> ()){
+        
+        let activityViewController = UIActivityViewController(activityItems: ["Producto compartido"], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+            if completed{
+                completion()
+            }
+        }
+        
+        if(IS_IPHONE){
+            from.present(activityViewController, animated: true, completion: nil)
+        }else if(IS_IPAD){
+            activityViewController.modalPresentationStyle = .popover
+            activityViewController.popoverPresentationController?.sourceView = sourceView
+            from.present(activityViewController, animated: true, completion: nil)
+        }
     }
 }

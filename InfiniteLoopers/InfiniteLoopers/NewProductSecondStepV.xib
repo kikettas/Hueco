@@ -55,8 +55,8 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnw-kl-8yp">
-                            <rect key="frame" x="40" y="636" width="295" height="15"/>
-                            <string key="text">Aquí iría una explicacion por cada campo, segun se vaya pulsado, escepto Descripcion que es, valga la redundancia, autodescriptivo</string>
+                            <rect key="frame" x="40" y="608.5" width="295" height="42.5"/>
+                            <string key="text">Aquí iría una explicacion por cada campo, segun se vaya pulsando, excepto Descripcion que es, valga la redundancia, autodescriptivo</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                             <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                 <constraint firstAttribute="height" constant="0.5" id="Urw-7C-QcV"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="¿Qué tipo de producto?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PzL-nb-vAN">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="¿Qué tipo de producto?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PzL-nb-vAN">
                             <rect key="frame" x="43" y="101" width="289" height="24"/>
                             <color key="tintColor" red="0.87450980389999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="textColor"/>
@@ -96,7 +96,7 @@
                                 <constraint firstAttribute="height" constant="0.5" id="0hI-5d-Xm8"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Descripción (Opcional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-D5-ec3">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Descripción (Opcional)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-D5-ec3">
                             <rect key="frame" x="43" y="290" width="289" height="24"/>
                             <color key="tintColor" red="0.87450980389999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="textColor"/>

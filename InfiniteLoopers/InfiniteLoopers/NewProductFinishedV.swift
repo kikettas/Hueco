@@ -46,7 +46,9 @@ extension NewProductFinishedV{
             .tap
             .observeOn(MainScheduler.instance)
             .bindNext {[unowned self] in
-                self.parent?.dismiss(animated: true, completion: nil)
+                Navigator.navigateToShareProduct(from: self, sourceView: self.shareButton){
+                    self.parent?.dismiss(animated: true, completion: nil)
+                }
             }.addDisposableTo(disposeBag)
     }
 
