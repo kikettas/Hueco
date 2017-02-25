@@ -20,6 +20,7 @@ protocol ClientProtocol {
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion)
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion)
     func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion)
 
 }
@@ -27,7 +28,8 @@ protocol ClientProtocol {
 class Client: ClientProtocol {
     
     let authHandler:AuthHandler
-    
+    var googleLoginDelegate:GoogleLoginDelegate!
+
     required public init(sessionManager: SessionManager = SessionManager()) {
         authHandler = AuthHandler()
     }

@@ -62,6 +62,7 @@
 		1FAEA3551E45EC090007A1D2 /* SearchV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA3531E45EC090007A1D2 /* SearchV.xib */; };
 		1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3561E45EC170007A1D2 /* SearchVM.swift */; };
 		1FCD897C1E450E3B002792F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */; };
+		1FDA1F0C1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA1F0B1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift */; };
 		3B1F257A152A2E4253B3FE0D /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */; };
 		788F71E71E58E1BE003B8A97 /* CreateAccountV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */; };
 		788F71E81E58E1BE003B8A97 /* CreateAccountV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788F71E61E58E1BE003B8A97 /* CreateAccountV.xib */; };
@@ -168,6 +169,7 @@
 		1FAEA3531E45EC090007A1D2 /* SearchV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchV.xib; sourceTree = "<group>"; };
 		1FAEA3561E45EC170007A1D2 /* SearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1FDA1F0B1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginDelegate.swift; sourceTree = "<group>"; };
 		22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.release.xcconfig"; sourceTree = "<group>"; };
 		2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
 		373470795DBA13D0DEE6FA47 /* Pods-InfiniteLoopersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				1F369ED21E4E396C00D73628 /* Client.swift */,
 				1F930B441E6187F9008A79E7 /* Client+API.swift */,
 				1F844A051E61A26300075CE9 /* ClientError.swift */,
+				1FDA1F0B1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift */,
 			);
 			name = Core;
 			path = InfiniteLoopersService;
@@ -669,6 +672,7 @@
 					1FA717101E450D6200CC0F39 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9E868WB98D;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -918,6 +922,7 @@
 				1F844A031E61A01E00075CE9 /* AuthHandler.swift in Sources */,
 				1FAEA3501E45EB900007A1D2 /* ChatVM.swift in Sources */,
 				1F8FFDFC1E50744900553E94 /* ParticipantCell.swift in Sources */,
+				1FDA1F0C1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift in Sources */,
 				1F8FFDF51E4FC4E300553E94 /* ProductDetailV.swift in Sources */,
 				1F1C388A1E50E9750086BE67 /* LoginVM.swift in Sources */,
 				1F7A1F141E46686200FF88D3 /* UIViewController.swift in Sources */,
@@ -1123,11 +1128,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinite.loopers.InfiniteLoopers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1138,6 +1145,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

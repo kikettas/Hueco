@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import GoogleSignIn
 
 public enum ClientError{
     case invalidCredentials
@@ -18,8 +19,12 @@ public enum ClientError{
     case wrongPassword
     case weakPassword
     case failedLoginWithFacebook
-    
-    
+    case logInCanceled
+}
+
+// MARK: - Firebase Errors
+
+extension ClientError{
     static func parseFirebaseError(errorCode:Int) -> ClientError{
         
         guard let error = FIRAuthErrorCode(rawValue: errorCode) else{
@@ -44,3 +49,22 @@ public enum ClientError{
         }
     }
 }
+
+// MARK: - Google SignIn Errors
+
+extension ClientError{
+    static func parseGoogleSignInError(errorCode:Int) -> ClientError{
+        guard let error = GIDSignInErrorCode(rawValue: errorCode) else{
+            return .unknownError
+        }
+        switch error{
+        case .canceled:
+            return .logInCanceled
+        case .unknown:
+            return .unknownError
+        default:
+            return .unknownError
+        }
+    }
+}
+

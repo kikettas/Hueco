@@ -11,11 +11,25 @@ import FBSDKLoginKit
 import UIKit
 
 protocol MainLoginVMProtocol{
+    var client:ClientProtocol { get }
+    
+    init(client:ClientProtocol)
     func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion)
+    func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion)
 }
 
 class MainLoginVM:MainLoginVMProtocol{
+    var client: ClientProtocol
+    
+    required init(client: ClientProtocol = Client()) {
+        self.client = client
+    }
+    
     func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion) {
-        Client().logInWithFacebook(from: from, completion: completion)
+        client.logInWithFacebook(from: from, completion: completion)
+    }
+    
+    func loginWithGoogle(from:UIViewController, completion: @escaping ClientCompletion) {
+        client.logInWithGoogle(from:from ,completion: completion)
     }
 }

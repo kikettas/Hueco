@@ -9,13 +9,21 @@
 import Foundation
 import Firebase
 protocol CreateAccountVMProtocol{
+    var client:ClientProtocol { get }
+    
+    init(client:ClientProtocol)
     func signUp(withEmail: String, password: String)
 
 }
 
 class CreateAccountVM:CreateAccountVMProtocol{
+    var client: ClientProtocol
+    
+    required init(client: ClientProtocol = Client()) {
+        self.client = client
+    }
     func signUp(withEmail: String, password: String) {
-        Client().signUp(withEmail: withEmail, password: password){ user, error in
+        client.signUp(withEmail: withEmail, password: password){ user, error in
             if let error = error{
                 print(error)
                 return

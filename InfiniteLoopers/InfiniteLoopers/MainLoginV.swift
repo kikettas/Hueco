@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import GoogleSignIn
 import RxCocoa
 import RxSwift
 
-class MainLoginV: UIViewController {
+class MainLoginV: UIViewController, GIDSignInUIDelegate {
     
     var disposeBag = DisposeBag()
     var model:MainLoginVMProtocol!
@@ -70,6 +71,21 @@ extension MainLoginV{
             }
             .addDisposableTo(disposeBag)
         
+        googleButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext() { 
+                self.model.loginWithGoogle(from: self){(user, error) in
+                    if let error = error{
+                        print(error)
+                        return
+                    }
+                    print(user!)
+                }
+            }
+            .addDisposableTo(disposeBag)
+        
         facebookButton
             .rx
             .tap
@@ -83,7 +99,7 @@ extension MainLoginV{
                         print(error)
                         return
                     }
-                    print(user)
+                    print(user!)
                 }
             }
             .addDisposableTo(disposeBag)

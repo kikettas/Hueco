@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseAuth
 import FacebookLogin
+import GoogleSignIn
 import UIKit
 
 extension Client{
@@ -36,16 +37,31 @@ extension Client{
         let loginManager = LoginManager()
         loginManager.logIn([.publicProfile, .email], viewController: from){ loginResult in
             switch loginResult{
-            case .failed(let error):
-                print(error)
+            case .failed(_):
                 completion(nil, ClientError.failedLoginWithFacebook)
             case .cancelled:
-                print("User cancelled login.")
+                completion(nil, ClientError.logInCanceled)
             case .success(_, _, let accessToken):
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 self.logIn(withCredential: credential, completion: completion)
             }
         }
+    }
+    
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion) {
+        googleLoginDelegate = GoogleLoginDelegate(from:from, didLogin: {idToken, accessToken, error in
+            if let error = error{
+                // figure out what kind of error is and parse to ClientError
+                completion(nil,ClientError.parseGoogleSignInError(errorCode: error._code))
+                return
+            }
+            let credential = FIRGoogleAuthProvider.credential(withIDToken: idToken!, accessToken: accessToken!)
+            self.logIn(withCredential: credential, completion: completion)
+        })
+        GIDSignIn.sharedInstance()?.delegate = googleLoginDelegate
+        GIDSignIn.sharedInstance()?.uiDelegate = googleLoginDelegate
+        GIDSignIn.sharedInstance()?.signOut()
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion) {
