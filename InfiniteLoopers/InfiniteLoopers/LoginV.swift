@@ -69,7 +69,7 @@ extension LoginV{
         }.distinctUntilChanged().bindTo(loginButton.rx.isHidden).addDisposableTo(disposeBag)
         
         NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
-            self.loginButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            self.loginButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
             
         }).addDisposableTo(disposeBag)
         

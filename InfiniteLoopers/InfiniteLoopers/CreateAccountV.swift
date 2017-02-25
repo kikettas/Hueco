@@ -78,7 +78,7 @@ extension CreateAccountV{
             }.distinctUntilChanged().bindTo(createAccountButton.rx.isHidden).addDisposableTo(disposeBag)
         
         NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
-            self.createAccountButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            self.createAccountButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
             
         }).addDisposableTo(disposeBag)
         

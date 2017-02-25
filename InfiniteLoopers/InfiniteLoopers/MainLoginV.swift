@@ -48,7 +48,7 @@ extension MainLoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
+            .bindNext(){[unowned self] in
                 self.dismiss(animated: true, completion: nil)
             }
             .addDisposableTo(disposeBag)
@@ -57,7 +57,7 @@ extension MainLoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
+            .bindNext(){[unowned self] in
                 Navigator.navigateToLogin(from: self.navigationController!, presentationStyle: .overFullScreen, transitionStyle: .partialCurl)
             }
             .addDisposableTo(disposeBag)
@@ -66,7 +66,7 @@ extension MainLoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext() {
+            .bindNext() { [unowned self] in
                 Navigator.navigateToCreateAccount(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
@@ -75,7 +75,10 @@ extension MainLoginV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext() { 
+            .bindNext() { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
                 self.model.loginWithGoogle(from: self){(user, error) in
                     if let error = error{
                         print(error)

@@ -49,7 +49,7 @@ class Navigator{
     // MARK: - TabBar
     
     public static func navigateToPublish(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
-        let publishTabV = PublishV(model: PublishVM())
+        let publishTabV = NewProductPagingV(model: NewProductPagingVM()) //PublishV(model: PublishVM())
         publishTabV.modalPresentationStyle = presentationStyle
         publishTabV.modalTransitionStyle = transitionStyle
         from.present(publishTabV, animated: true, completion: nil)
@@ -67,5 +67,13 @@ class Navigator{
         }
 
         from.present(productDetailV, animated: true, completion: nil)
+    }
+    
+    public static func navigateToNewProductFirstStep(parent:NewProductPagingV, direction:UIPageViewControllerNavigationDirection){
+        parent.setViewControllers([parent.pages[0]], direction: direction, animated: true, completion: nil)
+    }
+    
+    public static func navigateToNewProductSecondStep(parent:NewProductPagingV){
+        parent.setViewControllers([parent.pages[1]], direction: .forward, animated: true, completion: nil)
     }
 }

@@ -56,7 +56,7 @@ extension ForgotPasswordV{
         isEmailCheckHidden.asObservable().bindTo(submitButton.rx.isHidden).addDisposableTo(disposeBag)
         
         NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
-            self.bottomSubmitButtonConstraint.constant = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.height
+            self.bottomSubmitButtonConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
             
         }).addDisposableTo(disposeBag)
         
