@@ -1,5 +1,5 @@
 //
-//  NewProductFirstStepV.swift
+//  NewProductSecondStep.swift
 //  InfiniteLoopers
 //
 //  Created by Enrique del Pozo Gómez on 2/25/17.
@@ -10,21 +10,24 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NewProductFirstStepV: UIViewController {
+class NewProductSecondStepV: UIViewController {
     
     var disposeBag:DisposeBag!
-    var model:NewProductFirstStepVMProtocol!
+    var model:NewProductSecondStepVMProtocol!
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .default
     }
     
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var productNameTF: UITextField!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var publishButton: UIButton!
+    @IBOutlet weak var productTypeSelector: UITextField!
+    @IBOutlet weak var sharingCountTF: UITextField!
+    @IBOutlet weak var quantityTF: UITextField!
+    @IBOutlet weak var descriptionTF: UITextField!
     @IBOutlet weak var explanationLabel: UILabel!
     @IBOutlet weak var explanationLabelBottomConstraint: NSLayoutConstraint!
     
-    convenience init(model:NewProductFirstStepVMProtocol) {
+    convenience init(model:NewProductSecondStepVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
         self.disposeBag = DisposeBag()
@@ -33,34 +36,10 @@ class NewProductFirstStepV: UIViewController {
 
 // MARK: - UIViewController
 
-extension NewProductFirstStepV{
+extension NewProductSecondStepV{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        nextButton
-            .rx
-            .tap.observeOn(MainScheduler.instance)
-            .bindNext {[unowned self] in
-                Navigator.navigateToNewProductSecondStep(parent: self.parent as! NewProductPagingV)
-            }.addDisposableTo(disposeBag)
-        
-        closeButton
-            .rx
-            .tap.observeOn(MainScheduler.instance)
-            .bindNext {[unowned self] in
-                let parent = self.parent as! NewProductPagingV
-                parent.dismiss(animated: true, completion: nil)
-                
-            }.addDisposableTo(disposeBag)
-        
-        productNameTF
-            .rx
-            .text
-            .map{($0?.characters.count)! > 4}
-            .bindTo(nextButton.rx.isEnabled)
-            .addDisposableTo(disposeBag)
-        
         NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
             self.explanationLabelBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height + 16
             
@@ -70,11 +49,17 @@ extension NewProductFirstStepV{
             self.explanationLabelBottomConstraint.constant = 16
             
         }).addDisposableTo(disposeBag)
+        
+        backButton
+            .rx
+            .tap.observeOn(MainScheduler.instance)
+            .bindNext {[unowned self] in
+                Navigator.navigateToNewProductFirstStep(parent: self.parent as! NewProductPagingV, direction: .reverse)
+            }.addDisposableTo(disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        productNameTF.becomeFirstResponder()
+        productTypeSelector.becomeFirstResponder()
     }
 }
-

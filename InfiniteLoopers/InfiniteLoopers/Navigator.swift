@@ -52,6 +52,7 @@ class Navigator{
         let publishTabV = NewProductPagingV(model: NewProductPagingVM()) //PublishV(model: PublishVM())
         publishTabV.modalPresentationStyle = presentationStyle
         publishTabV.modalTransitionStyle = transitionStyle
+        publishTabV.modalPresentationCapturesStatusBarAppearance = true
         from.present(publishTabV, animated: true, completion: nil)
     }
     

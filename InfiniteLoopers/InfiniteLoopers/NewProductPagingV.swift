@@ -14,7 +14,7 @@ class NewProductPagingV: UIPageViewController {
     
     convenience init(model:NewProductPagingVMProtocol){
         self.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        pages = [NewProductFirstStepV(model: NewProductFirstStepVM()),NewProductFirstStepV(model: NewProductFirstStepVM()),NewProductFirstStepV(model: NewProductFirstStepVM())]
+        pages = [NewProductFirstStepV(model: NewProductFirstStepVM()),NewProductSecondStepV(model: NewProductSecondStepVM()),NewProductFirstStepV(model: NewProductFirstStepVM())]
     }
 }
 
