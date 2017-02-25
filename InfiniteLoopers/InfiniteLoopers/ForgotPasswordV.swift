@@ -76,6 +76,19 @@ extension ForgotPasswordV{
                 Navigator.navigateBack(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
+        
+        submitButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext(){[weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.model.sendResetPasswordTo(email: self.emailTF.text!)
+                
+            }
+            .addDisposableTo(disposeBag)
     }
 
 }

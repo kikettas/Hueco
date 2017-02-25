@@ -63,6 +63,17 @@ extension Client{
         GIDSignIn.sharedInstance()?.signIn()
     }
     
+    func sendResetPaswordTo(email: String, completion: @escaping ClientCompletion) {
+        FIRAuth.auth()?.sendPasswordReset(withEmail: email){ error in
+            if let error = error{
+                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                return
+            }else{
+                completion(nil,nil)
+            }
+        }
+    }
+    
     func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion) {
         FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
             if let error = error{
@@ -72,6 +83,7 @@ extension Client{
             }
         }
     }
+    
     func updateEmail(withEmail: String, completion: @escaping ClientCompletion) {
         let user = FIRAuth.auth()?.currentUser
         user?.updateEmail(withEmail){ error in
@@ -84,4 +96,15 @@ extension Client{
         }
     }
     
+    func updatePassword(withPassword: String, completion: @escaping ClientCompletion) {
+        let user = FIRAuth.auth()?.currentUser
+        user?.updatePassword(withPassword){ error in
+            if let error = error{
+                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                return
+            }else{
+                completion(nil,nil)
+            }
+        }
+    }
 }

@@ -9,9 +9,27 @@
 import Foundation
 
 protocol ForgotPasswordVMProtocol{
+    var client:ClientProtocol { get }
     
+    init(client:ClientProtocol)
+    
+    func sendResetPasswordTo(email:String)
 }
 
 class ForgotPasswordVM:ForgotPasswordVMProtocol{
+    var client: ClientProtocol
     
+    required init(client: ClientProtocol = Client()) {
+        self.client = client
+    }
+    
+    func sendResetPasswordTo(email: String) {
+        client.sendResetPaswordTo(email: email){_,error in
+            if let error = error{
+                print(error)
+                return
+            }
+            print("SHOW positive dialog, email sent")
+        }
+    }
 }

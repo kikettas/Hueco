@@ -23,6 +23,8 @@ protocol ClientProtocol {
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion)
     func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion)
+    func updatePassword(withPassword: String,completion:@escaping ClientCompletion)
+    func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion)
 
 }
 
