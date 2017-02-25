@@ -69,6 +69,24 @@ extension MainLoginV{
                 Navigator.navigateToCreateAccount(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
+        
+        facebookButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext(){[weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.model.loginWithFacebook(from: self){(user, error) in
+                    if let error = error{
+                        print(error)
+                        return
+                    }
+                    print(user)
+                }
+            }
+            .addDisposableTo(disposeBag)
     }
 }
 

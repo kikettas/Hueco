@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Firebase
 
 
 typealias ClientCompletion = (Any?,ClientError?) -> ()
@@ -17,6 +18,8 @@ protocol ClientProtocol {
     
     // API
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion)
+    func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion)
+    func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion)
     func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion)
 
 }

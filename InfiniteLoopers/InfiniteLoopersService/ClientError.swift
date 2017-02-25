@@ -17,6 +17,7 @@ public enum ClientError{
     case emailAlreadyInUse
     case wrongPassword
     case weakPassword
+    case failedLoginWithFacebook
     
     
     static func parseFirebaseError(errorCode:Int) -> ClientError{

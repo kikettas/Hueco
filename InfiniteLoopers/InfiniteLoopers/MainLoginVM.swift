@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import FBSDKLoginKit
+import UIKit
 
 protocol MainLoginVMProtocol{
-    
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion)
 }
 
 class MainLoginVM:MainLoginVMProtocol{
-    
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion) {
+        Client().logInWithFacebook(from: from, completion: completion)
+    }
 }

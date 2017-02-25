@@ -3,6 +3,8 @@
 
 def shared_pods
     pod 'Alamofire'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
     pod 'Firebase'
     pod 'Firebase/Auth'
 	pod 'Kingfisher'

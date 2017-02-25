@@ -256,8 +256,8 @@
 		1F369ED11E4E386800D73628 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				1F369ED21E4E396C00D73628 /* Client.swift */,
 				1F369EDC1E4E3AF400D73628 /* AuthHandler.swift */,
+				1F369ED21E4E396C00D73628 /* Client.swift */,
 				1F930B441E6187F9008A79E7 /* Client+API.swift */,
 				1F844A051E61A26300075CE9 /* ClientError.swift */,
 			);
