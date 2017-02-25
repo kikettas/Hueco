@@ -103,7 +103,10 @@ extension LoginV{
             .tap
             .observeOn(MainScheduler.instance)
             .bindNext(){ [weak self] in
-                self?.model.logIn(withEmail: (self?.emailTF.text!)!, password: (self?.passwordTF.text!)!)
+                guard let `self` = self else {
+                    return
+                }
+                self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!)
             }
             .addDisposableTo(disposeBag)
         

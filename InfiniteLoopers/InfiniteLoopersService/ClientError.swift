@@ -13,6 +13,10 @@ public enum ClientError{
     case invalidCredentials
     case unknownError
     case userNotFound
+    case accountDisabled
+    case emailAlreadyInUse
+    case wrongPassword
+    case weakPassword
     
     
     static func parseFirebaseError(errorCode:Int) -> ClientError{
@@ -26,6 +30,14 @@ public enum ClientError{
             return .invalidCredentials
         case .errorCodeUserNotFound:
             return .userNotFound
+        case .errorCodeEmailAlreadyInUse:
+            return .emailAlreadyInUse
+        case .errorCodeUserDisabled:
+            return .accountDisabled
+        case .errorCodeWrongPassword:
+            return .wrongPassword
+        case .errorCodeWeakPassword
+            return .weakPassword
         default:
             return .unknownError
         }

@@ -98,6 +98,18 @@ extension CreateAccountV{
                 Navigator.navigateBack(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
+        
+        createAccountButton
+            .rx
+            .tap
+            .observeOn(MainScheduler.instance)
+            .bindNext(){ [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!)
+            }
+            .addDisposableTo(disposeBag)
     }
 
     

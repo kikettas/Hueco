@@ -10,7 +10,6 @@ import Foundation
 
 protocol LoginVMProtocol{
     func logIn(withEmail:String,password:String)
-    func signUp(withEmail: String, password: String)
 }
 
 class LoginVM: LoginVMProtocol{
@@ -18,11 +17,5 @@ class LoginVM: LoginVMProtocol{
         Client().logIn(withEmail: withEmail, password: password){ user, error in
             print(error!)
         }
-    }
-    func signUp(withEmail: String, password: String) {
-        Client().signUp(withEmail: withEmail, password: password){ user, error in
-            print(error!)
-        }
-
     }
 }
