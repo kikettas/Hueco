@@ -103,3 +103,18 @@ extension LoginV{
 
     }
 }
+
+/***
+ pod 'Alamofire'
+	pod 'Firebase'
+	pod 'Kingfisher'
+	pod 'ObjectMapper'
+	pod 'RealmSwift'
+	pod 'RxCocoa'
+	pod 'RxRealm'
+	pod 'RxSwift'
+	pod 'Swarkn'
+ 
+ ***/
+
+

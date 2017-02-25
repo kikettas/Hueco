@@ -20,7 +20,6 @@
 		1F369EC71E4E371400D73628 /* InfiniteLoopersService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F369EB11E4E371300D73628 /* InfiniteLoopersService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F369ED31E4E396C00D73628 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F369ED21E4E396C00D73628 /* Client.swift */; };
 		1F369EDD1E4E3AF400D73628 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F369EDC1E4E3AF400D73628 /* AuthHandler.swift */; };
-		1F369EE11E4E3B9000D73628 /* Pods_InfiniteLoopers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F369EE01E4E3B9000D73628 /* Pods_InfiniteLoopers.framework */; };
 		1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */; };
 		1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F37851E45DD1500D3F37F /* ProfileV.swift */; };
 		1F4F37881E45DD1500D3F37F /* ProfileV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37861E45DD1500D3F37F /* ProfileV.xib */; };
@@ -48,6 +47,7 @@
 		1F8FFDF81E4FC4F600553E94 /* ProductDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FFDF71E4FC4F600553E94 /* ProductDetailVM.swift */; };
 		1F8FFDFC1E50744900553E94 /* ParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8FFDFA1E50744900553E94 /* ParticipantCell.swift */; };
 		1F8FFDFD1E50744900553E94 /* ParticipantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F8FFDFB1E50744900553E94 /* ParticipantCell.xib */; };
+		1F930B451E6187F9008A79E7 /* Client+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F930B441E6187F9008A79E7 /* Client+API.swift */; };
 		1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */; };
 		1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */; };
 		1FA69EC51E45D71D005FD096 /* MainTabBarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */; };
@@ -66,16 +66,17 @@
 		1FAEA3551E45EC090007A1D2 /* SearchV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAEA3531E45EC090007A1D2 /* SearchV.xib */; };
 		1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAEA3561E45EC170007A1D2 /* SearchVM.swift */; };
 		1FCD897C1E450E3B002792F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */; };
-		38DAC984D14EE58DC71868D1 /* Pods_InfiniteLoopersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399B02F7BF9296FCCC1CE293 /* Pods_InfiniteLoopersTests.framework */; };
-		5CC25FE83921D4E2B2D4CD55 /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A8CB96785276EC2170F9C7 /* Pods_InfiniteLoopersUITests.framework */; };
-		677E7890DCB65CD72EFAD500 /* Pods_InfiniteLoopers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C05A0225079DF1E4F04320 /* Pods_InfiniteLoopers.framework */; };
+		3B1F257A152A2E4253B3FE0D /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */; };
 		788F71E71E58E1BE003B8A97 /* CreateAccountV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */; };
 		788F71E81E58E1BE003B8A97 /* CreateAccountV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788F71E61E58E1BE003B8A97 /* CreateAccountV.xib */; };
 		788F71EA1E58E1DA003B8A97 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F71E91E58E1DA003B8A97 /* CreateAccountVM.swift */; };
 		789F069D1E56358C00F5FEA2 /* ForgotPasswordV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F069B1E56358C00F5FEA2 /* ForgotPasswordV.swift */; };
 		789F069E1E56358C00F5FEA2 /* ForgotPasswordV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789F069C1E56358C00F5FEA2 /* ForgotPasswordV.xib */; };
 		789F06A01E5635F700F5FEA2 /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F069F1E5635F700F5FEA2 /* ForgotPasswordVM.swift */; };
-		7D87B6AAAE6D6836C9E98ECB /* Pods_InfiniteLoopersService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A111D5C1CF7D8F1A032E7C1 /* Pods_InfiniteLoopersService.framework */; };
+		7E27B6E4B55B28E691EF427C /* Pods_InfiniteLoopersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4358E7B4AFE2CD8B2E4D0ED3 /* Pods_InfiniteLoopersTests.framework */; };
+		AA8B3A584310E1FECE767074 /* Pods_InfiniteLoopers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A39CE050737F2802D94BF0 /* Pods_InfiniteLoopers.framework */; };
+		AE708F27849CFD020C0A8866 /* Pods_InfiniteLoopersService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46202BBDD550C1D86F3BA5A /* Pods_InfiniteLoopersService.framework */; };
+		BCCD2A3471418C7E0DAA0075 /* Pods_InfiniteLoopersServiceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614750DCEFB6EDDE8A11EB38 /* Pods_InfiniteLoopersServiceTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,9 +145,7 @@
 		1F369EC01E4E371400D73628 /* InfiniteLoopersServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteLoopersServiceTests.swift; sourceTree = "<group>"; };
 		1F369EC21E4E371400D73628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F369ED21E4E396C00D73628 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		1F369EDA1E4E3AAC00D73628 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/InfiniteLoopers-ejtpapucoxlimmhczlqnpejwklii/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		1F369EDC1E4E3AF400D73628 /* AuthHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
-		1F369EE01E4E3B9000D73628 /* Pods_InfiniteLoopers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_InfiniteLoopers.framework; path = "Pods/../build/Debug-iphoneos/Pods_InfiniteLoopers.framework"; sourceTree = "<group>"; };
 		1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F4F37851E45DD1500D3F37F /* ProfileV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileV.swift; sourceTree = "<group>"; };
 		1F4F37861E45DD1500D3F37F /* ProfileV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileV.xib; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		1F8FFDF71E4FC4F600553E94 /* ProductDetailVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailVM.swift; sourceTree = "<group>"; };
 		1F8FFDFA1E50744900553E94 /* ParticipantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantCell.swift; sourceTree = "<group>"; };
 		1F8FFDFB1E50744900553E94 /* ParticipantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParticipantCell.xib; sourceTree = "<group>"; };
+		1F930B441E6187F9008A79E7 /* Client+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+API.swift"; sourceTree = "<group>"; };
 		1FA69EBF1E45D2CE005FD096 /* MainTabBarV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarV.swift; sourceTree = "<group>"; };
 		1FA69EC01E45D2CE005FD096 /* MainTabBarV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabBarV.xib; sourceTree = "<group>"; };
 		1FA69EC41E45D71D005FD096 /* MainTabBarVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVM.swift; sourceTree = "<group>"; };
@@ -199,24 +199,27 @@
 		1FAEA3531E45EC090007A1D2 /* SearchV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchV.xib; sourceTree = "<group>"; };
 		1FAEA3561E45EC170007A1D2 /* SearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		35C05A0225079DF1E4F04320 /* Pods_InfiniteLoopers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		399B02F7BF9296FCCC1CE293 /* Pods_InfiniteLoopersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A111D5C1CF7D8F1A032E7C1 /* Pods_InfiniteLoopersService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BF1F3F885BB25AD026ADD9A /* Pods-InfiniteLoopersService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.release.xcconfig"; sourceTree = "<group>"; };
-		6FA53BDF5E069A897B490108 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
-		784FD02F279B195785B73FBF /* Pods-InfiniteLoopersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.release.xcconfig"; sourceTree = "<group>"; };
+		2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
+		373470795DBA13D0DEE6FA47 /* Pods-InfiniteLoopersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3B8712D706EE9DAAA5A23519 /* Pods-InfiniteLoopersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersTests/Pods-InfiniteLoopersTests.release.xcconfig"; sourceTree = "<group>"; };
+		4358E7B4AFE2CD8B2E4D0ED3 /* Pods_InfiniteLoopersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0531130F58B1F01F3A1D19 /* Pods-InfiniteLoopers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.release.xcconfig"; sourceTree = "<group>"; };
+		614750DCEFB6EDDE8A11EB38 /* Pods_InfiniteLoopersServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1935533B61DBD4A2EB41A1 /* Pods-InfiniteLoopersServiceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersServiceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersServiceTests/Pods-InfiniteLoopersServiceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		726C741F421B3F102DC2497C /* Pods-InfiniteLoopersServiceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersServiceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersServiceTests/Pods-InfiniteLoopersServiceTests.release.xcconfig"; sourceTree = "<group>"; };
 		788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountV.swift; sourceTree = "<group>"; };
 		788F71E61E58E1BE003B8A97 /* CreateAccountV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountV.xib; sourceTree = "<group>"; };
 		788F71E91E58E1DA003B8A97 /* CreateAccountVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		789F069B1E56358C00F5FEA2 /* ForgotPasswordV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordV.swift; sourceTree = "<group>"; };
 		789F069C1E56358C00F5FEA2 /* ForgotPasswordV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordV.xib; sourceTree = "<group>"; };
 		789F069F1E5635F700F5FEA2 /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
-		95E6A248E0A65BEE5F6B83BC /* Pods-InfiniteLoopersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersTests/Pods-InfiniteLoopersTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9AF6846B9987A597D5862906 /* Pods-InfiniteLoopersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersTests/Pods-InfiniteLoopersTests.release.xcconfig"; sourceTree = "<group>"; };
-		D3FE513BFD7E283106BCFB8B /* Pods-InfiniteLoopers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.release.xcconfig"; sourceTree = "<group>"; };
-		E0A8CB96785276EC2170F9C7 /* Pods_InfiniteLoopersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E825559B6BF18A25A96D76B2 /* Pods-InfiniteLoopersService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.debug.xcconfig"; sourceTree = "<group>"; };
-		FB2F80B9236B8A5E531E536E /* Pods-InfiniteLoopersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7FBC8D78D9FEEAEC432BE41B /* Pods-InfiniteLoopersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersTests/Pods-InfiniteLoopersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B46202BBDD550C1D86F3BA5A /* Pods_InfiniteLoopersService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopersService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3DAFFA43311B795051BFCA2 /* Pods-InfiniteLoopersService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.debug.xcconfig"; sourceTree = "<group>"; };
+		CC4429BCD735E6DFFEEB8391 /* Pods-InfiniteLoopersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E5A39CE050737F2802D94BF0 /* Pods_InfiniteLoopers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfiniteLoopers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,8 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F369EE11E4E3B9000D73628 /* Pods_InfiniteLoopers.framework in Frameworks */,
-				7D87B6AAAE6D6836C9E98ECB /* Pods_InfiniteLoopersService.framework in Frameworks */,
+				AE708F27849CFD020C0A8866 /* Pods_InfiniteLoopersService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F369EBA1E4E371400D73628 /* InfiniteLoopersService.framework in Frameworks */,
+				BCCD2A3471418C7E0DAA0075 /* Pods_InfiniteLoopersServiceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +244,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38DAC984D14EE58DC71868D1 /* Pods_InfiniteLoopersTests.framework in Frameworks */,
+				7E27B6E4B55B28E691EF427C /* Pods_InfiniteLoopersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CC25FE83921D4E2B2D4CD55 /* Pods_InfiniteLoopersUITests.framework in Frameworks */,
+				3B1F257A152A2E4253B3FE0D /* Pods_InfiniteLoopersUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,40 +261,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F369EC61E4E371400D73628 /* InfiniteLoopersService.framework in Frameworks */,
-				677E7890DCB65CD72EFAD500 /* Pods_InfiniteLoopers.framework in Frameworks */,
+				AA8B3A584310E1FECE767074 /* Pods_InfiniteLoopers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F1C38831E50E9090086BE67 /* LoginV */ = {
+		1F1C38831E50E9090086BE67 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				1F1C38851E50E9330086BE67 /* LoginV.swift */,
 				1F1C38861E50E9330086BE67 /* LoginV.xib */,
 				1F1C38891E50E9750086BE67 /* LoginVM.swift */,
 			);
-			name = LoginV;
+			name = Login;
 			sourceTree = "<group>";
 		};
-		1F1C38841E50E90D0086BE67 /* MainLoginV */ = {
+		1F1C38841E50E90D0086BE67 /* MainLogin */ = {
 			isa = PBXGroup;
 			children = (
 				1F369EA51E4E2C2100D73628 /* MainLoginVM.swift */,
 				1F369EA71E4E2C5600D73628 /* MainLoginV.swift */,
 				1F369EA81E4E2C5600D73628 /* MainLoginV.xib */,
 			);
-			name = MainLoginV;
+			name = MainLogin;
 			sourceTree = "<group>";
 		};
 		1F369EA21E4E2C0800D73628 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				788F71E41E58E132003B8A97 /* CreateAccountV */,
-				789F069A1E56351F00F5FEA2 /* FogotPasswordV */,
-				1F1C38841E50E90D0086BE67 /* MainLoginV */,
-				1F1C38831E50E9090086BE67 /* LoginV */,
+				788F71E41E58E132003B8A97 /* CreateAccount */,
+				789F069A1E56351F00F5FEA2 /* ForgotPassword */,
+				1F1C38841E50E90D0086BE67 /* MainLogin */,
+				1F1C38831E50E9090086BE67 /* Login */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			children = (
 				1F369ED21E4E396C00D73628 /* Client.swift */,
 				1F369EDC1E4E3AF400D73628 /* AuthHandler.swift */,
+				1F930B441E6187F9008A79E7 /* Client+API.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -483,8 +487,8 @@
 				1F369EB21E4E371400D73628 /* InfiniteLoopersService */,
 				1F369EBF1E4E371400D73628 /* InfiniteLoopersServiceTests */,
 				1FA717121E450D6200CC0F39 /* Products */,
-				937A18B71D34300FFC296A53 /* Pods */,
-				4AD06BE1F75B42930121A2F9 /* Frameworks */,
+				51B35ECC6987CC609115889F /* Pods */,
+				7540351080C97B82377D4C85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -580,52 +584,53 @@
 			name = VVM;
 			sourceTree = "<group>";
 		};
-		4AD06BE1F75B42930121A2F9 /* Frameworks */ = {
+		51B35ECC6987CC609115889F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1F369EE01E4E3B9000D73628 /* Pods_InfiniteLoopers.framework */,
-				1F369EDA1E4E3AAC00D73628 /* Alamofire.framework */,
-				35C05A0225079DF1E4F04320 /* Pods_InfiniteLoopers.framework */,
-				399B02F7BF9296FCCC1CE293 /* Pods_InfiniteLoopersTests.framework */,
-				E0A8CB96785276EC2170F9C7 /* Pods_InfiniteLoopersUITests.framework */,
-				4A111D5C1CF7D8F1A032E7C1 /* Pods_InfiniteLoopersService.framework */,
+				2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */,
+				4E0531130F58B1F01F3A1D19 /* Pods-InfiniteLoopers.release.xcconfig */,
+				C3DAFFA43311B795051BFCA2 /* Pods-InfiniteLoopersService.debug.xcconfig */,
+				22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */,
+				6C1935533B61DBD4A2EB41A1 /* Pods-InfiniteLoopersServiceTests.debug.xcconfig */,
+				726C741F421B3F102DC2497C /* Pods-InfiniteLoopersServiceTests.release.xcconfig */,
+				7FBC8D78D9FEEAEC432BE41B /* Pods-InfiniteLoopersTests.debug.xcconfig */,
+				3B8712D706EE9DAAA5A23519 /* Pods-InfiniteLoopersTests.release.xcconfig */,
+				CC4429BCD735E6DFFEEB8391 /* Pods-InfiniteLoopersUITests.debug.xcconfig */,
+				373470795DBA13D0DEE6FA47 /* Pods-InfiniteLoopersUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7540351080C97B82377D4C85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E5A39CE050737F2802D94BF0 /* Pods_InfiniteLoopers.framework */,
+				B46202BBDD550C1D86F3BA5A /* Pods_InfiniteLoopersService.framework */,
+				614750DCEFB6EDDE8A11EB38 /* Pods_InfiniteLoopersServiceTests.framework */,
+				4358E7B4AFE2CD8B2E4D0ED3 /* Pods_InfiniteLoopersTests.framework */,
+				93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		788F71E41E58E132003B8A97 /* CreateAccountV */ = {
+		788F71E41E58E132003B8A97 /* CreateAccount */ = {
 			isa = PBXGroup;
 			children = (
 				788F71E91E58E1DA003B8A97 /* CreateAccountVM.swift */,
 				788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */,
 				788F71E61E58E1BE003B8A97 /* CreateAccountV.xib */,
 			);
-			name = CreateAccountV;
+			name = CreateAccount;
 			sourceTree = "<group>";
 		};
-		789F069A1E56351F00F5FEA2 /* FogotPasswordV */ = {
+		789F069A1E56351F00F5FEA2 /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
 				789F069F1E5635F700F5FEA2 /* ForgotPasswordVM.swift */,
 				789F069B1E56358C00F5FEA2 /* ForgotPasswordV.swift */,
 				789F069C1E56358C00F5FEA2 /* ForgotPasswordV.xib */,
 			);
-			name = FogotPasswordV;
-			sourceTree = "<group>";
-		};
-		937A18B71D34300FFC296A53 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6FA53BDF5E069A897B490108 /* Pods-InfiniteLoopers.debug.xcconfig */,
-				D3FE513BFD7E283106BCFB8B /* Pods-InfiniteLoopers.release.xcconfig */,
-				95E6A248E0A65BEE5F6B83BC /* Pods-InfiniteLoopersTests.debug.xcconfig */,
-				9AF6846B9987A597D5862906 /* Pods-InfiniteLoopersTests.release.xcconfig */,
-				FB2F80B9236B8A5E531E536E /* Pods-InfiniteLoopersUITests.debug.xcconfig */,
-				784FD02F279B195785B73FBF /* Pods-InfiniteLoopersUITests.release.xcconfig */,
-				E825559B6BF18A25A96D76B2 /* Pods-InfiniteLoopersService.debug.xcconfig */,
-				6BF1F3F885BB25AD026ADD9A /* Pods-InfiniteLoopersService.release.xcconfig */,
-			);
-			name = Pods;
+			name = ForgotPassword;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -666,9 +671,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F369ECC1E4E371400D73628 /* Build configuration list for PBXNativeTarget "InfiniteLoopersServiceTests" */;
 			buildPhases = (
+				84B4E7321F667283DCBB9237 /* [CP] Check Pods Manifest.lock */,
 				1F369EB51E4E371400D73628 /* Sources */,
 				1F369EB61E4E371400D73628 /* Frameworks */,
 				1F369EB71E4E371400D73628 /* Resources */,
+				B48D65DE517DFE9A218BB6B0 /* [CP] Embed Pods Frameworks */,
+				1E7DFDFEA785C69FB5FFE1C5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -727,13 +735,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA717391E450D6200CC0F39 /* Build configuration list for PBXNativeTarget "InfiniteLoopers" */;
 			buildPhases = (
-				5B915027FA0AD5521357D091 /* [CP] Check Pods Manifest.lock */,
+				34BC927CB26FE2705950E9C6 /* [CP] Check Pods Manifest.lock */,
 				1FA7170D1E450D6200CC0F39 /* Sources */,
 				1FA7170E1E450D6200CC0F39 /* Frameworks */,
 				1FA7170F1E450D6200CC0F39 /* Resources */,
-				89E49EF7038FA5C07EF49535 /* [CP] Embed Pods Frameworks */,
-				0276B610EDF8A21B29E24242 /* [CP] Copy Pods Resources */,
 				1F369ECB1E4E371400D73628 /* Embed Frameworks */,
+				1508F40E9EF742F2A2CA9E34 /* [CP] Embed Pods Frameworks */,
+				062B42D2978A4D9893C3E60A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -778,6 +786,7 @@
 					};
 					1FA717101E450D6200CC0F39 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9E868WB98D;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -862,7 +871,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0276B610EDF8A21B29E24242 /* [CP] Copy Pods Resources */ = {
+		062B42D2978A4D9893C3E60A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -875,6 +884,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1508F40E9EF742F2A2CA9E34 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1E7DFDFEA785C69FB5FFE1C5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopersServiceTests/Pods-InfiniteLoopersServiceTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		34BC927CB26FE2705950E9C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		5A411904AB872F745F6D8966 /* [CP] Embed Pods Frameworks */ = {
@@ -892,21 +946,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5B915027FA0AD5521357D091 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		76D265EE60F68ED24AE369FB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -922,19 +961,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopersTests/Pods-InfiniteLoopersTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89E49EF7038FA5C07EF49535 /* [CP] Embed Pods Frameworks */ = {
+		84B4E7321F667283DCBB9237 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		903996AAF215EF177EA6C3EE /* [CP] Copy Pods Resources */ = {
@@ -950,6 +989,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B48D65DE517DFE9A218BB6B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfiniteLoopersServiceTests/Pods-InfiniteLoopersServiceTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC2CF8604032C16B584155FA /* [CP] Copy Pods Resources */ = {
@@ -1035,6 +1089,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F369EDD1E4E3AF400D73628 /* AuthHandler.swift in Sources */,
+				1F930B451E6187F9008A79E7 /* Client+API.swift in Sources */,
 				1F369ED31E4E396C00D73628 /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1153,7 +1208,7 @@
 /* Begin XCBuildConfiguration section */
 		1F369EC91E4E371400D73628 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E825559B6BF18A25A96D76B2 /* Pods-InfiniteLoopersService.debug.xcconfig */;
+			baseConfigurationReference = C3DAFFA43311B795051BFCA2 /* Pods-InfiniteLoopersService.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1182,7 +1237,7 @@
 		};
 		1F369ECA1E4E371400D73628 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BF1F3F885BB25AD026ADD9A /* Pods-InfiniteLoopersService.release.xcconfig */;
+			baseConfigurationReference = 22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1210,6 +1265,7 @@
 		};
 		1F369ECD1E4E371400D73628 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C1935533B61DBD4A2EB41A1 /* Pods-InfiniteLoopersServiceTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = InfiniteLoopersServiceTests/Info.plist;
@@ -1223,6 +1279,7 @@
 		};
 		1F369ECE1E4E371400D73628 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 726C741F421B3F102DC2497C /* Pods-InfiniteLoopersServiceTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = InfiniteLoopersServiceTests/Info.plist;
@@ -1236,7 +1293,7 @@
 		};
 		1F7A1EF41E4657EB00FF88D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95E6A248E0A65BEE5F6B83BC /* Pods-InfiniteLoopersTests.debug.xcconfig */;
+			baseConfigurationReference = 7FBC8D78D9FEEAEC432BE41B /* Pods-InfiniteLoopersTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = InfiniteLoopersTests/Info.plist;
@@ -1250,7 +1307,7 @@
 		};
 		1F7A1EF51E4657EB00FF88D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AF6846B9987A597D5862906 /* Pods-InfiniteLoopersTests.release.xcconfig */;
+			baseConfigurationReference = 3B8712D706EE9DAAA5A23519 /* Pods-InfiniteLoopersTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = InfiniteLoopersTests/Info.plist;
@@ -1264,7 +1321,7 @@
 		};
 		1F7A1F021E4657F100FF88D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB2F80B9236B8A5E531E536E /* Pods-InfiniteLoopersUITests.debug.xcconfig */;
+			baseConfigurationReference = CC4429BCD735E6DFFEEB8391 /* Pods-InfiniteLoopersUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = InfiniteLoopersUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1277,7 +1334,7 @@
 		};
 		1F7A1F031E4657F100FF88D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 784FD02F279B195785B73FBF /* Pods-InfiniteLoopersUITests.release.xcconfig */;
+			baseConfigurationReference = 373470795DBA13D0DEE6FA47 /* Pods-InfiniteLoopersUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = InfiniteLoopersUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1385,11 +1442,11 @@
 		};
 		1FA7173A1E450D6200CC0F39 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FA53BDF5E069A897B490108 /* Pods-InfiniteLoopers.debug.xcconfig */;
+			baseConfigurationReference = 2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinite.loopers.InfiniteLoopers;
@@ -1400,11 +1457,11 @@
 		};
 		1FA7173B1E450D6200CC0F39 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3FE513BFD7E283106BCFB8B /* Pods-InfiniteLoopers.release.xcconfig */;
+			baseConfigurationReference = 4E0531130F58B1F01F3A1D19 /* Pods-InfiniteLoopers.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infinite.loopers.InfiniteLoopers;
