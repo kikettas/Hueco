@@ -18,6 +18,7 @@ class CreateAccountVM:CreateAccountVMProtocol{
         Client().signUp(withEmail: withEmail, password: password){ user, error in
             if let error = error{
                 print(error)
+                return
             }
             let user:FIRUser = user as! FIRUser
             print(user)

@@ -36,7 +36,7 @@ public enum ClientError{
             return .accountDisabled
         case .errorCodeWrongPassword:
             return .wrongPassword
-        case .errorCodeWeakPassword
+        case .errorCodeWeakPassword:
             return .weakPassword
         default:
             return .unknownError
