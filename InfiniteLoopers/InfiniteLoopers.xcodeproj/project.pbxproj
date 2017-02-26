@@ -534,11 +534,11 @@
 		1FA717131E450D6200CC0F39 /* InfiniteLoopers */ = {
 			isa = PBXGroup;
 			children = (
-				1FCAF5461E6334A000FA40E8 /* Supporting Files */,
-				1F45C4F21E6205B70064444E /* MVVM */,
-				1F844A011E619F5700075CE9 /* Service */,
 				1FAA4ADF1E4E28870014768D /* Common */,
 				1F7A1F121E46642200FF88D3 /* Extensions */,
+				1F45C4F21E6205B70064444E /* MVVM */,
+				1F844A011E619F5700075CE9 /* Service */,
+				1FCAF5461E6334A000FA40E8 /* Supporting Files */,
 			);
 			path = InfiniteLoopers;
 			sourceTree = "<group>";

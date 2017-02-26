@@ -91,8 +91,10 @@ extension ProductDetailV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
-                print("Share product")
+            .bindNext(){[unowned self] in
+                Navigator.navigateToShareProduct(from: self, sourceView: self.shareButton){
+                    
+                }
             }
             .addDisposableTo(disposeBag)
 

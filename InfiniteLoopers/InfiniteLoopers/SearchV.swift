@@ -84,6 +84,7 @@ extension SearchV{
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.tintColor = UIColor.white
         self.navigationItem.titleView = searchController.searchBar
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.definesPresentationContext = true
     }
 }
