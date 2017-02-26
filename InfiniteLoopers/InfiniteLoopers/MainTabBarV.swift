@@ -49,7 +49,7 @@ extension MainTabBarV{
 extension MainTabBarV{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if(self.tabBar.items?[2] == item){
-            Navigator.navigateToPublish(from: self)
+            Navigator.navigateToNewProduct(from: self)
         }else if (self.tabBar.items?[4] == item){
             Navigator.navigateToMainLogin(from: self, presentationStyle: .overFullScreen, transitionStyle: .coverVertical)
         }

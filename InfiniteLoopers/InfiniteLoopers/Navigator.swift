@@ -49,12 +49,12 @@ class Navigator{
     
     // MARK: - TabBar
     
-    public static func navigateToPublish(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
-        let publishTabV = NewProductPagingV(model: NewProductPagingVM()) //PublishV(model: PublishVM())
-        publishTabV.modalPresentationStyle = presentationStyle
-        publishTabV.modalTransitionStyle = transitionStyle
-        publishTabV.modalPresentationCapturesStatusBarAppearance = true
-        from.present(publishTabV, animated: true, completion: nil)
+    public static func navigateToNewProduct(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
+        let newProductV = NewProductPagingV(model: NewProductPagingVM())
+        newProductV.modalPresentationStyle = presentationStyle
+        newProductV.modalTransitionStyle = transitionStyle
+        newProductV.modalPresentationCapturesStatusBarAppearance = true
+        from.present(newProductV, animated: true, completion: nil)
     }
     
     public static func navigateToProductDetail(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical, product:(String,String, String), transitionDelegate:UIViewControllerTransitioningDelegate? = nil){
