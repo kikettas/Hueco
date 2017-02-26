@@ -37,10 +37,10 @@ extension MainTabBarV{
     func setupViewControllers(){
         let searchTab = SearchV(model:SearchVM())
         let notificationsTab = NotificationsV(model:NotificationsVM())
-        let chatTab = ChatV(model:ChatVM())
+        let chatsTab = ChatsV(model:ChatsVM())
         let profileTab = ProfileV(model:ProfileVM())
         
-        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: DummyNewProduct()), UINavigationController(rootViewController: chatTab), UINavigationController(rootViewController: profileTab)]
+        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: DummyNewProduct()), UINavigationController(rootViewController: chatsTab), UINavigationController(rootViewController: profileTab)]
     }
 }
 

@@ -47,8 +47,6 @@ class Navigator{
         from.popViewController(animated: true)        
     }
     
-    // MARK: - TabBar
-    
     public static func navigateToNewProduct(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical){
         let newProductV = NewProductPagingV(model: NewProductPagingVM())
         newProductV.modalPresentationStyle = presentationStyle
@@ -57,19 +55,7 @@ class Navigator{
         from.present(newProductV, animated: true, completion: nil)
     }
     
-    public static func navigateToProductDetail(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical, product:(String,String, String), transitionDelegate:UIViewControllerTransitioningDelegate? = nil){
-        let productDetailV = ProductDetailV(model: ProductDetailVM(product: product))
-        productDetailV.modalPresentationStyle = presentationStyle
-        productDetailV.modalPresentationCapturesStatusBarAppearance = true
-        if let delegate = transitionDelegate{
-            productDetailV.transitioningDelegate = delegate
-
-        }else{
-            productDetailV.modalTransitionStyle = transitionStyle
-        }
-
-        from.present(productDetailV, animated: true, completion: nil)
-    }
+    // Mark: - New Product
     
     public static func navigateToNewProductFirstStep(parent:NewProductPagingV, direction:UIPageViewControllerNavigationDirection){
         parent.setViewControllers([parent.pages[0]], direction: direction, animated: true, completion: nil)
@@ -82,6 +68,13 @@ class Navigator{
     public static func navigateToNewProductFinished(parent:NewProductPagingV){
         parent.setViewControllers([parent.pages[2]], direction: .forward, animated: true, completion: nil)
     }
+    
+    // Mark: - Chat
+    
+    public static func navigateToChat(from:UIViewController, userName:String){
+        from.navigationController?.pushViewController(ChatV(model: ChatVM(user:userName)), animated: true)
+    }
+        
     
     // MARK: - Common
     
@@ -101,5 +94,19 @@ class Navigator{
             activityViewController.popoverPresentationController?.sourceView = sourceView
             from.present(activityViewController, animated: true, completion: nil)
         }
+    }
+    
+    public static func navigateToProductDetail(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical, product:(String,String, String), transitionDelegate:UIViewControllerTransitioningDelegate? = nil){
+        let productDetailV = ProductDetailV(model: ProductDetailVM(product: product))
+        productDetailV.modalPresentationStyle = presentationStyle
+        productDetailV.modalPresentationCapturesStatusBarAppearance = true
+        if let delegate = transitionDelegate{
+            productDetailV.transitioningDelegate = delegate
+            
+        }else{
+            productDetailV.modalTransitionStyle = transitionStyle
+        }
+        
+        from.present(productDetailV, animated: true, completion: nil)
     }
 }
