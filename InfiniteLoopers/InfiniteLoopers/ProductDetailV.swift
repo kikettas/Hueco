@@ -103,8 +103,8 @@ extension ProductDetailV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
-                print("Chat with Michael Scott")
+            .bindNext(){[unowned self] in
+                Navigator.navigateToChat(from: self, userName: "Michael Scott")
             }
             .addDisposableTo(disposeBag)
         
