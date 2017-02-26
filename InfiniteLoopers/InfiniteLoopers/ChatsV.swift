@@ -23,8 +23,8 @@ class ChatsV: UITableViewController {
     convenience init(model:ChatsVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("chat", comment: "Chat tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
-        self.title = NSLocalizedString("chat", comment: "Chat view title")
+        self.tabBarItem = UITabBarItem(title: NSLocalizedString("chats", comment: "Chats tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
+        self.title = NSLocalizedString("chats", comment: "Chats view title")
     }
 }
 
@@ -42,6 +42,8 @@ extension ChatsV{
             }
             Navigator.navigateToChat(from: self, userName: self.model.chats[indexpath.row].0)
         }.addDisposableTo(disposeBag)
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor.mainBackgroundColor
     }
 }
 
