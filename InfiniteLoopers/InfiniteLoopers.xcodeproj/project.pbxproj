@@ -28,6 +28,7 @@
 		1F45C5111E6241310064444E /* NewProductFinishedV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C50F1E6241310064444E /* NewProductFinishedV.swift */; };
 		1F45C5121E6241310064444E /* NewProductFinishedV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F45C5101E6241310064444E /* NewProductFinishedV.xib */; };
 		1F45C5141E62413D0064444E /* NewProductFinishedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C5131E62413D0064444E /* NewProductFinishedVM.swift */; };
+		1F45C51B1E6253090064444E /* DummyNewProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C51A1E6253090064444E /* DummyNewProduct.swift */; };
 		1F4F37831E45D9D500D3F37F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */; };
 		1F4F37871E45DD1500D3F37F /* ProfileV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4F37851E45DD1500D3F37F /* ProfileV.swift */; };
 		1F4F37881E45DD1500D3F37F /* ProfileV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4F37861E45DD1500D3F37F /* ProfileV.xib */; };
@@ -139,6 +140,7 @@
 		1F45C50F1E6241310064444E /* NewProductFinishedV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProductFinishedV.swift; sourceTree = "<group>"; };
 		1F45C5101E6241310064444E /* NewProductFinishedV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewProductFinishedV.xib; sourceTree = "<group>"; };
 		1F45C5131E62413D0064444E /* NewProductFinishedVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProductFinishedVM.swift; sourceTree = "<group>"; };
+		1F45C51A1E6253090064444E /* DummyNewProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyNewProduct.swift; sourceTree = "<group>"; };
 		1F4F37821E45D9D500D3F37F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F4F37851E45DD1500D3F37F /* ProfileV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileV.swift; sourceTree = "<group>"; };
 		1F4F37861E45DD1500D3F37F /* ProfileV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileV.xib; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 				1F45C4FA1E6228700064444E /* NewProductPagingV.swift */,
 				1F45C4FB1E6228700064444E /* NewProductPagingV.xib */,
 				1F45C5051E6234A10064444E /* NewProductPagingVM.swift */,
+				1F45C51A1E6253090064444E /* DummyNewProduct.swift */,
 			);
 			name = "New Product";
 			sourceTree = "<group>";
@@ -993,6 +996,7 @@
 				1F369EA91E4E2C5600D73628 /* MainLoginV.swift in Sources */,
 				789F069D1E56358C00F5FEA2 /* ForgotPasswordV.swift in Sources */,
 				1FAEA3411E45E8800007A1D2 /* ProfileVM.swift in Sources */,
+				1F45C51B1E6253090064444E /* DummyNewProduct.swift in Sources */,
 				1F67125C1E4FA0C600C4B4A2 /* PopAnimator.swift in Sources */,
 				1F8FFDF81E4FC4F600553E94 /* ProductDetailVM.swift in Sources */,
 				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
