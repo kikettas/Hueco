@@ -13,5 +13,6 @@ extension UIViewController{
     func setupAppNavBarStyle(){
         self.navigationController?.navigationBar.barTintColor = UIColor.mainRed
         self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
     }
 }

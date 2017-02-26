@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
-class ChatV: UIViewController {
+class ChatV: UIViewController, UITextFieldDelegate {
     
     var model:ChatVMProtocol!
+    var disposeBag = DisposeBag()
+    
+    @IBOutlet weak var testTextField:UITextField!
+    @IBOutlet weak var testButton:UIButton!
+    @IBOutlet weak var testLabel: UILabel!
 
+    
     convenience init(model:ChatVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("chat", comment: "Chat tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
-        self.title = NSLocalizedString("chat", comment: "Chat view title")
+        self.title = model.user
+
 
     }
 }
@@ -28,7 +36,20 @@ extension ChatV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
+        testTextField.delegate = self
+        self.testLabel.text = "hola"
+        self.model.newMessage.subscribe(onNext:{(name,message) in
+            print(self.testLabel.text)
+            self.testLabel.text?.append("\n \(name): \(message)")
+        }).addDisposableTo(disposeBag)
         
         // Do any additional setup after loading the view.
+        testButton.rx.tap.observeOn(MainScheduler.instance).bindNext {
+            self.model.sendMessage(withData: ["text":self.testTextField.text ?? "empty"])
+        }.addDisposableTo(disposeBag)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
