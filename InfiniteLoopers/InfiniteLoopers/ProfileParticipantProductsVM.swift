@@ -10,12 +10,17 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol ProfileParticipantProductsVMProtocol{
-    var dataSource:Variable<[(String, String, String,String,String)]> {get}
+protocol ProfileParticipantProductsVMProtocol:PaginatedCollectionModel{
+    
 }
 
 class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
-    var dataSource: Variable<[(String, String, String,String,String)]>
+    var didRefresh: (() -> ())!
+    var onLoadMore: (() -> ())!
+    
+    var dataSource: Variable<[Any]>
+    var nextPageAvailable: Bool = false
+
     init(){
         dataSource = Variable([
             ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
@@ -27,5 +32,13 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
             ("HBO", "4€", "3/4","Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728"),
             ("Spotify", "4€", "3/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986")
         ])
+        
+        didRefresh = {
+            
+        }
+        
+        onLoadMore = {
+            
+        }
     }
 }

@@ -95,7 +95,7 @@ extension ProfileV{
     }
     
     func setPageController(){
-        let vc = ProfilePagingV(model:ProfilePagingVM())
+        let vc = ProfilePagingV(model:ProfilePagingVM(), viewControllerOrigin:self.pageControllerContainer.frame.origin)
         self.addChildViewController(vc)
         vc.view.frame = CGRect(x: 0, y: 0, width: pageControllerContainer.frame.size.width, height: pageControllerContainer.frame.size.height)
         self.pageControllerContainer.addSubview(vc.view)

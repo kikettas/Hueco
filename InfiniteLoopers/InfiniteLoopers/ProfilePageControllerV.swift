@@ -12,21 +12,23 @@ class ProfilePagingV: UIPageViewController, UIPageViewControllerDataSource  {
     
     var model:ProfilePagingVMProtocol!
     var pages:[UIViewController] = []
+    var viewOrigin:CGPoint!
     
-    convenience init(model:ProfilePagingVMProtocol) {
+    convenience init(model:ProfilePagingVMProtocol, viewControllerOrigin:CGPoint) {
         self.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
         self.model = model
+        self.viewOrigin = viewControllerOrigin
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
-        pages = [ProfileHostedProductsV(model:ProfileHostedProductsVM()), ProfileParticipantProductsV(model:ProfileParticipantProductsVM())]
+        pages = [ProfileHostedProductsV(model:ProfileHostedProductsVM(), viewControllerOrigin:viewOrigin), ProfileParticipantProductsV(model:ProfileParticipantProductsVM(), viewControllerOrigin:viewOrigin)]
+        setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
     }
 }
 
