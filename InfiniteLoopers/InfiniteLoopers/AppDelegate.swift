@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if(url.scheme == "fb1457853150915415"){
+        if(url.scheme == "fb1899195456980029"){
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
         }else{
             return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])

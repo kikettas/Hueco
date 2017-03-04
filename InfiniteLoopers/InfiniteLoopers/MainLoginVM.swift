@@ -14,8 +14,8 @@ protocol MainLoginVMProtocol{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
-    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion)
-    func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion)
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<User?>)
+    func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion<User?>)
 }
 
 class MainLoginVM:MainLoginVMProtocol{
@@ -25,11 +25,11 @@ class MainLoginVM:MainLoginVMProtocol{
         self.client = client
     }
     
-    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion) {
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<User?>) {
         client.logInWithFacebook(from: from, completion: completion)
     }
     
-    func loginWithGoogle(from:UIViewController, completion: @escaping ClientCompletion) {
+    func loginWithGoogle(from:UIViewController, completion: @escaping ClientCompletion<User?>) {
         client.logInWithGoogle(from:from ,completion: completion)
     }
 }

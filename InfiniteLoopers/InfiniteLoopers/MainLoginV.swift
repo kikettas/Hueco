@@ -84,7 +84,7 @@ extension MainLoginV{
                         print(error)
                         return
                     }
-                    print(user!)
+                    print(user)
                 }
             }
             .addDisposableTo(disposeBag)
@@ -102,7 +102,7 @@ extension MainLoginV{
                         print(error)
                         return
                     }
-                    print(user!)
+                    print(user)
                 }
             }
             .addDisposableTo(disposeBag)

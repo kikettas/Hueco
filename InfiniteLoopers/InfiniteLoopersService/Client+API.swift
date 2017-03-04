@@ -13,27 +13,27 @@ import GoogleSignIn
 import UIKit
 
 extension Client{
-    public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion){
+    public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>){
         FIRAuth.auth()?.signIn(withEmail: withEmail, password: password){(user,error) in
             if let error = error{
                 completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user, nil)
+                completion(user as? User, nil)
             }
         }
     }
     
-    func logIn(withCredential: FIRAuthCredential, completion: @escaping ClientCompletion) {
+    func logIn(withCredential: FIRAuthCredential, completion: @escaping ClientCompletion<User?>) {
         FIRAuth.auth()?.signIn(with: withCredential){(user,error) in
             if let error = error{
                 completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user, nil)
+                completion(user as? User, nil)
             }
         }
     }
     
-    func logInWithFacebook(from: UIViewController, completion: @escaping ClientCompletion) {
+    func logInWithFacebook(from: UIViewController, completion: @escaping ClientCompletion<User?>) {
         let loginManager = LoginManager()
         loginManager.logIn([.publicProfile, .email], viewController: from){ loginResult in
             switch loginResult{
@@ -48,7 +48,7 @@ extension Client{
         }
     }
     
-    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion) {
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<User?>) {
         googleLoginDelegate = GoogleLoginDelegate(from:from, didLogin: {idToken, accessToken, error in
             if let error = error{
                 // figure out what kind of error is and parse to ClientError
@@ -63,47 +63,56 @@ extension Client{
         GIDSignIn.sharedInstance()?.signIn()
     }
     
-    func sendResetPaswordTo(email: String, completion: @escaping ClientCompletion) {
+    func signOut(completion: @escaping ClientCompletion<Void>) {
+        do{
+            try FIRAuth.auth()?.signOut()
+            completion((), nil)
+        }catch{
+            
+        }
+    }
+    
+    func sendResetPaswordTo(email: String, completion: @escaping ClientCompletion<Void>) {
         FIRAuth.auth()?.sendPasswordReset(withEmail: email){ error in
             if let error = error{
-                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                completion((),ClientError.parseFirebaseError(errorCode: error._code))
                 return
             }else{
-                completion(nil,nil)
+                completion((),nil)
             }
         }
     }
     
-    func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion) {
+    func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion<User?>) {
         FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
             if let error = error{
                 completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user, nil)
+                completion(user as? User, nil)
             }
         }
     }
     
-    func updateEmail(withEmail: String, completion: @escaping ClientCompletion) {
+    func updateEmail(withEmail: String, completion: @escaping ClientCompletion<Void>) {
         let user = FIRAuth.auth()?.currentUser
         user?.updateEmail(withEmail){ error in
             if let error = error{
-                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                completion((),ClientError.parseFirebaseError(errorCode: error._code))
                 return
             }else{
-                completion(nil,nil)
+                completion((),nil)
             }
         }
     }
     
-    func updatePassword(withPassword: String, completion: @escaping ClientCompletion) {
+    func updatePassword(withPassword: String, completion: @escaping ClientCompletion<Void>) {
         let user = FIRAuth.auth()?.currentUser
         user?.updatePassword(withPassword){ error in
             if let error = error{
-                completion(nil,ClientError.parseFirebaseError(errorCode: error._code))
+                completion((),ClientError.parseFirebaseError(errorCode: error._code))
                 return
             }else{
-                completion(nil,nil)
+                completion((),nil)
             }
         }
     }

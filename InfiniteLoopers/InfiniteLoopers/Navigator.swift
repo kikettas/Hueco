@@ -55,7 +55,22 @@ class Navigator{
         from.present(newProductV, animated: true, completion: nil)
     }
     
-    // Mark: - New Product
+    // MARK: - Offers
+    
+    public static func navigateToSearchTab(from:UIViewController){
+        if(from is ChatV || from is ProfileV || from is NotificationsV || (from is SearchV)){
+            if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
+                (tabBarV as! UITabBarController).selectedIndex = 0
+            }
+        }else{
+            from.dismiss(animated: true){
+                navigateToSearchTab(from: (UIApplication.shared.keyWindow?.visibleViewController!)!)
+            }
+        }
+    }
+    
+    
+    // MARK: - New Product
     
     public static func navigateToNewProductFirstStep(parent:NewProductPagingV, direction:UIPageViewControllerNavigationDirection){
         parent.setViewControllers([parent.pages[0]], direction: direction, animated: true, completion: nil)
@@ -69,11 +84,11 @@ class Navigator{
         parent.setViewControllers([parent.pages[2]], direction: .forward, animated: true, completion: nil)
     }
     
-    // Mark: - Chat
+    // MARK: - Chat
     
     
     public static func navigateToChat(from:UIViewController, userName:String){
-        if(from is ChatV){
+        if(from is ChatsV){
             from.navigationController?.pushViewController(ChatV(model: ChatVM(user:userName)), animated: true)
         }else if(from is SearchV || from is ProfileV || from is NotificationsV){
             if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{

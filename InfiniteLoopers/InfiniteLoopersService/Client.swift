@@ -11,20 +11,21 @@ import Alamofire
 import Firebase
 
 
-typealias ClientCompletion = (Any?,ClientError?) -> ()
+typealias ClientCompletion<T> = (T,ClientError?) -> ()
 
 protocol ClientProtocol {
     init(sessionManager:SessionManager)
     
     // API
-    func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion)
-    func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion)
-    func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion)
-    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion)
-    func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion)
-    func updateEmail(withEmail: String,completion:@escaping ClientCompletion)
-    func updatePassword(withPassword: String,completion:@escaping ClientCompletion)
-    func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion)
+    func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>)
+    func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<User?>)
+    func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<User?>)
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<User?>)
+    func signOut(completion:@escaping ClientCompletion<Void>)
+    func signUp(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>)
+    func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
+    func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
+    func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
 
 }
 

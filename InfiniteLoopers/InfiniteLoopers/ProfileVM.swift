@@ -9,9 +9,11 @@
 import Foundation
 
 protocol ProfileVMProtocol {
-    
+    func logOut(completion: @escaping ClientCompletion<Void>)
 }
 
 class ProfileVM:ProfileVMProtocol{
-    
+    func logOut(completion:@escaping ClientCompletion<Void>){
+        Client().signOut(completion: completion)
+    }
 }
