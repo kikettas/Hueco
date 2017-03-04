@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F12A5121E6B18EC00B93BEA /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A5111E6B18EC00B93BEA /* Router.swift */; };
+		1F12A5151E6B2EA300B93BEA /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A5131E6B2EA300B93BEA /* ProductCell.swift */; };
+		1F12A5161E6B2EA300B93BEA /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F12A5141E6B2EA300B93BEA /* ProductCell.xib */; };
 		1F19B5A41E68A2AB00A4B32B /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19B5A31E68A2AB00A4B32B /* AppManager.swift */; };
 		1F19B5A61E68AAC900A4B32B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19B5A51E68AAC900A4B32B /* UIWindow.swift */; };
 		1F1C38871E50E9330086BE67 /* LoginV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C38851E50E9330086BE67 /* LoginV.swift */; };
@@ -134,6 +136,8 @@
 
 /* Begin PBXFileReference section */
 		1F12A5111E6B18EC00B93BEA /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		1F12A5131E6B2EA300B93BEA /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		1F12A5141E6B2EA300B93BEA /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
 		1F19B5A31E68A2AB00A4B32B /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		1F19B5A51E68AAC900A4B32B /* UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		1F1C38851E50E9330086BE67 /* LoginV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginV.swift; sourceTree = "<group>"; };
@@ -328,6 +332,8 @@
 		1F369EE21E4E458D00D73628 /* ProductCell */ = {
 			isa = PBXGroup;
 			children = (
+				1F12A5131E6B2EA300B93BEA /* ProductCell.swift */,
+				1F12A5141E6B2EA300B93BEA /* ProductCell.xib */,
 				1F7E622F1E4F52CB001D1CA7 /* OnLoadMoreCell.swift */,
 				1F7E62301E4F52CB001D1CA7 /* OnLoadMoreCell.xib */,
 			);
@@ -902,6 +908,7 @@
 				1F8FFDF61E4FC4E300553E94 /* ProductDetailV.xib in Resources */,
 				789F069E1E56358C00F5FEA2 /* ForgotPasswordV.xib in Resources */,
 				1FA7171C1E450D6200CC0F39 /* Assets.xcassets in Resources */,
+				1F12A5161E6B2EA300B93BEA /* ProductCell.xib in Resources */,
 				1F369EAA1E4E2C5600D73628 /* MainLoginV.xib in Resources */,
 				1F1C38881E50E9330086BE67 /* LoginV.xib in Resources */,
 				1FC441611E6A3A4D00BCBFFF /* ProfileHostedProductsV.xib in Resources */,
@@ -1121,6 +1128,7 @@
 				1F7E62311E4F52CB001D1CA7 /* OnLoadMoreCell.swift in Sources */,
 				1F844A061E61A26300075CE9 /* ClientError.swift in Sources */,
 				1F844A021E61A01B00075CE9 /* Client.swift in Sources */,
+				1F12A5151E6B2EA300B93BEA /* ProductCell.swift in Sources */,
 				1F45C5041E622DF70064444E /* NewProductFirstStepVM.swift in Sources */,
 				1F45C5141E62413D0064444E /* NewProductFinishedVM.swift in Sources */,
 				1F12A5121E6B18EC00B93BEA /* Router.swift in Sources */,

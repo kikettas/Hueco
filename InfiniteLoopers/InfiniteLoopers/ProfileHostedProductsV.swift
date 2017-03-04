@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-private let reuseIdentifier = "ParticipantCell"
+private let reuseIdentifier = "ProfileHostedProductsCell"
 
 class ProfileHostedProductsV: UIViewController {
     
@@ -36,7 +36,7 @@ extension ProfileHostedProductsV{
         // self.clearsSelectionOnViewWillAppear = false
         
         // Register cell classes
-        self.collectionView!.register(UINib(nibName: "ParticipantCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UINib(nibName: "ProfileHostedProductsCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         // Do any additional setup after loading the view.
         
         self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProfileHostedProductsCell.self)){[unowned self] row, element, cell in
