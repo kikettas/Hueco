@@ -77,9 +77,7 @@ extension CreateAccountV{
                     .catchError(){error in
                         return .just(false)
                     }
-                    .map{
-                        !$0
-                    }
+                    .map{!$0}
                     .distinctUntilChanged()
                     .bindTo(isUserNameCheckHidden)
                     .addDisposableTo(self.disposeBag)

@@ -7,47 +7,51 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "ProductCell"
 
-class ProfileParticipantProductsV: UICollectionViewController {
+class ProfileParticipantProductsV: UIViewController {
     
+    var disposeBag:DisposeBag = DisposeBag()
     var model:ProfileParticipantProductsVMProtocol!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     convenience init(model:ProfileParticipantProductsVMProtocol) {
-        let layout = UICollectionViewFlowLayout()
-        self.init(collectionViewLayout:layout)
+        self.init(nibName: nil, bundle: nil)
         self.model = model
     }
+
     
+}
+
+
+// MARK: - UIViewController
+
+extension ProfileParticipantProductsV{
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         // Do any additional setup after loading the view.
+        
+        self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProductCell.self)){[unowned self] row, element, cell in
+            cell.productName.text = self.model.dataSource.value[row].0
+            cell.productPrice.text = self.model.dataSource.value[row].1
+            cell.productType.text = "Cuenta"
+            cell.productOwner.text = self.model.dataSource.value[row].3
+            cell.productSpaces.text = self.model.dataSource.value[row].2
+            cell.productOwnerImage.kf.setImage(with: URL(string:self.model.dataSource.value[row].4))
+            cell.productOwnerRating.rating = 3
+        }.addDisposableTo(disposeBag)
+        
+        self.collectionView.rx.itemSelected.bindNext{_ in
+            print(self.collectionView.numberOfItems(inSection: 0))
+        }.addDisposableTo(disposeBag)
     }
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
-        return cell
-    }
-    
 }

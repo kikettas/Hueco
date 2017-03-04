@@ -9,23 +9,19 @@
 import UIKit
 import Swarkn
 
-class ProductCell: UICollectionViewCell {
+class ProfileHostedProductsCell: UICollectionViewCell {
 
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productType: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productSpaces: UILabel!
-    @IBOutlet weak var productOwner: UILabel!
-    @IBOutlet weak var productOwnerImage: UIImageView!
-    @IBOutlet weak var productOwnerRating: RatingView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.setBorderAndRadius(color: UIColor.lightGray.cgColor, width: 0.5)
-        self.productOwnerImage.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0)
     }
 
 }
