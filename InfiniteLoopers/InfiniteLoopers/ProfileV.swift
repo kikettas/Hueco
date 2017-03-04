@@ -53,7 +53,6 @@ extension ProfileV{
         userRating.rating = 4
         
         setPageController()
-
         
         setttingsButton
             .rx

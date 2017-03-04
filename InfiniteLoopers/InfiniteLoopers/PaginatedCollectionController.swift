@@ -51,7 +51,7 @@ extension PaginatedCollectionController{
             .rx
             .controlEvent(.valueChanged)
             .observeOn(MainScheduler.instance)
-            .bindNext {
+            .bindNext { [unowned self] in
                 self.didRefresh()
             }.addDisposableTo(disposeBag)
         collectionView.addSubview(refreshControl)

@@ -44,11 +44,11 @@ extension ProfileParticipantProductsV{
             cell.productOwnerRating.rating = 3
         }.addDisposableTo(disposeBag)
         
-        self.collectionView.rx.itemSelected.bindNext{_ in
+        self.collectionView.rx.itemSelected.bindNext{[unowned self] _ in
             print(self.collectionView.numberOfItems(inSection: 0))
         }.addDisposableTo(disposeBag)
         
-        self.collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{ indexPath in
+        self.collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] indexPath in
             let cell = self.collectionView.cellForItem(at: indexPath)
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x + self.viewOrigin.x, y: cellCenter.y + self.viewOrigin.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
