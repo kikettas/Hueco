@@ -75,7 +75,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="8EW-pm-J7V" userLabel="check_mail">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="8EW-pm-J7V" userLabel="check_mail">
                             <rect key="frame" x="320" y="270" width="16" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8EW-pm-J7V" secondAttribute="height" multiplier="4:3" id="cHd-aP-XMK"/>
@@ -95,7 +95,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="YRs-ty-2Yf" userLabel="check_mail">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="YRs-ty-2Yf" userLabel="check_mail">
                             <rect key="frame" x="320" y="204" width="16" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="YRs-ty-2Yf" secondAttribute="height" multiplier="4:3" id="IOZ-zT-fvQ"/>
@@ -132,7 +132,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-gD-Eij" userLabel="check_mail">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-gD-Eij" userLabel="check_mail">
                             <rect key="frame" x="320" y="336" width="16" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="J5O-gD-Eij" secondAttribute="height" multiplier="4:3" id="UOj-DL-dIB"/>

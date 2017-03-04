@@ -6,6 +6,7 @@
 //  Copyright © 2017 Infinite Loopers. All rights reserved.
 //
 
+import Alamofire
 import Foundation
 import FirebaseAuth
 import FacebookLogin
@@ -13,6 +14,22 @@ import GoogleSignIn
 import UIKit
 
 extension Client{
+    
+    func check(nickName: String, completion: @escaping (Bool, ClientError?) -> ()) {
+        sessionManager.request(Router.checkNickName(nickname: ["nickname":nickName])).responseValidatedJson{response in
+            switch response{
+                case .success(let json):
+                    if let available = json["available"]{
+                        completion(available as! Bool,nil)
+                    }
+                break
+            case .failure(let error):
+                completion(false,error as? ClientError)
+                break
+            }
+        }
+    }
+    
     public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>){
         FIRAuth.auth()?.signIn(withEmail: withEmail, password: password){(user,error) in
             if let error = error{

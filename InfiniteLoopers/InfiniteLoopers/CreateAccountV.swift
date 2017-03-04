@@ -17,6 +17,8 @@ class CreateAccountV: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .default
     }
+    
+    
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
@@ -45,14 +47,7 @@ extension CreateAccountV{
     
     func setupTextFields(){
         userNameTF.becomeFirstResponder()
-        let isUserNameCheckHidden = userNameTF
-            .rx
-            .text
-            .observeOn(MainScheduler.instance)
-            .shareReplay(1)
-            .map{($0?.characters.count)! < 4}
-            .distinctUntilChanged()
-        
+        let isUserNameCheckHidden = Variable(true)
         let isEmailCheckHidden = emailTF
             .rx
             .text
@@ -73,7 +68,24 @@ extension CreateAccountV{
         isEmailCheckHidden.asObservable().bindTo(emailCheckedImage.rx.isHidden).addDisposableTo(disposeBag)
         isPasswordCheckHidden.asObservable().bindTo(passwordCheckedImage.rx.isHidden).addDisposableTo(disposeBag)
         
-        Observable.combineLatest(isUserNameCheckHidden, isEmailCheckHidden, isPasswordCheckHidden){
+        userNameTF
+            .rx.text
+            .filter{($0?.characters.count)! > 3}
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .subscribe(onNext: {[unowned self] text in
+                 self.model.check(nickName: text!)
+                    .catchError(){error in
+                        return .just(false)
+                    }
+                    .map{
+                        !$0
+                    }
+                    .distinctUntilChanged()
+                    .bindTo(isUserNameCheckHidden)
+                    .addDisposableTo(self.disposeBag)
+                }).addDisposableTo(disposeBag)
+        
+        Observable.combineLatest(isUserNameCheckHidden.asObservable(), isEmailCheckHidden, isPasswordCheckHidden){
             return ($0.0 || $0.1 || $0.2)
             }.distinctUntilChanged().bindTo(createAccountButton.rx.isHidden).addDisposableTo(disposeBag)
         

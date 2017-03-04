@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
-public enum ClientError{
+public enum ClientError:Error{
     case invalidCredentials
     case unknownError
     case userNotFound
@@ -21,6 +21,7 @@ public enum ClientError{
     case failedLoginWithFacebook
     case logInCanceled
     case invalidEmail
+    case invalidParameters
 }
 
 // MARK: - Firebase Errors
@@ -65,6 +66,15 @@ extension ClientError{
             return .logInCanceled
         case .unknown:
             return .unknownError
+        default:
+            return .unknownError
+        }
+    }
+    
+    static func parseErrorFromAPI(message:String) -> ClientError{
+        switch message {
+        case "Invalid parameters":
+            return .invalidParameters
         default:
             return .unknownError
         }
