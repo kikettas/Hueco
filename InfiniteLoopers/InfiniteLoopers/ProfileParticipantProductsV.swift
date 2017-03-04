@@ -32,13 +32,7 @@ class ProfileParticipantProductsV: UIViewController {
 extension ProfileParticipantProductsV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
         self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        // Do any additional setup after loading the view.
         
         self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProductCell.self)){[unowned self] row, element, cell in
             cell.productName.text = self.model.dataSource.value[row].0

@@ -11,7 +11,7 @@ import Kingfisher
 import RxCocoa
 import RxSwift
 
-class SearchV: UIViewController, UISearchControllerDelegate, CollectionController, UIViewControllerTransitioningDelegate, UIViewControllerPreviewingDelegate {
+class SearchV: UIViewController, UISearchControllerDelegate, CollectionController {
     
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
@@ -60,7 +60,7 @@ extension SearchV{
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
-        collectionView.register(UINib.init(nibName: "OnLoadMoreCell", bundle: nil), forCellWithReuseIdentifier: "OnLoadMoreCell")
+        collectionView.register(UINib.init(nibName: "OnLoadMoreFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "OnLoadMoreFooter")
         
         model.refreshDataSource.subscribe(onNext:{
             self.collectionView.reloadData()
@@ -84,7 +84,6 @@ extension SearchV{
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.tintColor = UIColor.white
         self.navigationItem.titleView = searchController.searchBar
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.definesPresentationContext = true
     }
 }
@@ -93,14 +92,11 @@ extension SearchV{
 // MARK: - CollectionController
 
 extension SearchV{
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.nextPageAvailable ? model.dataSource.count + 1 : model.dataSource.count
+        return  model.dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if(indexPath.row < model.dataSource.count){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
             let product = model.dataSource[indexPath.row]
             cell.productName.text = product.2
@@ -112,11 +108,6 @@ extension SearchV{
                 (image, error, cacheType, imageUrl) in
             })
             return cell
-        }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnLoadMoreCell", for: indexPath) as! OnLoadMoreCell
-            cell.onLoadMoreIndicator.startAnimating()
-            return cell
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -137,6 +128,14 @@ extension SearchV{
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         self.collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.white
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "OnLoadMoreFooter", for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return model.nextPageAvailable && model.dataSource.count > 0 ? CGSize(width: 50, height: 50) : CGSize(width: 0.1, height: 0.1)
     }
 }
 
