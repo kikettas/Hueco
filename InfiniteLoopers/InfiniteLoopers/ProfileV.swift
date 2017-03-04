@@ -66,7 +66,7 @@ extension ProfileV{
     
     func showSettingsMenu(){
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let logOutAction = UIAlertAction(title: NSLocalizedString("Log out", comment: "Log out"), style: .default){[unowned self] _ in
+        let logOutAction = UIAlertAction(title: NSLocalizedString("log_out", comment: "Log out"), style: .default){[unowned self] _ in
             self.model.logOut() {[weak self] (success, error) in
                 guard let `self` = self else {
                     return
@@ -79,9 +79,15 @@ extension ProfileV{
             }
         }
         
+        let editProfileAction = UIAlertAction(title: NSLocalizedString("edit_profile", comment: "Edit profile"), style: .default){[unowned self] _ in
+
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){[unowned self] _ in
             self.dismiss(animated: true, completion: nil)
         }
+        
+        actionSheet.addAction(editProfileAction)
         actionSheet.addAction(logOutAction)
         actionSheet.addAction(cancelAction)
         

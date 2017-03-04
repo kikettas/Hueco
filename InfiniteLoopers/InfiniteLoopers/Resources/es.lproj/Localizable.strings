@@ -15,3 +15,5 @@
 "me" = "Yo";
 "profile" = "Perfil";
 "chats" = "Chats";
+"log_out" = "Cerrar sesión";
+"edit_profile" = "Editar perfil";
