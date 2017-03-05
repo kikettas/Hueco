@@ -43,13 +43,27 @@ class ProfileV: UIViewController, UIPageViewControllerDelegate {
 extension ProfileV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAppNavBarStyle()
         self.edgesForExtendedLayout = []
-        let user = FIRAuth.auth()?.currentUser
+        setupAppNavBarStyle()
         profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 1, cornerRadius: 5)
-        profilePicture.kf.setImage(with: user?.photoURL)
+        
         ratingsCount.text = "(143)"
-        userName.text = user?.displayName
+        
+        AppManager.shared.userLogged.asObservable()
+            .share()
+            .map{return $0?.nickname ?? ""}
+            .bindTo(userName.rx.text)
+            .addDisposableTo(disposeBag)
+        
+        AppManager.shared.userLogged.asObservable()
+            .share()
+            .map{return $0?.avatar}
+            .filter{$0 != nil}
+            .bindNext{ avatar in
+                self.profilePicture.kf.setImage(with: URL(string: avatar!))
+        }.addDisposableTo(disposeBag)
+    
+    
         userRating.rating = 4
         
         setPageController()

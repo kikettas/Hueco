@@ -30,7 +30,7 @@ class CreateAccountVM:CreateAccountVMProtocol{
     
     func signUp(withEmail: String, password: String, nickName:String) -> Observable<Void>{
         return Observable.create({[unowned self] observer in
-            self.client.signUp(withEmail: withEmail, password: password, nickName:nickName){ user, error in
+            self.client.signUp(withEmail: withEmail, password: password, nickName:nickName){ _, error in
                 if let error = error{
                     observer.onError(error)
                     return

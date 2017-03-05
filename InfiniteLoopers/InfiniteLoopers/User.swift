@@ -12,11 +12,11 @@ import ObjectMapper
 class User:Mappable{
     
     var uid:String!
-    var nickname:String!
+    var nickname:String?
     var firstName:String?
     var lastName:String?
-    var email:String!
-    var avatar:String!
+    var email:String?
+    var avatar:String?
     var gender:Int?
     var phone:String?
     var createdAt:Date!
@@ -28,9 +28,11 @@ class User:Mappable{
 
     }
     
-    convenience init?(json:JSON, uid:String) {
+    convenience init?(json:JSON, uid:String, photoUrl:String?, email:String?) {
         self.init(JSON:json)
         self.uid = uid
+        self.avatar = photoUrl
+        self.email = email
     }
 }
 

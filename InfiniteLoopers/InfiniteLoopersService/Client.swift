@@ -24,7 +24,7 @@ protocol ClientProtocol {
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<User?>)
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<User?>)
     func signOut(completion:@escaping ClientCompletion<Void>)
-    func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<User?>)
+    func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)

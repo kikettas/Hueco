@@ -27,7 +27,7 @@ class AppManager{
                 userReference.keepSynced(true)
                 _ = userReference.observe(FIRDataEventType.value, with: { snapshot in
                     if let json = snapshot.value{
-                        let user = User(json: json as! JSON, uid: fUser.uid)
+                        let user = User(json: json as! JSON, uid: fUser.uid, photoUrl:fUser.photoURL?.absoluteString, email:fUser.email)
                         self.userLogged.value = user
                     }
                 })
