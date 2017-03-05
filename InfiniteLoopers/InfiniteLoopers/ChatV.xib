@@ -11,9 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatV" customModule="InfiniteLoopers" customModuleProvider="target">
             <connections>
-                <outlet property="testButton" destination="FYq-r7-KP6" id="COK-Bd-ZPh"/>
-                <outlet property="testLabel" destination="eDX-h1-20g" id="Vy9-wM-E9g"/>
-                <outlet property="testTextField" destination="0L3-aK-ZWp" id="k31-wm-nXL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,36 +18,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0L3-aK-ZWp">
-                    <rect key="frame" x="16" y="263" width="343" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYq-r7-KP6">
-                    <rect key="frame" x="166" y="318" width="42" height="30"/>
-                    <state key="normal" title="Enviar"/>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDX-h1-20g">
-                    <rect key="frame" x="16" y="20" width="343" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="eDX-h1-20g" secondAttribute="trailing" constant="16" id="5Fv-es-az8"/>
-                <constraint firstItem="eDX-h1-20g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="BVA-Zb-mIb"/>
-                <constraint firstItem="FYq-r7-KP6" firstAttribute="top" secondItem="0L3-aK-ZWp" secondAttribute="bottom" constant="25" id="Bmf-GW-QPf"/>
-                <constraint firstAttribute="trailing" secondItem="0L3-aK-ZWp" secondAttribute="trailing" constant="16" id="IWh-Tq-0Ea"/>
-                <constraint firstItem="FYq-r7-KP6" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="UCF-i2-9X5"/>
-                <constraint firstItem="eDX-h1-20g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="WW9-Zr-JKJ"/>
-                <constraint firstItem="0L3-aK-ZWp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bk9-Tf-ks0"/>
-                <constraint firstItem="FYq-r7-KP6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eyl-xM-aOe"/>
-                <constraint firstItem="0L3-aK-ZWp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eDX-h1-20g" secondAttribute="bottom" constant="19" id="zc3-Mg-Bhr"/>
-            </constraints>
             <point key="canvasLocation" x="25.5" y="51.5"/>
         </view>
     </objects>

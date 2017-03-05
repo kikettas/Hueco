@@ -50,7 +50,7 @@ extension MainTabBarV{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if(self.tabBar.items?[2] == item){
             Navigator.navigateToNewProduct(from: self)
-        }else if (self.tabBar.items?[4] == item && AppManager.shared.userLogged == nil){
+        }else if (self.tabBar.items?[4] == item && AppManager.shared.userLogged.value == nil){
             Navigator.navigateToMainLogin(from: self, presentationStyle: .overFullScreen, transitionStyle: .coverVertical)
         }
     }
@@ -60,7 +60,7 @@ extension MainTabBarV{
             return false
         }
         
-        if (viewController == tabBarController.viewControllers?[4] && AppManager.shared.userLogged == nil){
+        if (viewController == tabBarController.viewControllers?[4] && AppManager.shared.userLogged.value == nil){
             return false
         }
         

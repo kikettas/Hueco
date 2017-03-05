@@ -11,56 +11,46 @@ import FirebaseDatabase
 import FirebaseAuth
 import RxCocoa
 import RxSwift
+import ObjectMapper
 
 protocol ChatVMProtocol{
     var ref:FIRDatabaseReference! { get }
     var _refHandle:FIRDatabaseHandle! { get }
-    var messages: [FIRDataSnapshot]! { get set }
-    var newMessage:PublishSubject<(String,String)> { get }
-    var user:String { get }
+    var newMessage:PublishSubject<Void> { get }
+    var chatMessages:[ChatMessage] { get }
     
     func configureDB()
-    func sendMessage(withData data: [String: String])
+    func sendMessage(withData data: ChatMessage)
 }
 
 class ChatVM:ChatVMProtocol{
     var ref: FIRDatabaseReference!
     var _refHandle: FIRDatabaseHandle!
-    var messages: [FIRDataSnapshot]! = []
-    var newMessage: PublishSubject<(String, String)> = PublishSubject()
-    var user: String
+    var newMessage: PublishSubject<Void> = PublishSubject()
+    var chatMessages: [ChatMessage]
     
-    init(user:String){
-        self.user = user
+    init(){
+        chatMessages = []
         configureDB()
     }
     
-    deinit {
-        
-    }
-    
-    
     func configureDB() {
-        ref = FIRDatabase.database().reference()
-        _refHandle = self.ref.child("messages").observe(.childAdded, with:{[weak self] (snapshot) in
+        ref = FIRDatabase.database().reference().child("chats").child("chat1")
+        ref.keepSynced(true)
+        _refHandle = self.ref.child("messages").queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
             guard let `self` = self else {
                 return
             }
-            self.messages.append(snapshot)
-            let name = (snapshot.value as! [String:String])["name"] ?? "noname"
-            let text = (snapshot.value as! [String:String])["text"] ?? "emptymessage"
-
-            self.newMessage.onNext((name,text))
-            
+            let message = ChatMessage(JSON: snapshot.value as! [String:Any])
+            if let message = message{
+                self.chatMessages.append(message)
+                self.newMessage.onNext()
+            }
         })
     }
     
-    func sendMessage(withData data: [String : String]) {
-        var mdata = data
-        mdata["name"] = FIRAuth.auth()?.currentUser?.displayName
-        if let photoURL = FIRAuth.auth()?.currentUser?.photoURL {
-            mdata["photoURL"] = photoURL.absoluteString
-        }
+    func sendMessage(withData data: ChatMessage) {
+        var mdata = Mapper().toJSON(data)
         
         // Push data to Firebase Database
         self.ref.child("messages").childByAutoId().setValue(mdata)

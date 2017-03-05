@@ -7,17 +7,41 @@
 //
 
 import Foundation
+import FirebaseDatabase
 import Firebase
-
+import RxCocoa
+import RxSwift
+import GoogleSignIn
 
 class AppManager{
     static let shared:AppManager = AppManager()
     
+    fileprivate let dbReference:FIRDatabaseReference
+    var userLogged: Variable<User?>
     private init(){
-        
+        dbReference = FIRDatabase.database().reference()
+        userLogged = Variable(nil)
+        FIRAuth.auth()?.addStateDidChangeListener(){(auth, user) in
+            if let fUser = user{
+                let userReference = self.dbReference.child("users").child(fUser.uid)
+                userReference.keepSynced(true)
+                _ = userReference.observe(FIRDataEventType.value, with: { snapshot in
+                    if let json = snapshot.value{
+                        let user = User(json: json as! JSON, uid: fUser.uid)
+                        self.userLogged.value = user
+                    }
+                })
+            }else{
+                self.userLogged.value = nil
+            }
+        }
     }
     
-    var userLogged: FIRUser?{
-        return FIRAuth.auth()?.currentUser
+    static func initialize(){
+        FIRApp.configure()
+        FIRDatabase.database().persistenceEnabled = true
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        
+        _ = AppManager.shared
     }
 }

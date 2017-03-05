@@ -9,6 +9,7 @@ def shared_pods
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'GoogleSignIn'
+    pod 'JSQMessagesViewController'
 	pod 'Kingfisher'
 	pod 'ObjectMapper'
 	pod 'RealmSwift'
