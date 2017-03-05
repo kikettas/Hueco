@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseDatabase
 import RxCocoa
 import RxSwift
 
@@ -15,7 +16,7 @@ protocol CreateAccountVMProtocol{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
-    func signUp(withEmail: String, password: String)
+    func signUp(withEmail: String, password: String, nickName:String) -> Observable<Void>
     func check(nickName:String) -> Observable<Bool>
     
 }
@@ -27,16 +28,21 @@ class CreateAccountVM:CreateAccountVMProtocol{
         self.client = client
     }
     
-    func signUp(withEmail: String, password: String) {
-        client.signUp(withEmail: withEmail, password: password){ user, error in
-            if let error = error{
-                print(error)
+    func signUp(withEmail: String, password: String, nickName:String) -> Observable<Void>{
+        return Observable.create({[unowned self] observer in
+            self.client.signUp(withEmail: withEmail, password: password, nickName:nickName){ user, error in
+                if let error = error{
+                    observer.onError(error)
+                    return
+                }
+                
+                observer.onNext()
                 return
             }
-            let user:FIRUser = user as! FIRUser
-            print(user)
-        }
+            return Disposables.create()
+        })
     }
+    
     func check(nickName: String) -> Observable<Bool> {        
         return Observable.create({[unowned self] observer in
             self.client.check(nickName: nickName, completion: { available, error in

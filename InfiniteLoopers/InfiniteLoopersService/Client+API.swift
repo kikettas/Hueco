@@ -1,3 +1,4 @@
+
 //
 //  Client+API.swift
 //  InfiniteLoopers
@@ -9,6 +10,7 @@
 import Alamofire
 import Foundation
 import FirebaseAuth
+import FirebaseDatabase
 import FacebookLogin
 import GoogleSignIn
 import UIKit
@@ -100,12 +102,19 @@ extension Client{
         }
     }
     
-    func signUp(withEmail: String, password: String, completion: @escaping ClientCompletion<User?>) {
+    func signUp(withEmail: String, password: String, nickName:String, completion: @escaping ClientCompletion<User?>) {
         FIRAuth.auth()?.createUser(withEmail: withEmail, password: password) { (user, error) in
             if let error = error{
                 completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user as? User, nil)
+                let ref = FIRDatabase.database().reference()
+                ref.child("users").child((user?.uid)!).setValue(["nickname":nickName])
+                _ = ref.child("users").child((user?.uid)!).observe(FIRDataEventType.value, with: { (snapshot) in
+                    let json = snapshot.value as? [String:Any] ?? [:]
+                    let user = User(json: json, uid: (user?.uid)!)
+                    completion(user, nil)
+
+                })
             }
         }
     }

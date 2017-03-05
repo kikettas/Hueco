@@ -11,7 +11,7 @@ import RxSwift
 import Swarkn
 
 class CreateAccountV: UIViewController {
-
+    
     var disposeBag = DisposeBag()
     var model:CreateAccountVMProtocol!
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -73,7 +73,7 @@ extension CreateAccountV{
             .filter{($0?.characters.count)! > 3}
             .debounce(0.3, scheduler: MainScheduler.instance)
             .subscribe(onNext: {[unowned self] text in
-                 self.model.check(nickName: text!)
+                self.model.check(nickName: text!)
                     .catchError(){error in
                         return .just(false)
                     }
@@ -81,7 +81,7 @@ extension CreateAccountV{
                     .distinctUntilChanged()
                     .bindTo(isUserNameCheckHidden)
                     .addDisposableTo(self.disposeBag)
-                }).addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
         Observable.combineLatest(isUserNameCheckHidden.asObservable(), isEmailCheckHidden, isPasswordCheckHidden){
             return ($0.0 || $0.1 || $0.2)
@@ -117,11 +117,16 @@ extension CreateAccountV{
                 guard let `self` = self else {
                     return
                 }
-                self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!)
+                self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!, nickName:self.userNameTF.text!)
+                    .subscribe(onNext: {
+                        self.dismiss(animated: true, completion: nil)
+                }, onError: {error in
+                    
+                }).addDisposableTo(self.disposeBag)
             }
             .addDisposableTo(disposeBag)
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

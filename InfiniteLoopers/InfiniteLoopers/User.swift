@@ -11,7 +11,8 @@ import ObjectMapper
 
 class User:Mappable{
     
-    var username:String!
+    var uid:String!
+    var nickname:String!
     var firstName:String?
     var lastName:String?
     var email:String!
@@ -26,13 +27,18 @@ class User:Mappable{
     required init?(map: Map) {
 
     }
+    
+    convenience init?(json:JSON, uid:String) {
+        self.init(JSON:json)
+        self.uid = uid
+    }
 }
 
 // MARK: - Mappable
 
 extension User{
     func mapping(map: Map) {
-        username <- map["username"]
+        nickname <- map["nickname"]
         firstName <- map["firstName"]
         lastName <- map["lastName"]
         email <- map["email"]
@@ -41,8 +47,6 @@ extension User{
         phone <- map["phone"]
         updatedAt <- map["updatedAt"] // transform
         createdAt <- map["createdAt"] // transform
-        lastName <- map["username"]
-        lastName <- map["username"]
         transactions <- map["transactions"]
         favoriteProducts <- map["favorites"]
     }
