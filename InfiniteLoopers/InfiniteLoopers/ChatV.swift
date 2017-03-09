@@ -76,12 +76,14 @@ extension ChatV{
     func setNavBarButtonImage(){
         if let imageUrl = model.chat.photo{
             let button = UIButton(type: UIButtonType.custom)
-            let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill) >> RoundCornerImageProcessor(cornerRadius: 5)
+            let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill)
             button.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
+            button.clipsToBounds = true
             button.kf.setImage(with: URL(string:imageUrl), for: .normal, placeholder: UIImage(color: UIColor.mainBackgroundColor), options: [.processor(processor)]){(image, error, cacheType, imageUrl) in
                 
+                
             }
-            
+            button.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0, cornerRadius: 5)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
         }
     }
