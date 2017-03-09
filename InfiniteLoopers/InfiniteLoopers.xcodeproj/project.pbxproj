@@ -15,6 +15,7 @@
 		1F12A5231E6B37BF00B93BEA /* ProductPresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A5221E6B37BF00B93BEA /* ProductPresenterController.swift */; };
 		1F12A5251E6B3B5600B93BEA /* PaginatedCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A5241E6B3B5600B93BEA /* PaginatedCollectionModel.swift */; };
 		1F12A52C1E6C442700B93BEA /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A52B1E6C442700B93BEA /* ChatMessage.swift */; };
+		1F12A5301E6C7E2300B93BEA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12A52F1E6C7E2300B93BEA /* Chat.swift */; };
 		1F19B5A41E68A2AB00A4B32B /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19B5A31E68A2AB00A4B32B /* AppManager.swift */; };
 		1F19B5A61E68AAC900A4B32B /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19B5A51E68AAC900A4B32B /* UIWindow.swift */; };
 		1F1C38871E50E9330086BE67 /* LoginV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C38851E50E9330086BE67 /* LoginV.swift */; };
@@ -146,6 +147,7 @@
 		1F12A5221E6B37BF00B93BEA /* ProductPresenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPresenterController.swift; sourceTree = "<group>"; };
 		1F12A5241E6B3B5600B93BEA /* PaginatedCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedCollectionModel.swift; sourceTree = "<group>"; };
 		1F12A52B1E6C442700B93BEA /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		1F12A52F1E6C7E2300B93BEA /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		1F19B5A31E68A2AB00A4B32B /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		1F19B5A51E68AAC900A4B32B /* UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		1F1C38851E50E9330086BE67 /* LoginV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginV.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				1F45C4F51E6225560064444E /* Product.swift */,
 				1F45C4F71E62258F0064444E /* Transaction.swift */,
 				1F12A52B1E6C442700B93BEA /* ChatMessage.swift */,
+				1F12A52F1E6C7E2300B93BEA /* Chat.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1173,6 +1176,7 @@
 				1F45C5061E6234A10064444E /* NewProductPagingVM.swift in Sources */,
 				1FA717151E450D6200CC0F39 /* AppDelegate.swift in Sources */,
 				1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */,
+				1F12A5301E6C7E2300B93BEA /* Chat.swift in Sources */,
 				1FCAF54A1E63373200FA40E8 /* ChatCell.swift in Sources */,
 				1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */,
 				1FC441511E6A331E00BCBFFF /* ProfilePageControllerV.swift in Sources */,

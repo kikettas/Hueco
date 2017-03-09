@@ -23,6 +23,7 @@ class User:Mappable{
     var updatedAt:Date!
     var favoriteProducts:[Product]?
     var transactions:[Transaction]?
+    var chatIDs:[String]?
     
     required init?(map: Map) {
 
@@ -51,5 +52,8 @@ extension User{
         createdAt <- map["createdAt"] // transform
         transactions <- map["transactions"]
         favoriteProducts <- map["favorites"]
+        if let chats = map["chats"].currentValue as? [String:Any]{
+            chatIDs = chats.keys.map{$0}
+        }
     }
 }

@@ -50,13 +50,11 @@ extension ProfileV{
         ratingsCount.text = "(143)"
         
         AppManager.shared.userLogged.asObservable()
-            .share()
             .map{return $0?.nickname ?? ""}
             .bindTo(userName.rx.text)
             .addDisposableTo(disposeBag)
         
         AppManager.shared.userLogged.asObservable()
-            .share()
             .map{return $0?.avatar}
             .filter{$0 != nil}
             .bindNext{ avatar in

@@ -9,7 +9,8 @@
 import Foundation
 import Alamofire
 import Firebase
-
+import RxCocoa
+import RxSwift
 
 typealias ClientCompletion<T> = (T,ClientError?) -> ()
 typealias JSON = [String:Any?]
@@ -18,6 +19,7 @@ protocol ClientProtocol {
     init(sessionManager:SessionManager)
     
     // API
+    func chats(withChatIDs ids:[String]) -> Observable<Chat>
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<User?>)
@@ -27,6 +29,7 @@ protocol ClientProtocol {
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
+    func user(withId id:String, completion:@escaping ClientCompletion<User>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
 
 }

@@ -14,16 +14,47 @@ import FirebaseDatabase
 import FacebookLogin
 import GoogleSignIn
 import UIKit
+import RxCocoa
+import RxSwift
 
 extension Client{
+    
+    func chats(withChatIDs ids: [String]) -> Observable<Chat> {
+        return Observable.create(){ observer in
+            _ = ids.map{chatID in
+                FIRDatabase.database().reference().child("chats").child(chatID).queryOrderedByValue().observeSingleEvent(of: .value){ (snapshot,x) in
+                    if let chat = snapshot.value as? [String:Any]{
+                        if let members = chat["members"] as? JSON, members.keys.count == 2{
+                            for member in members.keys{
+                                if(member != AppManager.shared.userLogged.value?.uid){
+                                    self.user(withId: member){ user, error in
+                                        if let error = error{
+                                            print(error)
+                                            return
+                                        }
+                                        let c = Chat.init(id: chatID, photo: user.avatar, name: user.nickname ?? "No nickname")
+                                        observer.onNext(c)
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            return Disposables.create{
+                print("aa")
+            }
+        }
+    }
     
     func check(nickName: String, completion: @escaping (Bool, ClientError?) -> ()) {
         sessionManager.request(Router.checkNickName(nickname: ["nickname":nickName])).responseValidatedJson{response in
             switch response{
-                case .success(let json):
-                    if let available = json["available"]{
-                        completion(available as! Bool,nil)
-                    }
+            case .success(let json):
+                if let available = json["available"]{
+                    completion(available as! Bool,nil)
+                }
                 break
             case .failure(let error):
                 completion(false,error as? ClientError)
@@ -136,5 +167,15 @@ extension Client{
                 completion((),nil)
             }
         }
+    }
+    
+    func user(withId id: String, completion:@escaping ClientCompletion<User>){
+            FIRDatabase.database().reference().child("users").child(id).observeSingleEvent(of: .value){ (snapshot,x) in
+                if let user = snapshot.value as? [String:Any]{
+                    if let u = User(JSON:user) {
+                        completion(u,nil)
+                    }
+                }
+            }
     }
 }

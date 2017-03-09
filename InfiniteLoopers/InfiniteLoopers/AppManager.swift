@@ -16,32 +16,39 @@ import GoogleSignIn
 class AppManager{
     static let shared:AppManager = AppManager()
     
-    fileprivate let dbReference:FIRDatabaseReference
+    fileprivate var userReference:FIRDatabaseReference?
+    fileprivate var userHandle:FIRDatabaseHandle?
     var userLogged: Variable<User?>
     private init(){
-        dbReference = FIRDatabase.database().reference()
         userLogged = Variable(nil)
-        FIRAuth.auth()?.addStateDidChangeListener(){(auth, user) in
+        FIRAuth.auth()?.addStateDidChangeListener(){[unowned self](auth, user) in
             if let fUser = user{
-                let userReference = self.dbReference.child("users").child(fUser.uid)
-                userReference.keepSynced(true)
-                _ = userReference.observe(FIRDataEventType.value, with: { snapshot in
-                    if let json = snapshot.value{
-                        let user = User(json: json as! JSON, uid: fUser.uid, photoUrl:fUser.photoURL?.absoluteString, email:fUser.email)
-                        self.userLogged.value = user
-                    }
-                })
+                if self.userReference == nil{
+                    self.userReference = FIRDatabase.database().reference().child("users").child(fUser.uid)
+                    self.userReference!.keepSynced(true)
+                    
+                    self.userHandle = self.userReference!.observe(FIRDataEventType.value, with: { snapshot in
+                        if let json = snapshot.value  as? [String: Any]{
+                            let user = User(json: json as JSON, uid: fUser.uid, photoUrl:fUser.photoURL?.absoluteString, email:fUser.email)
+                            self.userLogged.value = user
+                        }
+                    })
+                }
             }else{
                 self.userLogged.value = nil
+                self.userReference?.removeObserver(withHandle: self.userHandle!)
+                self.userReference = nil
+                self.userHandle = nil
             }
         }
     }
     
     static func initialize(){
         FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = true
+        FIRDatabase.database().persistenceEnabled = false
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
         _ = AppManager.shared
+        
     }
 }

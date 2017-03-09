@@ -7,20 +7,65 @@
 //
 
 import Foundation
-
+import Firebase
+import FirebaseDatabase
+import RxCocoa
+import RxSwift
 
 protocol ChatsVMProtocol{
-    var chats:[(String, String, String)] { get }
+    var client:ClientProtocol { get }
+    var chats:Variable<[Chat]> { get set}
 }
 
 class ChatsVM:ChatsVMProtocol{
-    var chats: [(String, String, String)] = []
+    var disposeBag = DisposeBag()
+    var chats: Variable<[Chat]> = Variable([])
+    var client: ClientProtocol
+    var chatsDBReference:FIRDatabaseReference?
     
-    init(){
-        chats.append(contentsOf: [
-            ("Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg","Hola"),
-            ("Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986","Hola1"),
-            ("Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728","Hola2")
-            ])
+    init(client:ClientProtocol = Client()){
+        self.client = client
+        
+        
+        AppManager.shared.userLogged.asObservable().subscribe(onNext:{[unowned self] user in
+            if let user = user{
+                if let chats = user.chatIDs{
+                    self.updateChats(chatIds: chats)
+                }
+            }else{
+                self.chats.value.removeAll()
+            }
+        }).addDisposableTo(disposeBag)
+    }
+
+    func updateChats(chatIds:[String]){
+        _ = chatIds.map{ chatID in
+            if(!chats.value.contains(where:{ c in return chatID == c.chatID })){
+                _ = FIRDatabase.database().reference().child("chats").child(chatID).observeSingleEvent(of: FIRDataEventType.value, with: {[unowned self] snapshot in
+                    if let chat = snapshot.value as? [String:Any]{
+                        if let members = chat["members"] as? JSON, members.keys.count == 2{
+                            for member in members.keys{
+                                if(member != AppManager.shared.userLogged.value?.uid){
+                                    self.client.user(withId: member){ user, error in
+                                        if let error = error{
+                                            print(error)
+                                            return
+                                        }
+                                        let c = Chat.init(id: chatID, photo: user.avatar, name: user.nickname ?? "No nickname")
+                                        self.chats.value.append(c)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        
+        for i in 0..<chats.value.count{
+            if(!chatIds.contains(chats.value[i].chatID)){
+                self.chats.value.remove(at: 1)
+            }
+        }
     }
 }
