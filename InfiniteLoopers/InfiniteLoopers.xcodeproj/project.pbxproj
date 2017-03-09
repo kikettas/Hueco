@@ -96,6 +96,7 @@
 		1FCAF54A1E63373200FA40E8 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCAF5481E63373200FA40E8 /* ChatCell.swift */; };
 		1FCAF54B1E63373200FA40E8 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCAF5491E63373200FA40E8 /* ChatCell.xib */; };
 		1FCD897C1E450E3B002792F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */; };
+		1FCE8DCB1E71E23100E2645F /* ImagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE8DCA1E71E23100E2645F /* ImagesManager.swift */; };
 		1FDA1F0C1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA1F0B1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift */; };
 		3B1F257A152A2E4253B3FE0D /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */; };
 		788F71E71E58E1BE003B8A97 /* CreateAccountV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */; };
@@ -237,6 +238,7 @@
 		1FCAF5481E63373200FA40E8 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		1FCAF5491E63373200FA40E8 /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		1FCD897B1E450E3B002792F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1FCE8DCA1E71E23100E2645F /* ImagesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesManager.swift; sourceTree = "<group>"; };
 		1FDA1F0B1E61D6EC00CCAFE8 /* GoogleLoginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginDelegate.swift; sourceTree = "<group>"; };
 		22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.release.xcconfig"; sourceTree = "<group>"; };
 		2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				1F8FFDF11E4FC4A800553E94 /* View Controllers */,
 				1FAA4AE01E4E28920014768D /* Navigator.swift */,
 				1F19B5A31E68A2AB00A4B32B /* AppManager.swift */,
+				1FCE8DCA1E71E23100E2645F /* ImagesManager.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				1FC441601E6A3A4D00BCBFFF /* ProfileHostedProductsV.swift in Sources */,
 				1F45C51B1E6253090064444E /* DummyNewProduct.swift in Sources */,
 				1F67125C1E4FA0C600C4B4A2 /* PopAnimator.swift in Sources */,
+				1FCE8DCB1E71E23100E2645F /* ImagesManager.swift in Sources */,
 				1F8FFDF81E4FC4F600553E94 /* ProductDetailVM.swift in Sources */,
 				1F7A1F111E4663A400FF88D3 /* UIColor.swift in Sources */,
 				1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */,

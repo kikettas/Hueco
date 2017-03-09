@@ -18,8 +18,9 @@ protocol ChatVMProtocol{
     var _refHandle:FIRDatabaseHandle! { get }
     var newMessage:PublishSubject<Void> { get }
     var chatMessages:[ChatMessage] { get }
+    var chat:Chat { get }
     
-    func configureDB()
+    func initializeChat()
     func sendMessage(withData data: ChatMessage)
 }
 
@@ -28,14 +29,16 @@ class ChatVM:ChatVMProtocol{
     var _refHandle: FIRDatabaseHandle!
     var newMessage: PublishSubject<Void> = PublishSubject()
     var chatMessages: [ChatMessage]
+    var chat: Chat
     
-    init(){
+    init(chat:Chat){
+        self.chat = chat
         chatMessages = []
-        configureDB()
+        initializeChat()
     }
     
-    func configureDB() {
-        ref = FIRDatabase.database().reference().child("chats").child("chat1")
+    func initializeChat() {
+        ref = FIRDatabase.database().reference().child("chats").child(chat.chatID)
         ref.keepSynced(true)
         _refHandle = self.ref.child("messages").queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
             guard let `self` = self else {
@@ -50,9 +53,12 @@ class ChatVM:ChatVMProtocol{
     }
     
     func sendMessage(withData data: ChatMessage) {
-        var mdata = Mapper().toJSON(data)
+        let message = Mapper().toJSON(data)
         
-        // Push data to Firebase Database
-        self.ref.child("messages").childByAutoId().setValue(mdata)
+        self.ref.child("messages").childByAutoId().setValue(message)
+    }
+    
+    deinit {
+        ref.removeObserver(withHandle: _refHandle)
     }
 }

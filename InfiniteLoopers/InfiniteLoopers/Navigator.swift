@@ -87,14 +87,14 @@ class Navigator{
     // MARK: - Chat
     
     
-    public static func navigateToChat(from:UIViewController, userName:String){
+    public static func navigateToChat(from:UIViewController, chat:Chat){
         if(from is ChatsV){
-            from.navigationController?.pushViewController(ChatV(model: ChatVM()), animated: true)
+            from.navigationController?.pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
         }else if(from is SearchV || from is ProfileV || from is NotificationsV){
             if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
                 (tabBarV as! UITabBarController).selectedIndex = 3
                 if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
-                    (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM()), animated: true)
+                    (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
                 }
             }
         }else{
@@ -102,7 +102,7 @@ class Navigator{
                 if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
                     (tabBarV as! UITabBarController).selectedIndex = 3
                     if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
-                        (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM()), animated: true)
+                        (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
                     }
                 }
             }

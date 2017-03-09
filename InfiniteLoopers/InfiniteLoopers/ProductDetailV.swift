@@ -104,7 +104,8 @@ extension ProductDetailV{
             .tap
             .observeOn(MainScheduler.instance)
             .bindNext(){[unowned self] in
-                Navigator.navigateToChat(from: self, userName: "Michael Scott")
+                var dummyChat = Chat(id: "Chat1", photo: "https://s-media-cache-ak0.pinimg.com/736x/86/0b/f0/860bf09769129e3c075bf7ff90e0c78a.jpg", name: "Test")
+                Navigator.navigateToChat(from: self, chat: dummyChat)
             }
             .addDisposableTo(disposeBag)
         

@@ -39,7 +39,7 @@ extension ChatsV{
             }
             self.tableView.deselectRow(at: indexpath, animated: true)
 
-            Navigator.navigateToChat(from: self, userName: self.model.chats.value[indexpath.row].name)
+            Navigator.navigateToChat(from: self, chat: self.model.chats.value[indexpath.row])
             
             }.addDisposableTo(disposeBag)
         tableView.tableFooterView = UIView()

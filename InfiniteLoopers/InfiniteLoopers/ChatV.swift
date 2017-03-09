@@ -8,8 +8,10 @@
 
 import UIKit
 import JSQMessagesViewController
+import Kingfisher
 import RxCocoa
 import RxSwift
+import Swarkn
 
 class ChatV: JSQMessagesViewController, UITextFieldDelegate {
     
@@ -17,15 +19,14 @@ class ChatV: JSQMessagesViewController, UITextFieldDelegate {
     var disposeBag = DisposeBag()
     var avatars = Dictionary<String, JSQMessagesAvatarImage?>()
     var senderImageUrl: String!
-
     
     var outgoingBubbleImageView = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with:UIColor.mainRedTranslucent)
     var incomingBubbleImageView = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with:UIColor.white)
     
-    
     convenience init(model:ChatVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
+        self.title = model.chat.name
     }
 }
 
@@ -35,17 +36,19 @@ class ChatV: JSQMessagesViewController, UITextFieldDelegate {
 extension ChatV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = UIColor.mainBackgroundColor
-        self.edgesForExtendedLayout = []
-        inputToolbar.contentView.leftBarButtonItem = nil
         setupAppNavBarStyle()
-        senderDisplayName = "Kike"
-        senderId = "TBWCrKgAtiTxCTvWYE4jc77mUhn2"
+        
+        self.edgesForExtendedLayout = []
+        setNavBarButtonImage()
+        inputToolbar.contentView.leftBarButtonItem = nil
+        collectionView.backgroundColor = UIColor.mainBackgroundColor
         collectionView.collectionViewLayout.springinessEnabled = true
-
         automaticallyScrollsToMostRecentMessage = true
-        let profileImageUrl = "http://churchwilliams.com/wp-content/uploads/2013/03/dwight-schrute.jpg" as String?
-        if let urlString = profileImageUrl {
+        
+        senderDisplayName = AppManager.shared.userLogged.value?.nickname
+        senderId = AppManager.shared.userLogged.value?.uid
+        
+        if let urlString = AppManager.shared.userLogged.value?.avatar {
             setupAvatarImage(name: senderId, imageUrl: urlString as String, incoming: false)
             senderImageUrl = urlString as String
         } else {
@@ -57,28 +60,57 @@ extension ChatV{
             self.finishReceivingMessage(animated: true)
         }).addDisposableTo(disposeBag)
         
-        
-        
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        let message = ChatMessage(text: text, senderId: senderId, senderDisplayName: senderDisplayName, date: date.timeIntervalSince1970, isMediaMessage: false, senderPhoto:senderImageUrl)
+        model.sendMessage(withData: message)
+        finishSendingMessage(animated: true)
+    }
+    
+    func setNavBarButtonImage(){
+        if let imageUrl = model.chat.photo{
+            let button = UIButton(type: UIButtonType.custom)
+            let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill) >> RoundCornerImageProcessor(cornerRadius: 5)
+            button.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
+            button.kf.setImage(with: URL(string:imageUrl), for: .normal, placeholder: UIImage(color: UIColor.mainBackgroundColor), options: [.processor(processor)]){(image, error, cacheType, imageUrl) in
+                
+            }
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
+        }
+    }
+}
+
+
+// MARK: - JSQMessagesAvatarImageFactory
+
+extension ChatV{
     func setupAvatarImage(name: String, imageUrl: String?, incoming: Bool) {
-        if let stringUrl = imageUrl {
-            if let url = URL(string: stringUrl) {
-                if let data = NSData(contentsOf: url) {
-                    let image = UIImage(data: data as Data)
-                    let diameter = incoming ? UInt(collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
-                    let avatarImage = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: diameter)
-                    avatars[name] = avatarImage
+        if let stringUrl = imageUrl{
+            ImagesManager.fetchImage(url: stringUrl){ [weak self] image, error in
+                guard let `self` = self else {
                     return
                 }
+                if let error = error{
+                    print(error)
+                    return
+                }
+                
+                let diameter = incoming ? UInt(self.collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
+                let avatarImage = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: diameter)
+                
+                self.avatars[name] = avatarImage
+                self.collectionView.reloadData()
+                return
             }
         }
         
-        // At some point, we failed at getting the image (probably broken URL), so default to avatarColor
         setupAvatarColor(name: name, incoming: incoming)
     }
     
@@ -97,13 +129,8 @@ extension ChatV{
         
         avatars[name] = userImage
     }
-    
-    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        let message = ChatMessage(text: text, senderId: senderId, senderDisplayName: senderDisplayName, date: date.timeIntervalSince1970, isMediaMessage: false)
-        model.sendMessage(withData: message)
-        finishSendingMessage(animated: true)
-    }
 }
+
 
 // MARK: - JSQMessagesViewController
 
@@ -132,7 +159,7 @@ extension ChatV{
         if let avatar = avatars[message.senderId()] {
             return avatar
         } else {
-            setupAvatarImage(name: message.senderId(), imageUrl: "http://az616578.vo.msecnd.net/files/2015/08/24/6357600113572837231773916132_michael-scott-s-top-tantrums.png", incoming: true)
+            setupAvatarImage(name: message.senderId(), imageUrl: message.senderImage, incoming: true)
             let avatar = avatars[message.senderId()]
             return avatar!
         }
@@ -157,12 +184,10 @@ extension ChatV{
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = model.chatMessages[indexPath.item];
         
-        // Sent by me, skip
         if message.senderId() == senderId {
             return nil;
         }
         
-        // Same as previous sender, skip
         if indexPath.item > 0 {
             let previousMessage = model.chatMessages[indexPath.item - 1];
             if previousMessage.senderId() == message.senderId() {
@@ -176,12 +201,10 @@ extension ChatV{
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         let message = model.chatMessages[indexPath.item]
         
-        // Sent by me, skip
         if message.senderId() == senderId {
             return CGFloat(0.0);
         }
         
-        // Same as previous sender, skip
         if indexPath.item > 0 {
             let previousMessage = model.chatMessages[indexPath.item - 1];
             if previousMessage.senderId() == message.senderId() {
@@ -191,5 +214,4 @@ extension ChatV{
         
         return kJSQMessagesCollectionViewCellLabelHeightDefault
     }
-    
 }

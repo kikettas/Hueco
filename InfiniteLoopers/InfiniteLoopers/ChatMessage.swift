@@ -14,6 +14,7 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
     var text_:String?
     var senderId_: String
     var senderDisplayName_: String
+    var senderImage: String?
     var date_:TimeInterval
     var isMediaMessage_: Bool
     
@@ -24,13 +25,15 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
         isMediaMessage_ = false
     }
     
-    init(text:String, senderId:String, senderDisplayName:String, date:TimeInterval, isMediaMessage:Bool){
+    init(text:String, senderId:String, senderDisplayName:String, date:TimeInterval, isMediaMessage:Bool, senderPhoto:String){
         self.text_ = text
         self.senderId_ = senderId
         self.senderDisplayName_ = senderDisplayName
         self.date_ = date
         self.isMediaMessage_ = isMediaMessage
+        self.senderImage = senderPhoto
     }
+    
     
     func senderId() -> String! {
         return senderId_
@@ -66,5 +69,6 @@ extension ChatMessage{
         senderDisplayName_ <- map["senderDisplayName"]
         isMediaMessage_ <- map["isMediaMessage"]
         date_ <- map["date"]
+        senderImage <- map["senderImage"]
     }
 }

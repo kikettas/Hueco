@@ -32,7 +32,9 @@ class User:Mappable{
     convenience init?(json:JSON, uid:String, photoUrl:String?, email:String?) {
         self.init(JSON:json)
         self.uid = uid
-        self.avatar = photoUrl
+        if self.avatar == nil{
+            self.avatar = photoUrl
+        }
         self.email = email
     }
 }
