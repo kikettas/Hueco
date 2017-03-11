@@ -19,6 +19,7 @@
                     <rect key="frame" x="150" y="15" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
+            <color key="backgroundColor" red="0.0" green="0.74901960779999999" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="4B3-LG-cK5" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="7yl-R3-8Sr"/>
                 <constraint firstItem="4B3-LG-cK5" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="e8N-pB-AXa"/>

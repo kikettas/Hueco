@@ -37,7 +37,6 @@ extension SearchV{
     override func setupCollectionView(){
         super.setupCollectionView()
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
-
         
         (model as! SearchVMProtocol).refreshDataSource.subscribe(onNext:{[unowned self] in
             self.collectionView.reloadData()

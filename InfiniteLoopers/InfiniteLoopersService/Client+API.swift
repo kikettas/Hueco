@@ -114,11 +114,11 @@ extension Client{
         GIDSignIn.sharedInstance()?.signIn()
     }
     
-    func products() -> Observable<Product> {
-        return Observable.create { observer in
-            FIRDatabase.database().reference().child("products").observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
+    func products(startingAt:Any) -> Observable<Product> {
+        return Observable.create {[unowned self] observer in            
+            FIRDatabase.database().reference().child("products").queryOrderedByKey().queryLimited(toFirst: UInt(self.itemsPerPage)).queryStarting(atValue: startingAt).observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
                 if let productsJson = snapshot.value as? [String:Any]{
-                    print(productsJson)
+                    print("products...\(productsJson.count)")
                     for (index, element) in productsJson.enumerated(){
                         let productJson:[String:Any] = element.value as! [String : Any]
                         
@@ -138,6 +138,17 @@ extension Client{
                 }
             })
             return Disposables.create()
+        }
+    }
+    
+    func productKeys(completion: @escaping ([String], ClientError?) -> ()) {
+        sessionManager.request(URL(string:"https://infinite-loopers.firebaseio.com/products.json?shallow=true")!).responseValidatedJson{
+            switch $0{
+            case .success(let json):
+                completion(json.keys.sorted(), nil)
+            case .failure(let error):
+                completion([],error as? ClientError)
+            }
         }
     }
     

@@ -17,11 +17,16 @@ protocol ProfileParticipantProductsVMProtocol:PaginatedCollectionModel{
 class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
+    var isRefreshing: BehaviorSubject<Bool>
+    var client: ClientProtocol
+    var currentPage: Int = 0
+    var collectionKeys: [String] = []
     
     var dataSource: Variable<[Any]>
-    var nextPageAvailable: Bool = false
 
-    init(){
+    init(client:ClientProtocol = Client.shared){
+        isRefreshing = BehaviorSubject(value: false)
+        self.client = client
         dataSource = Variable([
             ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
             ("Youtube TV", "4€", "2/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),

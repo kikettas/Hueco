@@ -21,7 +21,7 @@ class PaginatedCollectionController: UIViewController, UICollectionViewDelegateF
     var cellHeight:CGFloat!
     var cellWidth:CGFloat!
     var disposeBag:DisposeBag!
-    var onLoadItemLimit:Int! = 6
+    var onLoadItemLimit:Int! = 1
     var refreshControl:UIRefreshControl!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -38,6 +38,17 @@ extension PaginatedCollectionController{
 
         setupRefreshControl()
         setupCollectionView()
+        
+        model.isRefreshing
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext:{ [unowned self] isRefreshing in
+                if(!isRefreshing && self.refreshControl.isRefreshing){
+                    self.refreshControl.endRefreshing()
+                }else if(isRefreshing && !self.refreshControl.isRefreshing){
+                    self.collectionView.setContentOffset(CGPoint(x: 0, y: -45), animated: true)
+                    self.refreshControl.beginRefreshing()
+                }
+            }).addDisposableTo(disposeBag)
     }
     
     func setupCollectionView(){
@@ -55,12 +66,6 @@ extension PaginatedCollectionController{
                 self.didRefresh()
             }.addDisposableTo(disposeBag)
         collectionView.addSubview(refreshControl)
-    }
-    
-    func willDisplay(atPosition: Int, collectionCount:Int){
-        if((collectionCount - atPosition) == self.onLoadItemLimit){
-            self.onLoadMore()
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -81,7 +86,7 @@ extension PaginatedCollectionController{
         return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "OnLoadMoreFooter", for: indexPath)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return model.nextPageAvailable && model.dataSource.value.count > 0 ? CGSize(width: UIScreen.main.bounds.width, height: 150) : CGSize(width: 0.1, height: 0.1)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {        
+        return model.dataSource.value.count < model.collectionKeys.count ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
     }
 }

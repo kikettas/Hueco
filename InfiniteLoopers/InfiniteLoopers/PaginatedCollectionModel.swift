@@ -14,6 +14,9 @@ protocol PaginatedCollectionModel{
     var didRefresh:(() -> ())! { get set }
     var onLoadMore:(() -> ())! { get set }
     
+    var client:ClientProtocol { get }
     var dataSource:Variable<[Any]> { get }
-    var nextPageAvailable:Bool { get set }
+    var isRefreshing:BehaviorSubject<Bool> { get }
+    var collectionKeys:[String] { get set}
+    var currentPage:Int { get set}
 }

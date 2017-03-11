@@ -17,6 +17,8 @@ typealias JSON = [String:Any?]
 
 protocol ClientProtocol {
     
+    var itemsPerPage:Int { get }
+    
     // API
     func chats(withChatIDs ids:[String]) -> Observable<Chat>
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
@@ -24,7 +26,8 @@ protocol ClientProtocol {
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>)
-    func products() -> Observable<Product> 
+    func products(startingAt:Any) -> Observable<Product>
+    func productKeys(completion: @escaping ClientCompletion<[String]>)
     func signOut(completion:@escaping ClientCompletion<Void>)
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
@@ -41,12 +44,14 @@ class Client: ClientProtocol {
     let authHandler:AuthHandler
     var googleLoginDelegate:GoogleLoginDelegate!
     var sessionManager:SessionManager
+    var itemsPerPage: Int
 
     private init(sessionManager: SessionManager = SessionManager()) {
         authHandler = AuthHandler()
         self.sessionManager = sessionManager
         self.sessionManager.adapter = authHandler
         self.sessionManager.retrier = authHandler
+        self.itemsPerPage = 10
     }
     
     
