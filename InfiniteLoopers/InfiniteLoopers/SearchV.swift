@@ -51,16 +51,22 @@ extension SearchV{
             Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: ("","Cuenta compartida", "Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends."), transitionDelegate: self)
         }).addDisposableTo(disposeBag)
         
-        model.dataSource.asObservable().bindTo(collectionView.rx.items(cellIdentifier: "ProductCell", cellType: ProductCell.self)){[unowned self] row, element, cell in
-            let product = self.model.dataSource.value[row] as! (String, String, String)
-            cell.productName.text = product.2
-            cell.productOwner.text = product.0
+        model.dataSource.asObservable().bindTo(collectionView.rx.items(cellIdentifier: "ProductCell", cellType: ProductCell.self)){row, element, cell in
+            let product = element as! Product
+            cell.productName.text = product.name
+            cell.productOwner.text = product.seller.nickname
             cell.productOwnerRating.rating = Int(arc4random_uniform(UInt32(5) - UInt32(0)) + UInt32(0))
+            cell.productOwnerRating.rating = product.seller.rating
+            cell.productType.text = product.category.name
+            cell.productPrice.text = product.priceWithCurrency
+            cell.productSpaces.text = product.slotsFormatted
             
-            let url = URL(string: product.1)
-            cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
-                (image, error, cacheType, imageUrl) in
-            })
+            if let avatar = product.seller.avatar{
+                let url = URL(string: avatar)
+                cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
+                    (image, error, cacheType, imageUrl) in
+                })
+            }
         }.addDisposableTo(disposeBag)
         
     }

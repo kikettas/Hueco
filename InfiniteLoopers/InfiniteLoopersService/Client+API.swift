@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FacebookLogin
 import GoogleSignIn
+import ObjectMapper
 import UIKit
 import RxCocoa
 import RxSwift
@@ -38,7 +39,7 @@ extension Client{
                                 }
                             }
                         }
-
+                        
                     }
                 }
             }
@@ -49,7 +50,7 @@ extension Client{
     }
     
     func check(nickName: String, completion: @escaping (Bool, ClientError?) -> ()) {
-        sessionManager.request(Router.checkNickName(nickname: ["nickname":nickName])).responseValidatedJson{response in
+        sessionManager.request(Router.checkNickName(parameters: ["nickname":nickName])).responseValidatedJson{response in
             switch response{
             case .success(let json):
                 if let available = json["available"]{
@@ -63,34 +64,34 @@ extension Client{
         }
     }
     
-    public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>){
+    public func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>){
         FIRAuth.auth()?.signIn(withEmail: withEmail, password: password){(user,error) in
             if let error = error{
-                completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+                completion((), ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user as? User, nil)
+                completion((), nil)
             }
         }
     }
     
-    func logIn(withCredential: FIRAuthCredential, completion: @escaping ClientCompletion<User?>) {
+    func logIn(withCredential: FIRAuthCredential, completion: @escaping ClientCompletion<Void>) {
         FIRAuth.auth()?.signIn(with: withCredential){(user,error) in
             if let error = error{
-                completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+                completion((), ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                completion(user as? User, nil)
+                completion((), nil)
             }
         }
     }
     
-    func logInWithFacebook(from: UIViewController, completion: @escaping ClientCompletion<User?>) {
+    func logInWithFacebook(from: UIViewController, completion: @escaping ClientCompletion<Void>) {
         let loginManager = LoginManager()
         loginManager.logIn([.publicProfile, .email], viewController: from){ loginResult in
             switch loginResult{
             case .failed(_):
-                completion(nil, ClientError.failedLoginWithFacebook)
+                completion((), ClientError.failedLoginWithFacebook)
             case .cancelled:
-                completion(nil, ClientError.logInCanceled)
+                completion((), ClientError.logInCanceled)
             case .success(_, _, let accessToken):
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 self.logIn(withCredential: credential, completion: completion)
@@ -98,11 +99,11 @@ extension Client{
         }
     }
     
-    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<User?>) {
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>){
         googleLoginDelegate = GoogleLoginDelegate(from:from, didLogin: {idToken, accessToken, error in
             if let error = error{
                 // figure out what kind of error is and parse to ClientError
-                completion(nil,ClientError.parseGoogleSignInError(errorCode: error._code))
+                completion((),ClientError.parseGoogleSignInError(errorCode: error._code))
                 return
             }
             let credential = FIRGoogleAuthProvider.credential(withIDToken: idToken!, accessToken: accessToken!)
@@ -111,6 +112,33 @@ extension Client{
         GIDSignIn.sharedInstance()?.delegate = googleLoginDelegate
         GIDSignIn.sharedInstance()?.uiDelegate = googleLoginDelegate
         GIDSignIn.sharedInstance()?.signIn()
+    }
+    
+    func products() -> Observable<Product> {
+        return Observable.create { observer in
+            FIRDatabase.database().reference().child("products").observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
+                if let productsJson = snapshot.value as? [String:Any]{
+                    print(productsJson)
+                    for (index, element) in productsJson.enumerated(){
+                        let productJson:[String:Any] = element.value as! [String : Any]
+                        
+                        self.user(withId: productJson["seller"] as! String){ user, error in
+                            if let _ = error{
+                                return
+                            }
+                            observer.onNext(Product(json:productJson, seller:user))
+                            if(index == (productsJson.count - 1)){
+                                observer.onCompleted()
+                            }
+                        }
+
+                    }
+                }else{
+                    observer.onError(ClientError.unknownError as Error)
+                }
+            })
+            return Disposables.create()
+        }
     }
     
     func signOut(completion: @escaping ClientCompletion<Void>) {
@@ -138,9 +166,14 @@ extension Client{
             if let error = error{
                 completion((), ClientError.parseFirebaseError(errorCode: error._code))
             }else{
-                let ref = FIRDatabase.database().reference()
-                ref.child("users").child((user?.uid)!).setValue(["nickname":nickName])
-                completion((), nil)
+                self.sessionManager.request(Router.signUp(parameters: ["nickname":nickName])).responseValidatedJson{ response in
+                    switch response{
+                    case .success(_):
+                        completion((),nil)
+                    case .failure(let error):
+                        completion((),error as? ClientError)
+                    }
+                }
             }
         }
     }
@@ -170,12 +203,12 @@ extension Client{
     }
     
     func user(withId id: String, completion:@escaping ClientCompletion<User>){
-            FIRDatabase.database().reference().child("users").child(id).observeSingleEvent(of: .value){ (snapshot,x) in
-                if let user = snapshot.value as? [String:Any]{
-                    if let u = User(JSON:user) {
-                        completion(u,nil)
-                    }
+        FIRDatabase.database().reference().child("users").child(id).observeSingleEvent(of: .value){ (snapshot,x) in
+            if let user = snapshot.value as? [String:Any]{
+                if let u = User(JSON:user) {
+                    completion(u,nil)
                 }
             }
+        }
     }
 }

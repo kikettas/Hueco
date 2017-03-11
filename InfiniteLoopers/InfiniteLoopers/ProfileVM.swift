@@ -14,6 +14,6 @@ protocol ProfileVMProtocol {
 
 class ProfileVM:ProfileVMProtocol{
     func logOut(completion:@escaping ClientCompletion<Void>){
-        Client().signOut(completion: completion)
+        Client.shared.signOut(completion: completion)
     }
 }

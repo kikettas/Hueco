@@ -1,3 +1,4 @@
+
 //
 //  AppManager.swift
 //  InfiniteLoopers
@@ -18,6 +19,7 @@ class AppManager{
     
     fileprivate var userReference:FIRDatabaseReference?
     fileprivate var userHandle:FIRDatabaseHandle?
+    fileprivate var isInitializingApp:Bool = true
     var userLogged: Variable<User?>
     private init(){
         userLogged = Variable(nil)
@@ -34,6 +36,7 @@ class AppManager{
                         }
                     })
                 }
+
             }else{
                 self.userLogged.value = nil
                 self.userReference?.removeObserver(withHandle: self.userHandle!)
@@ -48,7 +51,6 @@ class AppManager{
         FIRDatabase.database().persistenceEnabled = false
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
-        _ = AppManager.shared
-        
+        _ = AppManager.shared        
     }
 }

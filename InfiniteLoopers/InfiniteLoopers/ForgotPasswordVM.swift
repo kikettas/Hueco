@@ -19,7 +19,7 @@ protocol ForgotPasswordVMProtocol{
 class ForgotPasswordVM:ForgotPasswordVMProtocol{
     var client: ClientProtocol
     
-    required init(client: ClientProtocol = Client()) {
+    required init(client: ClientProtocol = Client.shared) {
         self.client = client
     }
     

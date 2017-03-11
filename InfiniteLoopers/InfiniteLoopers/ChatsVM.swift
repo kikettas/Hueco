@@ -23,7 +23,7 @@ class ChatsVM:ChatsVMProtocol{
     var client: ClientProtocol
     var chatsDBReference:FIRDatabaseReference?
     
-    init(client:ClientProtocol = Client()){
+    init(client:ClientProtocol = Client.shared){
         self.client = client
         
         

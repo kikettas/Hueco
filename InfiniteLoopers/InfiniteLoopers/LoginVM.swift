@@ -18,12 +18,12 @@ protocol LoginVMProtocol{
 class LoginVM: LoginVMProtocol{
     var client: ClientProtocol
     
-    required init(client: ClientProtocol = Client()) {
+    required init(client: ClientProtocol = Client.shared) {
         self.client = client
     }
     
     func logIn(withEmail: String, password: String) {
-        Client().logIn(withEmail: withEmail, password: password){ user, error in
+        client.logIn(withEmail: withEmail, password: password){ user, error in
             if let error = error{
                 print(error)
                 return

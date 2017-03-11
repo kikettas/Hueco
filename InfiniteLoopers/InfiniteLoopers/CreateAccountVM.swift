@@ -24,7 +24,7 @@ protocol CreateAccountVMProtocol{
 class CreateAccountVM:CreateAccountVMProtocol{
     var client: ClientProtocol
     
-    required init(client: ClientProtocol = Client()) {
+    required init(client: ClientProtocol = Client.shared) {
         self.client = client
     }
     

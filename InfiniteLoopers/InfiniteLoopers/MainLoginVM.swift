@@ -14,22 +14,22 @@ protocol MainLoginVMProtocol{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
-    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<User?>)
-    func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion<User?>)
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<Void>)
+    func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion<Void>)
 }
 
 class MainLoginVM:MainLoginVMProtocol{
     var client: ClientProtocol
     
-    required init(client: ClientProtocol = Client()) {
+    required init(client: ClientProtocol = Client.shared) {
         self.client = client
     }
     
-    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<User?>) {
+    func loginWithFacebook(from:UIViewController, completion:@escaping ClientCompletion<Void>) {
         client.logInWithFacebook(from: from, completion: completion)
     }
     
-    func loginWithGoogle(from:UIViewController, completion: @escaping ClientCompletion<User?>) {
+    func loginWithGoogle(from:UIViewController, completion: @escaping ClientCompletion<Void>) {
         client.logInWithGoogle(from:from ,completion: completion)
     }
 }

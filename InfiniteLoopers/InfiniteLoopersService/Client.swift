@@ -16,33 +16,56 @@ typealias ClientCompletion<T> = (T,ClientError?) -> ()
 typealias JSON = [String:Any?]
 
 protocol ClientProtocol {
-    init(sessionManager:SessionManager)
     
     // API
     func chats(withChatIDs ids:[String]) -> Observable<Chat>
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
-    func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<User?>)
-    func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<User?>)
-    func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<User?>)
-    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<User?>)
+    func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>)
+    func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
+    func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
+    func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>)
+    func products() -> Observable<Product> 
     func signOut(completion:@escaping ClientCompletion<Void>)
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
+    func refreshAccessToken(completion:@escaping ClientCompletion<String?>)
     func user(withId id:String, completion:@escaping ClientCompletion<User>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
-
+    func isAccessTokenAvailable() -> Bool
 }
 
 class Client: ClientProtocol {
+    static let shared:Client = Client()
     
     let authHandler:AuthHandler
     var googleLoginDelegate:GoogleLoginDelegate!
     var sessionManager:SessionManager
 
-    required public init(sessionManager: SessionManager = SessionManager()) {
+    private init(sessionManager: SessionManager = SessionManager()) {
         authHandler = AuthHandler()
         self.sessionManager = sessionManager
+        self.sessionManager.adapter = authHandler
+        self.sessionManager.retrier = authHandler
+    }
+    
+    
+    func refreshAccessToken(completion: @escaping (String?, ClientError?) -> ()) {        
+        if let user = FIRAuth.auth()?.currentUser{
+            user.getTokenForcingRefresh(true){ idToken, error in
+                if let error = error{
+                    completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+                    return
+                }
+                completion(idToken, nil)
+            }
+        }else{
+            completion(nil,ClientError.userNotFound)
+        }
+    }
+    
+    func isAccessTokenAvailable() -> Bool {
+        return authHandler.accessToken != nil
     }
 }
 
