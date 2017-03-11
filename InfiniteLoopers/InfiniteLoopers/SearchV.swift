@@ -38,10 +38,6 @@ extension SearchV{
         super.setupCollectionView()
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
         
-        (model as! SearchVMProtocol).refreshDataSource.subscribe(onNext:{[unowned self] in
-            self.collectionView.reloadData()
-        }).addDisposableTo(disposeBag)
-        
         collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] indexPath in
             let cell = self.collectionView.cellForItem(at: indexPath)
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)

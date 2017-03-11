@@ -108,7 +108,7 @@ extension ChatV{
                 let avatarImage = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: diameter)
                 
                 self.avatars[name] = avatarImage
-                self.collectionView.reloadData()
+                
                 return
             }
         }

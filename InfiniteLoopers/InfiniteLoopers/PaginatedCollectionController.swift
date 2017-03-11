@@ -52,7 +52,7 @@ extension PaginatedCollectionController{
     }
     
     func setupCollectionView(){
-        collectionView.register(UINib.init(nibName: "OnLoadMoreFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "OnLoadMoreFooter")
+        collectionView.register(UINib(nibName: "OnLoadMoreFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "OnLoadMoreFooter")
     }
     
     func setupRefreshControl(){

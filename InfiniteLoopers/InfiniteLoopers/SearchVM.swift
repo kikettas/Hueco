@@ -13,7 +13,6 @@ import Swarkn
 
 protocol SearchVMProtocol:PaginatedCollectionModel{
     var loadingMore: Variable<Bool> { get }
-    var refreshDataSource:PublishSubject<Void> { get }
     
     func reloadCollection()
 }
@@ -24,7 +23,6 @@ class SearchVM:SearchVMProtocol{
     var onLoadMore: (() -> ())!
     var loadingMore: Variable<Bool>
     var isRefreshing: BehaviorSubject<Bool>
-    var refreshDataSource: PublishSubject<Void>
     var disposeBag = DisposeBag()
     var client: ClientProtocol
     var collectionKeys: [String] = []
@@ -34,7 +32,6 @@ class SearchVM:SearchVMProtocol{
         self.client = client
         
         loadingMore = Variable(false)
-        refreshDataSource = PublishSubject()
         dataSource = Variable([])
         isRefreshing = BehaviorSubject(value: true)
         reloadCollection()

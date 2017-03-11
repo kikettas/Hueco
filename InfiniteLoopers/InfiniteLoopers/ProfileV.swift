@@ -62,7 +62,12 @@ extension ProfileV{
         }.addDisposableTo(disposeBag)
     
     
-        userRating.rating = 4
+        AppManager.shared.userLogged.asObservable()
+            .map{return $0?.rating}
+            .bindNext{
+                self.self.userRating.rating = $0!
+            }
+            .addDisposableTo(disposeBag)
         
         setPageController()
         
