@@ -19,24 +19,26 @@ protocol ClientProtocol {
     
     var itemsPerPage:Int { get }
     
+    func isAccessTokenAvailable() -> Bool
+    
     // API
     func chats(withChatIDs ids:[String]) -> Observable<Chat>
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
+    func join(ownID:String, sellerID: String, name:String, chatID:String?, productID:String) -> Observable<Chat>
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>)
     func products(startingAt:Any) -> Observable<Product>
     func productKeys(completion: @escaping ClientCompletion<[String]>)
+    func publishProduct(product:[String:Any]) -> Observable<Void>
+    func refreshAccessToken(completion:@escaping ClientCompletion<String?>)
+    func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
     func signOut(completion:@escaping ClientCompletion<Void>)
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
-    func refreshAccessToken(completion:@escaping ClientCompletion<String?>)
     func user(withId id:String, completion:@escaping ClientCompletion<User>)
-    func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
-    func isAccessTokenAvailable() -> Bool
-    func join(ownID:String, sellerID: String, name:String, chatID:String?, productID:String) -> Observable<Chat>
 }
 
 class Client: ClientProtocol {

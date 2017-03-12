@@ -16,8 +16,9 @@ class Product:Mappable{
     var currency:String!
     var published:Bool!
     var publishDate:Date!
-    var state:Int!
+    var state:Int?
     var seller:User!
+    var sellerID:String!
     var price:Float!
     var slots:Int!
     var freeSlots:Int!
@@ -41,6 +42,19 @@ class Product:Mappable{
         self.init(JSON:json)!
         self.seller = seller
     }
+    
+    init(name:String, category:ProductCategory,price:Float, slots:Int, description:String, currency:String, sellerID:String) {
+        self.name = name
+        self.category = category
+        self.price = price
+        self.productDescription = description
+        self.currency = currency
+        self.sellerID = sellerID
+        self.publishDate = Date()
+        self.published = true
+        self.slots = slots
+        self.freeSlots = 0
+    }
 }
 
 // MARK: - Mappable
@@ -56,6 +70,7 @@ extension Product{
         state <- map["state"]
         price <- map["price"]
         slots <- map["slots"]
+        sellerID <- map["seller"]
         freeSlots <- map["free_slots"]
         productDescription <- map["description"]
         currency <- map["currency"]

@@ -14,6 +14,7 @@ class NewProductPagingV: UIPageViewController {
     
     convenience init(model:NewProductPagingVMProtocol){
         self.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        self.model = model
         pages = [NewProductFirstStepV(model: NewProductFirstStepVM()),NewProductSecondStepV(model: NewProductSecondStepVM()),NewProductFinishedV(model: NewProductFinishedVM())]
     }
 }
@@ -26,46 +27,3 @@ extension NewProductPagingV{
         Navigator.navigateToNewProductFirstStep(parent: self, direction: .forward)
     }
 }
-
-
-// MARK: - UIPageViewControllerDataSource
-/*
-extension NewProductPagingV{
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = pages.index(of: viewController) else {
-            return nil
-        }
-        
-        let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = pages.count
-        
-        guard orderedViewControllersCount != nextIndex else {
-            return nil
-        }
-        
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        
-        return pages[nextIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = pages.index(of: viewController) else {
-            return nil
-        }
-        
-        let previousIndex = viewControllerIndex - 1
-        
-        guard previousIndex >= 0 else {
-            return nil
-        }
-        
-        guard pages.count > previousIndex else {
-            return nil
-        }
-        return pages[previousIndex]
-    }
-}
-
-*/

@@ -69,7 +69,19 @@ extension NewProductSecondStepV{
             .rx
             .tap.observeOn(MainScheduler.instance)
             .bindNext {[unowned self] in
-                Navigator.navigateToNewProductFinished(parent: self.parent as! NewProductPagingV)
+                let name = (self.parent as! NewProductPagingV).model.newProductName
+                self.model.publishProduct(name: name, category: ProductCategory(name:self.productTypeSelector.text!),
+                                          price: Float(self.quantityTF.text!)!, slots: Int(self.sharingCountTF.text!)!, description: self.descriptionTF.text!,
+                                          currency: self.currencyTF.text!){ [weak self] _, error in
+                                            guard let `self` = self else {
+                                                return
+                                            }
+                                            if let error = error{
+                                                print(error)
+                                                return
+                                            }
+                                            Navigator.navigateToNewProductFinished(parent: self.parent as! NewProductPagingV)                                            
+                }
             }.addDisposableTo(disposeBag)
     }
     

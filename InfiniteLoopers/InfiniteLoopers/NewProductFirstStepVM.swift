@@ -9,9 +9,10 @@
 import Foundation
 
 protocol NewProductFirstStepVMProtocol{
-    
 }
 
 class NewProductFirstStepVM:NewProductFirstStepVMProtocol{
     
+    init(){
+    }
 }

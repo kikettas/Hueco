@@ -16,6 +16,9 @@ class ProductCategory:Mappable{
     required init?(map: Map) {
         
     }
+    init(name:String){
+        self.name = name
+    }
     
     func mapping(map: Map) {
         name <- map["name"]

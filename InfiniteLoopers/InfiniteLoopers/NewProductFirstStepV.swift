@@ -42,6 +42,7 @@ extension NewProductFirstStepV{
             .rx
             .tap.observeOn(MainScheduler.instance)
             .bindNext {[unowned self] in
+                (self.parent as! NewProductPagingV).model.newProductName = self.productNameTF.text!
                 Navigator.navigateToNewProductSecondStep(parent: self.parent as! NewProductPagingV)
             }.addDisposableTo(disposeBag)
         

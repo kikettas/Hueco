@@ -9,15 +9,13 @@
 import Foundation
 
 protocol NewProductPagingVMProtocol{
-    var productName:String? { get set }
-    
-    func set(productName:String?)
+    var newProductName:String { get set }
 }
 
 class NewProductPagingVM:NewProductPagingVMProtocol{
-    var productName: String?
+    var newProductName: String
     
-    func set(productName: String?) {
-        self.productName = productName
+    init(){
+        newProductName = ""
     }
 }

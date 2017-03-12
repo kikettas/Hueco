@@ -80,7 +80,7 @@ extension Client{
                 chatReference = FIRDatabase.database().reference().child("chats").childByAutoId()
                 FIRDatabase.database().reference().child("products").child(productID).child("chat").setValue(chatReference.key)
             }
-
+            
             chatReference.child("name").setValue(name)
             chatReference.child("createdAt").setValue(Date().timeIntervalSince1970)
             chatReference.child("productID").setValue(productID)
@@ -210,6 +210,22 @@ extension Client{
             case .failure(let error):
                 completion([],error as? ClientError)
             }
+        }
+    }
+    
+    func publishProduct(product: [String : Any]) -> Observable<Void> {
+        return Observable.create { observer in
+            let dbReference = FIRDatabase.database().reference().child("products").childByAutoId()
+            var product = product
+            product["id"] = dbReference.key
+            dbReference.setValue(product){ error, dbReference in
+                if let error = error{
+                    observer.onError(ClientError.parseFirebaseError(errorCode: error._code))
+                    return
+                }
+                observer.onCompleted()
+            }
+            return Disposables.create()
         }
     }
     
