@@ -53,7 +53,7 @@ class Product:Mappable{
         self.publishDate = Date()
         self.published = true
         self.slots = slots
-        self.freeSlots = 0
+        self.freeSlots = slots
     }
 }
 
