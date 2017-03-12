@@ -56,15 +56,15 @@ extension ProfileV{
         
         AppManager.shared.userLogged.asObservable()
             .map{return $0?.avatar}
-            .bindNext{ avatar in
+            .bindNext{[unowned self] avatar in
                 self.profilePicture.kf.setImage(with: URL(string: avatar ?? ""), placeholder:UIImage(named:"ic_avatar_placeholder"))
         }.addDisposableTo(disposeBag)
     
     
         AppManager.shared.userLogged.asObservable()
             .map{return $0?.rating}
-            .bindNext{
-                self.self.userRating.rating = $0!
+            .bindNext{[unowned self] in
+                self.userRating.rating = $0!
             }
             .addDisposableTo(disposeBag)
         

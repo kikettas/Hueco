@@ -22,11 +22,13 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     var currentPage: Int = 0
     var collectionKeys: [String] = []
     var isNextPageAvailable: Bool = false
+    var loadingMore: Variable<Bool>
     
     var dataSource: Variable<[Any]>
 
     init(client:ClientProtocol = Client.shared){
         isRefreshing = BehaviorSubject(value: false)
+        loadingMore = Variable(false)
         self.client = client
         dataSource = Variable([
             ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
@@ -46,5 +48,9 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
         onLoadMore = {
             
         }
+    }
+    
+    func reloadCollection() {
+    
     }
 }

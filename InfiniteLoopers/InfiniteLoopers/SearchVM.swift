@@ -12,9 +12,7 @@ import RxSwift
 import Swarkn
 
 protocol SearchVMProtocol:PaginatedCollectionModel{
-    var loadingMore: Variable<Bool> { get }
     
-    func reloadCollection()
 }
 
 class SearchVM:SearchVMProtocol{

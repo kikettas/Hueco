@@ -17,7 +17,11 @@ protocol PaginatedCollectionModel{
     var client:ClientProtocol { get }
     var dataSource:Variable<[Any]> { get }
     var isRefreshing:BehaviorSubject<Bool> { get }
+    var loadingMore: Variable<Bool> { get }
     var collectionKeys:[String] { get set}
     var currentPage:Int { get set}
     var isNextPageAvailable:Bool { get set }
+    
+    func reloadCollection()
+
 }

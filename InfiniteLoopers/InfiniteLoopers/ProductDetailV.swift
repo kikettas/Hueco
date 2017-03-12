@@ -43,7 +43,7 @@ class ProductDetailV: UIViewController {
 // MARK: - UIViewController
 
 extension ProductDetailV{
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
@@ -55,7 +55,7 @@ extension ProductDetailV{
         model.product.asObservable().observeOn(MainScheduler.instance).map{$0.name}.bindTo(productName.rx.text).addDisposableTo(disposeBag)
         model.product.asObservable().observeOn(MainScheduler.instance).map{$0.category.name}.bindTo(productType.rx.text).addDisposableTo(disposeBag)
         model.product.asObservable().observeOn(MainScheduler.instance).map{$0.productDescription}.bindTo(productDescription.rx.text).addDisposableTo(disposeBag)
-
+        
         productOwnerRating.rating = model.product.value.seller.rating
         productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
         productOwnerImage.kf.setImage(with: URL(string:model.product.value.seller.avatar ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
@@ -83,15 +83,15 @@ extension ProductDetailV{
             }else{
                 cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
                 cell.participantImage.highlightedImage = UIImage(named: "ic_plus_w_padding_highlighted")
-
+                
                 cell.participantName.text = "¡Únete!"
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
         
         productParticipantsCollection.rx.itemSelected.observeOn(MainScheduler.instance).bindNext{[unowned self] indexPath in
             self.showJoinAlert()
             self.productParticipantsCollection.deselectItem(at: indexPath, animated: true)
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
         
     }
     
@@ -115,13 +115,13 @@ extension ProductDetailV{
                 }
             }
             .addDisposableTo(disposeBag)
-
-    
+        
+        
         chatButton
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){[unowned self] in                
+            .bindNext(){[unowned self] in
                 self.showJoinAlert()
             }
             .addDisposableTo(disposeBag)
@@ -134,20 +134,25 @@ extension ProductDetailV{
     }
     
     func showJoinAlert(){
-        Navigator.showAlert(on: self, message: "¿Deseas unirte a ésta ... de \(self.productName.text!)?", positiveMessage: "¡Unirte!", negativeMessage:"Cancelar"){ positive in
-            if(positive){
-                print("positive")
-                self.model.join(){ [weak self] chat, error in
-                    guard let `self` = self else {
-                        return
+        if let _ = AppManager.shared.userLogged.value{
+            let owner = self.productOwnerName.text ?? ""
+            Navigator.showAlert(on: self,title:"¿Quieres enviar una petición para unirte a \(self.productName.text!)?", message: "Una vez que tu petición para unirte sea aceptada, podrás hablar con \(owner) y empezar a compartir 🤝", positiveMessage: "Enviar", negativeMessage:"Cancelar"){ positive in
+                if(positive){
+                    print("positive")
+                    self.model.join(){ [weak self] chat, error in
+                        guard let `self` = self else {
+                            return
+                        }
+                        if let error = error{
+                            print(error)
+                            return
+                        }
+                        Navigator.navigateToChat(from: self, chat: chat!)
                     }
-                    if let error = error{
-                        print(error)
-                        return
-                    }
-                    Navigator.navigateToChat(from: self, chat: chat!)
                 }
             }
+        }else{
+            Navigator.navigateToMainLogin(from: self)
         }
     }
 }

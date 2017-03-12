@@ -84,7 +84,7 @@ extension MainLoginV{
                         print(error)
                         return
                     }
-                    print(user)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
             .addDisposableTo(disposeBag)
@@ -102,7 +102,7 @@ extension MainLoginV{
                         print(error)
                         return
                     }
-                    print(user)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
             .addDisposableTo(disposeBag)
