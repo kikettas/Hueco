@@ -48,7 +48,6 @@ extension CustomAlertV{
         if let alertTitle = alertTitle{
             alertTitleLabel.text = alertTitle
         }
-        
         if let negativeMessage = negativeMessage{
             negativeButton.setTitle(negativeMessage, for: .normal)
         }

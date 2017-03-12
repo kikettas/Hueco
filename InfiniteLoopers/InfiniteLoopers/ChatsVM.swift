@@ -42,21 +42,28 @@ class ChatsVM:ChatsVMProtocol{
         _ = chatIds.map{ chatID in
             if(!chats.value.contains(where:{ c in return chatID == c.chatID })){
                 _ = FIRDatabase.database().reference().child("chats").child(chatID).observeSingleEvent(of: FIRDataEventType.value, with: {[unowned self] snapshot in
-                    if let chat = snapshot.value as? [String:Any]{
-                        if let members = chat["members"] as? JSON, members.keys.count == 2{
-                            for member in members.keys{
+                    if let chatJson = snapshot.value as? [String:Any]{
+                        let c = Chat(id: chatID, json: chatJson)
+                        guard let chat = c else { return }
+                        
+                        if let photo = chat.photo{
+                            self.chats.value.append(chat)
+                        }else{
+                            chat.memberIDs.forEach{ member in
                                 if(member != AppManager.shared.userLogged.value?.uid){
                                     self.client.user(withId: member){ user, error in
                                         if let error = error{
                                             print(error)
                                             return
                                         }
-                                        let c = Chat.init(id: chatID, photo: user.avatar, name: user.nickname ?? "No nickname")
-                                        self.chats.value.append(c)
+                                        var mutableChat = chat
+                                        mutableChat.photo = user.avatar
+                                        self.chats.value.append(mutableChat)
                                     }
                                 }
                             }
                         }
+   
                     }
                 })
             }
@@ -64,7 +71,7 @@ class ChatsVM:ChatsVMProtocol{
         
         for i in 0..<chats.value.count{
             if(!chatIds.contains(chats.value[i].chatID)){
-                self.chats.value.remove(at: 1)
+                self.chats.value.remove(at: i)
             }
         }
     }

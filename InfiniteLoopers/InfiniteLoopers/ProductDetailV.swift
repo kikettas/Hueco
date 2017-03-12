@@ -127,13 +127,20 @@ extension ProductDetailV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){[unowned self] in
-//                var dummyChat = Chat(id: "Chat1", photo: "https://s-media-cache-ak0.pinimg.com/736x/86/0b/f0/860bf09769129e3c075bf7ff90e0c78a.jpg", name: "Test")
-//                Navigator.navigateToChat(from: self, chat: dummyChat)
-                
+            .bindNext(){[unowned self] in                
                 Navigator.showAlert(on: self, message: "¿Deseas unirte a ésta ... de \(self.productName.text!)?", positiveMessage: "¡Unirte!", negativeMessage:"Cancelar"){ positive in
                     if(positive){
                         print("positive")
+                        self.model.join(){ [weak self] chat, error in
+                            guard let `self` = self else {
+                                return
+                            }
+                            if let error = error{
+                                print(error)
+                                return
+                            }
+                            Navigator.navigateToChat(from: self, chat: chat!)
+                        }
                     }
                 }
             }

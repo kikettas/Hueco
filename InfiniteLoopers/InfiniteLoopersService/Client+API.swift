@@ -24,17 +24,23 @@ extension Client{
         return Observable.create(){ observer in
             _ = ids.map{chatID in
                 FIRDatabase.database().reference().child("chats").child(chatID).queryOrderedByValue().observeSingleEvent(of: .value){ (snapshot,x) in
-                    if let chat = snapshot.value as? [String:Any]{
-                        if let members = chat["members"] as? JSON, members.keys.count == 2{
-                            for member in members.keys{
+                    if let chatJson = snapshot.value as? [String:Any]{
+                        let c = Chat(id: chatID, json: chatJson)
+                        guard let chat = c else { return }
+                        
+                        if let photo = chat.photo{
+                            observer.onNext(chat)
+                        }else{
+                            chat.memberIDs.forEach{ member in
                                 if(member != AppManager.shared.userLogged.value?.uid){
                                     self.user(withId: member){ user, error in
                                         if let error = error{
                                             print(error)
                                             return
                                         }
-                                        let c = Chat.init(id: chatID, photo: user.avatar, name: user.nickname ?? "No nickname")
-                                        observer.onNext(c)
+                                        var mutableChat = chat
+                                        mutableChat.photo = user.avatar
+                                        observer.onNext(mutableChat)
                                     }
                                 }
                             }
@@ -61,6 +67,42 @@ extension Client{
                 completion(false,error as? ClientError)
                 break
             }
+        }
+    }
+    
+    func join(ownID:String, sellerID: String, name:String, chatID:String?, productID:String) -> Observable<Chat> {
+        return Observable.create{ observer in
+            let membersChat = [ownID:true, sellerID:true]
+            let chatReference:FIRDatabaseReference
+            if let chatID = chatID {
+                chatReference = FIRDatabase.database().reference().child("chats").child(chatID)
+            }else{
+                chatReference = FIRDatabase.database().reference().child("chats").childByAutoId()
+                FIRDatabase.database().reference().child("products").child(productID).child("chat").setValue(chatReference.key)
+            }
+
+            chatReference.child("name").setValue(name)
+            chatReference.child("createdAt").setValue(Date().timeIntervalSince1970)
+            chatReference.child("productID").setValue(productID)
+            chatReference.child("members").setValue(membersChat){ error, dbreference in
+                if let error = error{
+                    observer.onError(ClientError.parseFirebaseError(errorCode: error._code))
+                    return
+                }
+                FIRDatabase.database().reference().child("products").child(productID)
+                FIRDatabase.database().reference().child("users").child(sellerID).child("chats").child(chatReference.key).setValue(true)
+                FIRDatabase.database().reference().child("users").child(ownID).child("chats").child(chatReference.key).setValue(true){ error, dbreference in
+                    if let error = error{
+                        observer.onError(ClientError.parseFirebaseError(errorCode: error._code))
+                        return
+                    }
+                    // This will change when first step validation is enabled
+                    observer.onNext(Chat(id: chatReference.key, photo: nil, name: name,productID:productID, members:[ownID,sellerID]))
+                    observer.onCompleted()
+                }
+            }
+            
+            return Disposables.create()
         }
     }
     
@@ -120,20 +162,20 @@ extension Client{
                 if let productsJson = snapshot.value as? [String:Any]{
                     print("products...\(productsJson.count)")
                     self.fetchUser(fromProducts: productsJson, atIndex: 0, observer: observer)
-//                    for (index, element) in productsJson.enumerated(){
-//                        let productJson:[String:Any] = element.value as! [String : Any]
-//                        
-//                        self.user(withId: productJson["seller"] as! String){ user, error in
-//                            if let _ = error{
-//                                print("Error")
-//                                return
-//                            }
-//                            observer.onNext(Product(json:productJson, seller:user))
-//                            if(index == (productsJson.count - 1)){
-//                                observer.onCompleted()
-//                            }
-//                        }
-//                    }
+                    //                    for (index, element) in productsJson.enumerated(){
+                    //                        let productJson:[String:Any] = element.value as! [String : Any]
+                    //
+                    //                        self.user(withId: productJson["seller"] as! String){ user, error in
+                    //                            if let _ = error{
+                    //                                print("Error")
+                    //                                return
+                    //                            }
+                    //                            observer.onNext(Product(json:productJson, seller:user))
+                    //                            if(index == (productsJson.count - 1)){
+                    //                                observer.onCompleted()
+                    //                            }
+                    //                        }
+                    //                    }
                 }else{
                     observer.onError(ClientError.unknownError as Error)
                 }
@@ -157,7 +199,7 @@ extension Client{
                 self.fetchUser(fromProducts: fromProducts, atIndex: index + 1, observer: observer)
             }
         }
-
+        
     }
     
     func productKeys(completion: @escaping ([String], ClientError?) -> ()) {

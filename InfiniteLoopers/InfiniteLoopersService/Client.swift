@@ -36,6 +36,7 @@ protocol ClientProtocol {
     func user(withId id:String, completion:@escaping ClientCompletion<User>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
     func isAccessTokenAvailable() -> Bool
+    func join(ownID:String, sellerID: String, name:String, chatID:String?, productID:String) -> Observable<Chat>
 }
 
 class Client: ClientProtocol {
@@ -45,7 +46,7 @@ class Client: ClientProtocol {
     var googleLoginDelegate:GoogleLoginDelegate!
     var sessionManager:SessionManager
     var itemsPerPage: Int
-
+    
     private init(sessionManager: SessionManager = SessionManager()) {
         authHandler = AuthHandler()
         self.sessionManager = sessionManager
@@ -55,7 +56,7 @@ class Client: ClientProtocol {
     }
     
     
-    func refreshAccessToken(completion: @escaping (String?, ClientError?) -> ()) {        
+    func refreshAccessToken(completion: @escaping (String?, ClientError?) -> ()) {
         if let user = FIRAuth.auth()?.currentUser{
             user.getTokenForcingRefresh(true){ idToken, error in
                 if let error = error{
@@ -84,11 +85,11 @@ extension DataRequest{
                 callback(.success(response.result.value as! JSON))
             }else if(response.result.isFailure){
                 if(response.response?.statusCode == 200){
-                   print("✅ Success request: ➡️ \(response.request!)")
+                    print("✅ Success request: ➡️ \(response.request!)")
                     callback(.success(response.result.value as! JSON))
                 }else{
                     print("❌ Failure (\(response.response?.statusCode)) request: ➡️ \(response.request!)")
-
+                    
                     if let data = response.data, let jsonError:JSON = try! JSONSerialization.jsonObject(with: data, options: []) as? JSON{
                         let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as! String)
                         print("❌ Error: \(error)")

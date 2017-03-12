@@ -29,15 +29,6 @@ class User:Mappable{
     required init?(map: Map) {
 
     }
-    
-    convenience init?(json:JSON, uid:String, photoUrl:String?, email:String?) {
-        self.init(JSON:json)
-        self.uid = uid
-        if self.avatar == nil{
-            self.avatar = photoUrl
-        }
-        self.email = email
-    }
 }
 
 // MARK: - Mappable
@@ -55,6 +46,7 @@ extension User{
         createdAt <- (map["createdAt"],DateTransform())
         transactions <- map["transactions"]
         favoriteProducts <- map["favorites"]
+        uid <- map["uid"]
 
         rating = map["rating"].currentValue as! Int? ?? 0
         if let chats = map["chats"].currentValue as? [String:Any]{

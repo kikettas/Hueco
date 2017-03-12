@@ -12,6 +12,7 @@ import ObjectMapper
 class Product:Mappable{
     var name:String!
     var category:ProductCategory!
+    var chat:String?
     var currency:String!
     var published:Bool!
     var publishDate:Date!
@@ -22,6 +23,7 @@ class Product:Mappable{
     var freeSlots:Int!
     var productDescription:String?
     var participantKeys:[String]?
+    var id:String!
     
     var priceWithCurrency:String {
         return price.clean + currency
@@ -45,8 +47,10 @@ class Product:Mappable{
 
 extension Product{
     func mapping(map: Map) {
+        id <- map["id"]
         name <- map["name"]
         category <- map["category"]
+        chat <- map["chat"]
         published <- map["published"]
         publishDate <- (map["publish_date"], DateTransform())
         state <- map["state"]
