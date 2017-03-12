@@ -58,14 +58,7 @@ extension ProductDetailV{
 
         productOwnerRating.rating = model.product.value.seller.rating
         productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
-        productOwnerImage.kf.setImage(with: URL(string:model.product.value.seller.avatar ?? "")){[weak self] (image, error, cacheType, imageUrl) in
-            guard let `self` = self else {
-                return
-            }
-            if let _ = error{
-                self.productOwnerImage.image = UIImage(named: "ic_avatar_placeholder")
-            }
-        }
+        productOwnerImage.kf.setImage(with: URL(string:model.product.value.seller.avatar ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
         productOwnerName.text = model.product.value.seller.nickname
         productSpaces.text = model.product.value.slotsFormatted
         productPrice.text = model.product.value.priceWithCurrency
@@ -84,11 +77,7 @@ extension ProductDetailV{
         
         model.participants.asObservable().bindTo(productParticipantsCollection.rx.items(cellIdentifier: "ParticipantCell", cellType: ParticipantCell.self)){row, element, cell in
             if let participant = element{
-                cell.participantImage.kf.setImage(with: URL(string:participant.avatar ?? "")){(image, error, cacheType, imageUrl) in
-                    if let _ = error{
-                        cell.participantImage.image = UIImage(named: "ic_avatar_placeholder")
-                    }
-                }
+                cell.participantImage.kf.setImage(with: URL(string:participant.avatar ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
                 cell.participantImage.highlightedImage = nil
                 cell.participantName.text = participant.nickname
             }else{

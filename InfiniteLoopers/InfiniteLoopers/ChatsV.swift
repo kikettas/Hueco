@@ -52,6 +52,7 @@ extension ChatsV{
                 cell.userPhoto.kf.setImage(with: URL(string: photo))
             }else{
                 cell.userPhoto.image = UIImage(named: "ic_avatar_placeholder")
+                cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 1, cornerRadius: 5)
             }
             
             cell.lastMessage.text = ""

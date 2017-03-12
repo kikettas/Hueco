@@ -25,7 +25,8 @@ class ProductCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         self.setBorderAndRadius(color: UIColor.lightGray.cgColor, width: 0.5)
-        self.productOwnerImage.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0)
+        self.productOwnerImage.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5)
+
     }
 
 }

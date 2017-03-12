@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 class SearchV: ProductPresenterController,UISearchControllerDelegate {
-
+    
     var searchController: UISearchController!
     
     convenience init(model:SearchVMProtocol) {
@@ -42,7 +42,7 @@ extension SearchV{
             let cell = self.collectionView.cellForItem(at: indexPath)
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
-
+            
             Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
         
@@ -56,13 +56,11 @@ extension SearchV{
             cell.productPrice.text = product.priceWithCurrency
             cell.productSpaces.text = product.slotsFormatted
             
-            if let avatar = product.seller.avatar{
-                let url = URL(string: avatar)
-                cell.productOwnerImage.kf.setImage(with: url,options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)], completionHandler: {
-                    (image, error, cacheType, imageUrl) in
-                })
-            }
-        }.addDisposableTo(disposeBag)
+            let url = URL(string: product.seller.avatar ?? "")
+            cell.productOwnerImage.kf.setImage(with: url, placeholder: UIImage(named:"ic_avatar_placeholder"),options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)])
+            
+            
+            }.addDisposableTo(disposeBag)
         
     }
     
