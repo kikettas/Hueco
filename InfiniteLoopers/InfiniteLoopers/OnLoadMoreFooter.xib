@@ -17,6 +17,10 @@
             <subviews>
                 <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4B3-LG-cK5">
                     <rect key="frame" x="150" y="15" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="JD6-NL-Xbn"/>
+                        <constraint firstAttribute="width" constant="20" id="uqH-Kd-Gtc"/>
+                    </constraints>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.74901960779999999" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>

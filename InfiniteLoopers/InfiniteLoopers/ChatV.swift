@@ -17,7 +17,7 @@ class ChatV: JSQMessagesViewController, UITextFieldDelegate {
     
     var model:ChatVMProtocol!
     var disposeBag = DisposeBag()
-    var avatars = Dictionary<String, JSQMessagesAvatarImage?>()
+    var avatarPlaceholder:JSQMessagesAvatarImage!
     var senderImageUrl: String!
     
     var outgoingBubbleImageView = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with:UIColor.mainRedTranslucent)
@@ -48,13 +48,7 @@ extension ChatV{
         senderDisplayName = AppManager.shared.userLogged.value?.nickname
         senderId = AppManager.shared.userLogged.value?.uid
         
-        if let urlString = AppManager.shared.userLogged.value?.avatar {
-            setupAvatarImage(name: senderId, imageUrl: urlString as String, incoming: false)
-            senderImageUrl = urlString as String
-        } else {
-            setupAvatarColor(name: senderId, incoming: false)
-            senderImageUrl = ""
-        }
+        avatarPlaceholder = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ic_avatar_placeholder"), diameter: UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width))
         
         self.model.newMessage.subscribe(onNext:{ [unowned self] in
             self.finishReceivingMessage(animated: true)
@@ -90,52 +84,6 @@ extension ChatV{
 }
 
 
-// MARK: - JSQMessagesAvatarImageFactory
-
-extension ChatV{
-    func setupAvatarImage(name: String, imageUrl: String?, incoming: Bool) {
-        if let stringUrl = imageUrl{
-            ImagesManager.fetchImage(url: stringUrl){ [weak self] image, error in
-                guard let `self` = self else {
-                    return
-                }
-                if let error = error{
-                    print(error)
-                    return
-                }
-                
-                let diameter = incoming ? UInt(self.collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
-                let avatarImage = JSQMessagesAvatarImageFactory.avatarImage(with: image, diameter: diameter)
-                
-                self.avatars[name] = avatarImage
-                
-                return
-            }
-        }
-        
-        setupAvatarColor(name: name, incoming: incoming)
-    }
-    
-    func setupAvatarColor(name: String, incoming: Bool) {
-        let diameter = incoming ? UInt(collectionView.collectionViewLayout.incomingAvatarViewSize.width) : UInt(collectionView.collectionViewLayout.outgoingAvatarViewSize.width)
-        
-        let rgbValue = name.hash
-        let r = CGFloat(Float((rgbValue & 0xFF0000) >> 16)/255.0)
-        let g = CGFloat(Float((rgbValue & 0xFF00) >> 8)/255.0)
-        let b = CGFloat(Float(rgbValue & 0xFF)/255.0)
-        let color = UIColor(red: r, green: g, blue: b, alpha: 0.5)
-        
-        let nameLength = name.characters.count
-        let initials : String? = name.substring(to: senderId.index(senderId.startIndex, offsetBy: min(3, nameLength)))
-        let userImage = JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: initials, backgroundColor: color, textColor: UIColor.black, font: UIFont.systemFont(ofSize: CGFloat(13)), diameter: diameter)
-        
-        avatars[name] = userImage
-    }
-}
-
-
-// MARK: - JSQMessagesViewController
-
 extension ChatV{
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
@@ -157,14 +105,7 @@ extension ChatV{
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        let message = model.chatMessages[indexPath.item]
-        if let avatar = avatars[message.senderId()] {
-            return avatar
-        } else {
-            setupAvatarImage(name: message.senderId(), imageUrl: message.senderImage, incoming: true)
-            let avatar = avatars[message.senderId()]
-            return avatar!
-        }
+        return avatarPlaceholder
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -176,6 +117,15 @@ extension ChatV{
         } else {
             cell.textView.textColor = UIColor.black
         }
+        cell.avatarImageView.kf.setImage(with: URL(string:message.senderImage ?? "")){(image, error, cacheType, imageUrl) in
+            if let _ = error{
+                cell.avatarImageView.image = UIImage(named: "ic_avatar_placeholder")
+            }
+            cell.avatarImageView.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+        }
+        
+        cell.avatarImageView.contentMode = .scaleAspectFill
+        cell.avatarImageView.clipsToBounds = true
         
         let attributes : [String:AnyObject] = [NSForegroundColorAttributeName:cell.textView.textColor!, NSUnderlineStyleAttributeName: 1 as AnyObject]
         cell.textView.linkTextAttributes = attributes
