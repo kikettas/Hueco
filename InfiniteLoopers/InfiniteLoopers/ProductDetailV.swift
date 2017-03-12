@@ -87,6 +87,12 @@ extension ProductDetailV{
                 cell.participantName.text = "¡Únete!"
             }
         }.addDisposableTo(disposeBag)
+        
+        productParticipantsCollection.rx.itemSelected.observeOn(MainScheduler.instance).bindNext{[unowned self] indexPath in
+            self.showJoinAlert()
+            self.productParticipantsCollection.deselectItem(at: indexPath, animated: true)
+        }.addDisposableTo(disposeBag)
+        
     }
     
     
@@ -106,7 +112,6 @@ extension ProductDetailV{
             .observeOn(MainScheduler.instance)
             .bindNext(){[unowned self] in
                 Navigator.navigateToShareProduct(from: self, sourceView: self.shareButton){
-                    
                 }
             }
             .addDisposableTo(disposeBag)
@@ -117,28 +122,32 @@ extension ProductDetailV{
             .tap
             .observeOn(MainScheduler.instance)
             .bindNext(){[unowned self] in                
-                Navigator.showAlert(on: self, message: "¿Deseas unirte a ésta ... de \(self.productName.text!)?", positiveMessage: "¡Unirte!", negativeMessage:"Cancelar"){ positive in
-                    if(positive){
-                        print("positive")
-                        self.model.join(){ [weak self] chat, error in
-                            guard let `self` = self else {
-                                return
-                            }
-                            if let error = error{
-                                print(error)
-                                return
-                            }
-                            Navigator.navigateToChat(from: self, chat: chat!)
-                        }
-                    }
-                }
+                self.showJoinAlert()
             }
             .addDisposableTo(disposeBag)
         
         let attString = NSMutableAttributedString()
         attString.append(NSAttributedString(string: "¡Habla con ", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Light", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
-        attString.append(NSAttributedString(string: "Michael Scott!", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
+        attString.append(NSAttributedString(string: (self.model.product.value.seller.nickname ?? "")!, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
+    }
+    
+    func showJoinAlert(){
+        Navigator.showAlert(on: self, message: "¿Deseas unirte a ésta ... de \(self.productName.text!)?", positiveMessage: "¡Unirte!", negativeMessage:"Cancelar"){ positive in
+            if(positive){
+                print("positive")
+                self.model.join(){ [weak self] chat, error in
+                    guard let `self` = self else {
+                        return
+                    }
+                    if let error = error{
+                        print(error)
+                        return
+                    }
+                    Navigator.navigateToChat(from: self, chat: chat!)
+                }
+            }
+        }
     }
 }
