@@ -56,9 +56,8 @@ extension ProfileV{
         
         AppManager.shared.userLogged.asObservable()
             .map{return $0?.avatar}
-            .filter{$0 != nil}
             .bindNext{ avatar in
-                self.profilePicture.kf.setImage(with: URL(string: avatar!))
+                self.profilePicture.kf.setImage(with: URL(string: avatar ?? ""), placeholder:UIImage(named:"ic_avatar_placeholder"))
         }.addDisposableTo(disposeBag)
     
     

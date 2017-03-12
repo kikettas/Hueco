@@ -45,25 +45,7 @@ class ChatsVM:ChatsVMProtocol{
                     if let chatJson = snapshot.value as? [String:Any]{
                         let c = Chat(id: chatID, json: chatJson)
                         guard let chat = c else { return }
-                        
-                        if let photo = chat.photo{
-                            self.chats.value.append(chat)
-                        }else{
-                            chat.memberIDs.forEach{ member in
-                                if(member != AppManager.shared.userLogged.value?.uid){
-                                    self.client.user(withId: member){ user, error in
-                                        if let error = error{
-                                            print(error)
-                                            return
-                                        }
-                                        var mutableChat = chat
-                                        mutableChat.photo = user.avatar
-                                        self.chats.value.append(mutableChat)
-                                    }
-                                }
-                            }
-                        }
-   
+                        self.chats.value.append(chat)
                     }
                 })
             }

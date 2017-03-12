@@ -50,6 +50,8 @@ extension ChatsV{
             cell.userName.text = element.name
             if let photo = element.photo{
                 cell.userPhoto.kf.setImage(with: URL(string: photo))
+            }else{
+                cell.userPhoto.image = UIImage(named: "ic_avatar_placeholder")
             }
             
             cell.lastMessage.text = ""
