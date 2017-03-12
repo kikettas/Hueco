@@ -143,4 +143,15 @@ class Navigator{
         
         from.present(productDetailV, animated: true, completion: nil)
     }
+    
+    public static func showAlert(on:UIViewController, title:String? = nil,message:String, positiveMessage:String, negativeMessage:String? = nil, completion:((Bool) -> ())){
+        let alert = CustomAlertV(title: title, message: message, positiveMessage: positiveMessage, negativeMessage: negativeMessage){ positive in
+            if(positive){
+                print("positive")
+            }
+        }
+        alert.modalPresentationStyle = .overFullScreen
+        alert.modalTransitionStyle = .crossDissolve
+        on.present(alert, animated: true, completion: nil)
+    }
 }

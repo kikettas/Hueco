@@ -88,11 +88,13 @@ extension ProductDetailV{
                     if let _ = error{
                         cell.participantImage.image = UIImage(named: "ic_avatar_placeholder")
                     }
-                    //cell.participantImage.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
                 }
+                cell.participantImage.highlightedImage = nil
                 cell.participantName.text = participant.nickname
             }else{
                 cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
+                cell.participantImage.highlightedImage = UIImage(named: "ic_plus_w_padding_highlighted")
+
                 cell.participantName.text = "¡Únete!"
             }
         }.addDisposableTo(disposeBag)
@@ -126,8 +128,14 @@ extension ProductDetailV{
             .tap
             .observeOn(MainScheduler.instance)
             .bindNext(){[unowned self] in
-                var dummyChat = Chat(id: "Chat1", photo: "https://s-media-cache-ak0.pinimg.com/736x/86/0b/f0/860bf09769129e3c075bf7ff90e0c78a.jpg", name: "Test")
-                Navigator.navigateToChat(from: self, chat: dummyChat)
+//                var dummyChat = Chat(id: "Chat1", photo: "https://s-media-cache-ak0.pinimg.com/736x/86/0b/f0/860bf09769129e3c075bf7ff90e0c78a.jpg", name: "Test")
+//                Navigator.navigateToChat(from: self, chat: dummyChat)
+                
+                Navigator.showAlert(on: self, message: "¿Deseas unirte a ésta ... de \(self.productName.text!)?", positiveMessage: "¡Unirte!", negativeMessage:"Cancelar"){ positive in
+                    if(positive){
+                        print("positive")
+                    }
+                }
             }
             .addDisposableTo(disposeBag)
         
@@ -137,6 +145,4 @@ extension ProductDetailV{
         
         chatButton.setAttributedTitle(attString, for: .normal)
     }
-    
-    
 }

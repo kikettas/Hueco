@@ -14,6 +14,7 @@ protocol ProductDetailVMProtocol{
     var client:ClientProtocol { get set }
     var participants:Variable<[User?]> { get }
     var product:Variable<Product> { get }
+    func join(completion:ClientCompletion<Void>)
 }
 
 class ProductDetailVM:ProductDetailVMProtocol{
@@ -44,4 +45,10 @@ class ProductDetailVM:ProductDetailVMProtocol{
             }
         }
     }
+    
+    func join(completion: (Void, ClientError?) -> ()) {
+        <#code#>
+    }
+    
+    
 }

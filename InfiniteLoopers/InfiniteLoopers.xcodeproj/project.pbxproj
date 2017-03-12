@@ -101,6 +101,8 @@
 		1FF69B3D1E7428FE00E166F5 /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF69B3C1E7428FE00E166F5 /* ProductCategory.swift */; };
 		1FF69B441E74481C00E166F5 /* MappingTransforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF69B431E74481C00E166F5 /* MappingTransforms.swift */; };
 		1FF69B461E744A2B00E166F5 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF69B451E744A2B00E166F5 /* Float.swift */; };
+		1FF69B541E758DED00E166F5 /* CustomAlertV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF69B521E758DED00E166F5 /* CustomAlertV.swift */; };
+		1FF69B551E758DED00E166F5 /* CustomAlertV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF69B531E758DED00E166F5 /* CustomAlertV.xib */; };
 		3B1F257A152A2E4253B3FE0D /* Pods_InfiniteLoopersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EB4EA798F4E626AA33ECA9 /* Pods_InfiniteLoopersUITests.framework */; };
 		788F71E71E58E1BE003B8A97 /* CreateAccountV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F71E51E58E1BE003B8A97 /* CreateAccountV.swift */; };
 		788F71E81E58E1BE003B8A97 /* CreateAccountV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788F71E61E58E1BE003B8A97 /* CreateAccountV.xib */; };
@@ -246,6 +248,8 @@
 		1FF69B3C1E7428FE00E166F5 /* ProductCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
 		1FF69B431E74481C00E166F5 /* MappingTransforms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingTransforms.swift; sourceTree = "<group>"; };
 		1FF69B451E744A2B00E166F5 /* Float.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
+		1FF69B521E758DED00E166F5 /* CustomAlertV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertV.swift; sourceTree = "<group>"; };
+		1FF69B531E758DED00E166F5 /* CustomAlertV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertV.xib; sourceTree = "<group>"; };
 		22457F6E3E0C7CD9491DF22A /* Pods-InfiniteLoopersService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersService.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersService/Pods-InfiniteLoopersService.release.xcconfig"; sourceTree = "<group>"; };
 		2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopers/Pods-InfiniteLoopers.debug.xcconfig"; sourceTree = "<group>"; };
 		373470795DBA13D0DEE6FA47 /* Pods-InfiniteLoopersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfiniteLoopersUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InfiniteLoopersUITests/Pods-InfiniteLoopersUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 				1F7E62291E4F346B001D1CA7 /* PaginatedCollectionController.swift */,
 				1F12A5221E6B37BF00B93BEA /* ProductPresenterController.swift */,
 				1F12A5241E6B3B5600B93BEA /* PaginatedCollectionModel.swift */,
+				1FF69B521E758DED00E166F5 /* CustomAlertV.swift */,
+				1FF69B531E758DED00E166F5 /* CustomAlertV.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -960,6 +966,7 @@
 				1FCAF54B1E63373200FA40E8 /* ChatCell.xib in Resources */,
 				1F45C5021E622BA50064444E /* NewProductFirstStepV.xib in Resources */,
 				1FA69EC21E45D2CE005FD096 /* MainTabBarV.xib in Resources */,
+				1FF69B551E758DED00E166F5 /* CustomAlertV.xib in Resources */,
 				1FC4415D1E6A39F200BCBFFF /* ProfileParticipantProductsV.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1143,6 +1150,7 @@
 				788F71EA1E58E1DA003B8A97 /* CreateAccountVM.swift in Sources */,
 				1F12A5251E6B3B5600B93BEA /* PaginatedCollectionModel.swift in Sources */,
 				1F1C38871E50E9330086BE67 /* LoginV.swift in Sources */,
+				1FF69B541E758DED00E166F5 /* CustomAlertV.swift in Sources */,
 				1F7A1E961E45EE6F00FF88D3 /* NotificationsVM.swift in Sources */,
 				1F45C50D1E6239980064444E /* NewProductSecondStepVM.swift in Sources */,
 				1F45C4F81E62258F0064444E /* Transaction.swift in Sources */,

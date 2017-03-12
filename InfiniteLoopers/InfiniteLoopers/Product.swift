@@ -48,7 +48,7 @@ extension Product{
         name <- map["name"]
         category <- map["category"]
         published <- map["published"]
-        publishDate <- (map["publishDate"], DateTransform())
+        publishDate <- (map["publish_date"], DateTransform())
         state <- map["state"]
         price <- map["price"]
         slots <- map["slots"]
