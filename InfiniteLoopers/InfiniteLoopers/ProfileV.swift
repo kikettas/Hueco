@@ -45,7 +45,7 @@ extension ProfileV{
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
         setupAppNavBarStyle()
-        profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 1, cornerRadius: 5)
+        profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
         
         ratingsCount.text = "(143)"
         

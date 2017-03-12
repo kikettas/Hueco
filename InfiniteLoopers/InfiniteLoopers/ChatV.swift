@@ -68,18 +68,13 @@ extension ChatV{
     }
     
     func setNavBarButtonImage(){
-        if let imageUrl = model.chat.photo{
-            let button = UIButton(type: UIButtonType.custom)
-            let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill)
-            button.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
-            button.clipsToBounds = true
-            button.kf.setImage(with: URL(string:imageUrl), for: .normal, placeholder: UIImage(color: UIColor.mainBackgroundColor), options: [.processor(processor)]){(image, error, cacheType, imageUrl) in
-                
-                
-            }
-            button.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0, cornerRadius: 5)
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
-        }
+        let button = UIButton(type: UIButtonType.custom)
+        let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill)
+        button.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.clipsToBounds = true
+        button.kf.setImage(with: URL(string:model.chat.photo ?? ""), for: .normal, placeholder: UIImage(named: "ic_avatar_placeholder"), options: [.processor(processor)])
+        button.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
     }
 }
 
@@ -117,7 +112,7 @@ extension ChatV{
         } else {
             cell.textView.textColor = UIColor.black
         }
-        cell.avatarImageView.kf.setImage(with: URL(string:message.senderImage ?? "")){(image, error, cacheType, imageUrl) in
+        cell.avatarImageView.kf.setImage(with: URL(string:message.senderImage ?? ""), placeholder:UIImage(named: "ic_avatar_placeholder")){(image, error, cacheType, imageUrl) in
             if let _ = error{
                 cell.avatarImageView.image = UIImage(named: "ic_avatar_placeholder")
             }

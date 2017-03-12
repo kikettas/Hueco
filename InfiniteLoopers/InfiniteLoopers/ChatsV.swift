@@ -48,13 +48,9 @@ extension ChatsV{
         model.chats.asObservable().bindTo(tableView.rx.items(cellIdentifier: "ChatCell", cellType: ChatCell.self)){row,element,cell in
             
             cell.userName.text = element.name
-            if let photo = element.photo{
-                cell.userPhoto.kf.setImage(with: URL(string: photo))
-            }else{
-                cell.userPhoto.image = UIImage(named: "ic_avatar_placeholder")
-                cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 1, cornerRadius: 5)
-            }
-            
+            cell.userPhoto.kf.setImage(with: URL(string: element.photo ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
+            cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+
             cell.lastMessage.text = ""
         }.addDisposableTo(disposeBag)
     }
