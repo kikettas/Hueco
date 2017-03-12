@@ -19,4 +19,5 @@ protocol PaginatedCollectionModel{
     var isRefreshing:BehaviorSubject<Bool> { get }
     var collectionKeys:[String] { get set}
     var currentPage:Int { get set}
+    var isNextPageAvailable:Bool { get set }
 }

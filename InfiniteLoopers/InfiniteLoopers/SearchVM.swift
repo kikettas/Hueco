@@ -27,6 +27,7 @@ class SearchVM:SearchVMProtocol{
     var client: ClientProtocol
     var collectionKeys: [String] = []
     var currentPage: Int = 0
+    var isNextPageAvailable: Bool = true
     
     init(client:ClientProtocol = Client.shared) {
         self.client = client
@@ -43,7 +44,8 @@ class SearchVM:SearchVMProtocol{
         
         onLoadMore = { [unowned self] in
             print("onLoadMore")
-            if(self.collectionKeys.count > self.dataSource.value.count && !self.loadingMore.value){
+            self.isNextPageAvailable = self.collectionKeys.count > (self.currentPage + 1) * client.itemsPerPage
+            if(self.collectionKeys.count > self.currentPage * client.itemsPerPage && !self.loadingMore.value){
                 delay(2){
                     self.fetchProducts()
                 }
@@ -63,6 +65,7 @@ class SearchVM:SearchVMProtocol{
                 print(error)
                 return
             }
+            print(keys)
             
             self.collectionKeys = keys
             self.fetchProducts()
@@ -71,7 +74,7 @@ class SearchVM:SearchVMProtocol{
     
     func fetchProducts(){
         self.loadingMore.value = true
-        
+        print(self.collectionKeys[self.currentPage * self.client.itemsPerPage])
         self.client.products(startingAt: self.collectionKeys[self.currentPage * self.client.itemsPerPage]).subscribe(onNext:{[weak self] product in
             guard let `self` = self else {
                 return

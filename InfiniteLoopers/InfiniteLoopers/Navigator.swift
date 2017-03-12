@@ -130,7 +130,7 @@ class Navigator{
         }
     }
     
-    public static func navigateToProductDetail(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical, product:(String,String, String), transitionDelegate:UIViewControllerTransitioningDelegate? = nil){
+    public static func navigateToProductDetail(from:UIViewController, presentationStyle:UIModalPresentationStyle = UIModalPresentationStyle.overFullScreen, transitionStyle:UIModalTransitionStyle = UIModalTransitionStyle.coverVertical, product:Product, transitionDelegate:UIViewControllerTransitioningDelegate? = nil){
         let productDetailV = ProductDetailV(model: ProductDetailVM(product: product))
         productDetailV.modalPresentationStyle = presentationStyle
         productDetailV.modalPresentationCapturesStatusBarAppearance = true

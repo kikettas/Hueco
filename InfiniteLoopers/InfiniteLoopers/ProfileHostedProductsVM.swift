@@ -22,6 +22,7 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
     var collectionKeys: [String] = []
     var currentPage: Int = 0
     var dataSource: Variable<[Any]>
+    var isNextPageAvailable: Bool = false
     
     init(client:ClientProtocol = Client.shared){
         isRefreshing = BehaviorSubject(value: false)

@@ -87,6 +87,6 @@ extension PaginatedCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {        
-        return model.dataSource.value.count < model.collectionKeys.count ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
+        return model.isNextPageAvailable ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
     }
 }

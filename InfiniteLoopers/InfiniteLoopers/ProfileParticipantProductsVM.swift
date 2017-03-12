@@ -21,6 +21,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     var client: ClientProtocol
     var currentPage: Int = 0
     var collectionKeys: [String] = []
+    var isNextPageAvailable: Bool = false
     
     var dataSource: Variable<[Any]>
 

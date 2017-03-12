@@ -21,13 +21,14 @@ class Product:Mappable{
     var slots:Int!
     var freeSlots:Int!
     var productDescription:String?
+    var participantKeys:[String]?
     
     var priceWithCurrency:String {
         return price.clean + currency
     }
     
     var slotsFormatted:String{
-        return String(freeSlots) + "/" + String(slots)
+        return String(slots - freeSlots) + "/" + String(slots)
     }
     
     required init?(map: Map) {
@@ -54,6 +55,9 @@ extension Product{
         freeSlots <- map["free_slots"]
         productDescription <- map["description"]
         currency <- map["currency"]
+        if let participants = map["participants"].currentValue as? [String:Any]{
+            participantKeys = participants.keys.sorted()
+        }
     }
 }
 

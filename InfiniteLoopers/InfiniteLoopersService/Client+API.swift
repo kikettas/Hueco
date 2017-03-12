@@ -115,30 +115,49 @@ extension Client{
     }
     
     func products(startingAt:Any) -> Observable<Product> {
-        return Observable.create {[unowned self] observer in            
+        return Observable.create {[unowned self] observer in
             FIRDatabase.database().reference().child("products").queryOrderedByKey().queryLimited(toFirst: UInt(self.itemsPerPage)).queryStarting(atValue: startingAt).observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
                 if let productsJson = snapshot.value as? [String:Any]{
                     print("products...\(productsJson.count)")
-                    for (index, element) in productsJson.enumerated(){
-                        let productJson:[String:Any] = element.value as! [String : Any]
-                        
-                        self.user(withId: productJson["seller"] as! String){ user, error in
-                            if let _ = error{
-                                return
-                            }
-                            observer.onNext(Product(json:productJson, seller:user))
-                            if(index == (productsJson.count - 1)){
-                                observer.onCompleted()
-                            }
-                        }
-
-                    }
+                    self.fetchUser(fromProducts: productsJson, atIndex: 0, observer: observer)
+//                    for (index, element) in productsJson.enumerated(){
+//                        let productJson:[String:Any] = element.value as! [String : Any]
+//                        
+//                        self.user(withId: productJson["seller"] as! String){ user, error in
+//                            if let _ = error{
+//                                print("Error")
+//                                return
+//                            }
+//                            observer.onNext(Product(json:productJson, seller:user))
+//                            if(index == (productsJson.count - 1)){
+//                                observer.onCompleted()
+//                            }
+//                        }
+//                    }
                 }else{
                     observer.onError(ClientError.unknownError as Error)
                 }
             })
             return Disposables.create()
         }
+    }
+    
+    fileprivate func fetchUser(fromProducts:[String:Any], atIndex index:Int, observer:AnyObserver<Product>){
+        let productJson:[String:Any] = Array(fromProducts.values)[index] as! [String : Any]
+        
+        self.user(withId: productJson["seller"] as! String){ user, error in
+            if let _ = error{
+                print("Error")
+                return
+            }
+            observer.onNext(Product(json:productJson, seller:user))
+            if(index == (fromProducts.count - 1)){
+                observer.onCompleted()
+            }else{
+                self.fetchUser(fromProducts: fromProducts, atIndex: index + 1, observer: observer)
+            }
+        }
+
     }
     
     func productKeys(completion: @escaping ([String], ClientError?) -> ()) {

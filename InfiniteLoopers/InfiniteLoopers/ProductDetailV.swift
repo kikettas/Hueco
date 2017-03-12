@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class ProductDetailV: UIViewController, UICollectionViewDataSource {
+class ProductDetailV: UIViewController {
     
     var model:ProductDetailVMProtocol!
     var disposeBag = DisposeBag()
@@ -52,19 +52,26 @@ extension ProductDetailV{
     }
     
     func syncModelAndView(){
-        productName.text = model.product.0
-        productType.text = model.product.1
-        productDescription.text = model.product.2 
-        productOwnerRating.rating = 4
+        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.name}.bindTo(productName.rx.text).addDisposableTo(disposeBag)
+        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.category.name}.bindTo(productType.rx.text).addDisposableTo(disposeBag)
+        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.productDescription}.bindTo(productDescription.rx.text).addDisposableTo(disposeBag)
+
+        productOwnerRating.rating = model.product.value.seller.rating
         productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
-        productOwnerImage.kf.setImage(with: URL(string:"http://az616578.vo.msecnd.net/files/2016/07/12/6360394709229451671057390252_michae-scott-quotes-5.jpg"))
-        productOwnerName.text = "Michael Scott"
-        productSpaces.text = "(15/20)"
-        productPrice.text = "4€"
+        productOwnerImage.kf.setImage(with: URL(string:model.product.value.seller.avatar ?? "")){[weak self] (image, error, cacheType, imageUrl) in
+            guard let `self` = self else {
+                return
+            }
+            if let _ = error{
+                self.productOwnerImage.image = UIImage(named: "ic_avatar_placeholder")
+            }
+        }
+        productOwnerName.text = model.product.value.seller.nickname
+        productSpaces.text = model.product.value.slotsFormatted
+        productPrice.text = model.product.value.priceWithCurrency
     }
     
     func setupCollection(){
-        productParticipantsCollection.dataSource = self
         productParticipantsCollection.register(UINib(nibName: "ParticipantCell", bundle: nil), forCellWithReuseIdentifier: "ParticipantCell")
         productParticipantsCollection
             .rx
@@ -74,6 +81,21 @@ extension ProductDetailV{
             .subscribe(onNext:{ size in
                 self.productParticipantsCollectionHeight.constant = (size?.height)!
             }).addDisposableTo(disposeBag)
+        
+        model.participants.asObservable().bindTo(productParticipantsCollection.rx.items(cellIdentifier: "ParticipantCell", cellType: ParticipantCell.self)){row, element, cell in
+            if let participant = element{
+                cell.participantImage.kf.setImage(with: URL(string:participant.avatar ?? "")){(image, error, cacheType, imageUrl) in
+                    if let _ = error{
+                        cell.participantImage.image = UIImage(named: "ic_avatar_placeholder")
+                    }
+                    //cell.participantImage.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+                }
+                cell.participantName.text = participant.nickname
+            }else{
+                cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
+                cell.participantName.text = "¡Únete!"
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     
@@ -116,27 +138,5 @@ extension ProductDetailV{
         chatButton.setAttributedTitle(attString, for: .normal)
     }
     
-    
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension ProductDetailV{
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ParticipantCell", for: indexPath) as! ParticipantCell
-        if(indexPath.row > 14){
-            cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
-            cell.participantName.text = "¡Únete!"
-        }else{
-            cell.participantImage.kf.setImage(with: URL(string: "http://www.tvstyleguide.com/wp-content/uploads/2015/08/jesse_pinkman_article_image_3.jpg"))
-            cell.participantName.text = "Jesse Pinkman"
-        }
-        return cell
-    }
     
 }
