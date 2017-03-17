@@ -39,7 +39,7 @@ extension Client{
                                             return
                                         }
                                         var mutableChat = chat
-                                        mutableChat.photo = user.avatar
+                                        mutableChat.photo = user!.avatar
                                         observer.onNext(mutableChat)
                                     }
                                 }
@@ -188,11 +188,15 @@ extension Client{
         let productJson:[String:Any] = Array(fromProducts.values)[index] as! [String : Any]
         
         self.user(withId: productJson["seller"] as! String){ user, error in
-            if let _ = error{
-                print("Error")
+            if let error = error{
+                if index == (fromProducts.count - 1){
+                    observer.onError(error)
+                }else{
+                    self.fetchUser(fromProducts: fromProducts, atIndex: index + 1, observer: observer)
+                }
                 return
             }
-            observer.onNext(Product(json:productJson, seller:user))
+            observer.onNext(Product(json:productJson, seller:user!))
             if(index == (fromProducts.count - 1)){
                 observer.onCompleted()
             }else{
@@ -290,12 +294,14 @@ extension Client{
         }
     }
     
-    func user(withId id: String, completion:@escaping ClientCompletion<User>){
+    func user(withId id: String, completion:@escaping ClientCompletion<User?>){
         FIRDatabase.database().reference().child("users").child(id).observeSingleEvent(of: .value){ (snapshot,x) in
             if let user = snapshot.value as? [String:Any]{
                 if let u = User(JSON:user) {
                     completion(u,nil)
                 }
+            }else{
+                completion(nil, ClientError.userNotFound)
             }
         }
     }

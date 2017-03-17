@@ -38,7 +38,7 @@ protocol ClientProtocol {
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
-    func user(withId id:String, completion:@escaping ClientCompletion<User>)
+    func user(withId id:String, completion:@escaping ClientCompletion<User?>)
 }
 
 class Client: ClientProtocol {
