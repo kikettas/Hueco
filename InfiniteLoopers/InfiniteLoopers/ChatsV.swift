@@ -16,6 +16,7 @@ class ChatsV: UIViewController {
     var disposeBag = DisposeBag()
     
     @IBOutlet weak var tableView: UITableView!
+    var emptyView:EmptyCollectionBackgroundView!
     
     convenience init(model:ChatsVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -31,8 +32,17 @@ class ChatsV: UIViewController {
 extension ChatsV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        emptyView = EmptyCollectionBackgroundView(message: "En estos momentos no tienes ninguna conversación empezada.\n ¡Comparte y empieza a hablar con el resto de usuarios! 💬", frame: tableView.frame)
         setupAppNavBarStyle()
         tableView.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "ChatCell")
+        tableView.backgroundView = emptyView
+        
+        model.chats.asObservable()
+            .map{ return $0.count != 0}
+            .bindTo(emptyView.rx.isHidden)
+            
+            .addDisposableTo(disposeBag)
+        
         tableView.rx.itemSelected.observeOn(MainScheduler.instance).bindNext(){[weak self] indexpath in
             guard let `self` = self else {
                 return
@@ -48,7 +58,7 @@ extension ChatsV{
         model.chats.asObservable().bindTo(tableView.rx.items(cellIdentifier: "ChatCell", cellType: ChatCell.self)){row,element,cell in
             
             cell.userName.text = element.name
-            cell.userPhoto.kf.setImage(with: URL(string: element.photo ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
+            cell.userPhoto.setAvatarImage(urlString: element.photo)
             cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
 
             cell.lastMessage.text = ""

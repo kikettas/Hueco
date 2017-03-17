@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 import FirebaseAuth
+import Kingfisher
 
 class ProfileV: UIViewController, UIPageViewControllerDelegate {
     
@@ -40,6 +41,8 @@ class ProfileV: UIViewController, UIPageViewControllerDelegate {
 
 // MARK: - UIViewController
 
+
+
 extension ProfileV{
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +60,7 @@ extension ProfileV{
         AppManager.shared.userLogged.asObservable()
             .map{return $0?.avatar}
             .bindNext{[unowned self] avatar in
-                self.profilePicture.kf.setImage(with: URL(string: avatar ?? ""), placeholder:UIImage(named:"ic_avatar_placeholder"))
+                self.profilePicture.setAvatarImage(urlString: avatar)
         }.addDisposableTo(disposeBag)
     
     

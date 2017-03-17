@@ -11,35 +11,31 @@ import RxCocoa
 import RxSwift
 
 protocol ProfileParticipantProductsVMProtocol:PaginatedCollectionModel{
-    
+    var transactionIDs:[String] { get set }
 }
 
 class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
+
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
+    
     var isRefreshing: BehaviorSubject<Bool>
     var client: ClientProtocol
     var currentPage: Int = 0
     var collectionKeys: [String] = []
+    var disposeBag = DisposeBag()
     var isNextPageAvailable: Bool = false
     var loadingMore: Variable<Bool>
     
+    var transactionIDs: [String]
     var dataSource: Variable<[Any]>
 
     init(client:ClientProtocol = Client.shared){
+        self.client = client
         isRefreshing = BehaviorSubject(value: false)
         loadingMore = Variable(false)
-        self.client = client
-        dataSource = Variable([
-            ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
-            ("Youtube TV", "4€", "2/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("HBO", "4€", "3/4","Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728"),
-            ("Spotify", "4€", "3/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
-            ("Youtube TV", "4€", "2/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("HBO", "4€", "3/4","Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728"),
-            ("Spotify", "4€", "3/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986")
-        ])
+        transactionIDs = []
+        dataSource = Variable([])
         
         didRefresh = {
             
@@ -48,6 +44,37 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
         onLoadMore = {
             
         }
+        
+        AppManager.shared.userLogged.asObservable()
+            .map { $0?.transactionIDs }
+            .filter{ $0 != nil }
+            .subscribe(onNext:{ [unowned self] transactions in
+                transactions!.forEach {
+                    if(!self.transactionIDs.contains($0)){
+                        self.transactionIDs.append($0)
+                        self.client.transaction(withID: $0){[weak self] transaction, error in
+                            guard let `self` = self else {
+                                return
+                            }
+                            if let error = error{
+                                print(error)
+                                return
+                            }
+                            
+                            if transaction!.participantID == AppManager.shared.userLogged.value?.uid{
+                                self.client.product(withID: transaction!.productID){ product, error in
+                                    if let error = error{
+                                        print(error)
+                                        return
+                                    }
+                                    self.dataSource.value.append(product!)
+                                }
+                            }
+                        }
+                    }
+                }
+            }).addDisposableTo(disposeBag)
+        
     }
     
     func reloadCollection() {

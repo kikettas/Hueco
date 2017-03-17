@@ -35,12 +35,11 @@ extension ProfileHostedProductsV{
         
         
         self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProfileHostedProductsCell.self)){[unowned self] row, element, cell in
-            let product = self.model.dataSource.value[row] as! (String,String,String,String,String)
-
-            cell.productName.text = product.0
-            cell.productPrice.text = product.1
-            cell.productType.text = "Cuenta"
-            cell.productSpaces.text = product.2
+            let product = self.model.dataSource.value[row] as! Product
+            cell.productName.text = product.name
+            cell.productPrice.text = product.priceWithCurrency
+            cell.productType.text = product.category.name
+            cell.productSpaces.text = product.slotsFormatted
             }.addDisposableTo(disposeBag)
         
         self.collectionView.rx.itemSelected.bindNext{[unowned self] _ in

@@ -26,6 +26,7 @@ class User:Mappable{
     var chatIDs:[String]?
     var transactionIDs:[String]?
     var ratingIDs:[String]?
+    var productIDs:[String]?
     var rating:Int!
     
     required init?(map: Map) {
@@ -61,6 +62,10 @@ extension User{
         
         if let ratings = map["ratings"].currentValue as? [String:Any]{
             ratingIDs = ratings.keys.map{$0}
+        }
+        
+        if let products = map["products"].currentValue as? [String:Any]{
+            productIDs = products.keys.map{$0}
         }
     }
 }

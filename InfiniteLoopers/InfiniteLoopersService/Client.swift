@@ -30,12 +30,14 @@ protocol ClientProtocol {
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>)
     func products(startingAt:Any) -> Observable<Product>
+    func product(withID:String, completion: @escaping ClientCompletion<Product?>)
     func productKeys(completion: @escaping ClientCompletion<[String]>)
     func publishProduct(product:[String:Any]) -> Observable<Void>
     func refreshAccessToken(completion:@escaping ClientCompletion<String?>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
     func signOut(completion:@escaping ClientCompletion<Void>)
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
+    func transaction(withID:String, completion:@escaping ClientCompletion<Transaction?>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
     func user(withId id:String, completion:@escaping ClientCompletion<User?>)

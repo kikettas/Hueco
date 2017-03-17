@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 protocol ProfilePagingVMProtocol{
-    
+
 }
 
 class ProfilePagingVM:ProfilePagingVMProtocol{

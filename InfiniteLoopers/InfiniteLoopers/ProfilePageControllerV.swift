@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ProfilePagingV: UIPageViewController, UIPageViewControllerDataSource  {
     
+    var disposeBag = DisposeBag()
     var model:ProfilePagingVMProtocol!
     var pages:[UIViewController] = []
     var viewOrigin:CGPoint!
@@ -23,12 +26,16 @@ class ProfilePagingV: UIPageViewController, UIPageViewControllerDataSource  {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
-        pages = [ProfileHostedProductsV(model:ProfileHostedProductsVM(), viewControllerOrigin:viewOrigin), ProfileParticipantProductsV(model:ProfileParticipantProductsVM(), viewControllerOrigin:viewOrigin)]
-        setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
-    }
+        setupPages()
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    }
+    
+    func setupPages(){
+        let profileHostedProducts = ProfileHostedProductsV(model:ProfileHostedProductsVM(), viewControllerOrigin:viewOrigin)
+        let profileParticipantProducts = ProfileParticipantProductsV(model:ProfileParticipantProductsVM(), viewControllerOrigin:viewOrigin)
+        
+        pages = [profileHostedProducts, profileParticipantProducts]
+        setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
     }
 }
 

@@ -15,6 +15,7 @@ protocol ProfileHostedProductsVMProtocol:PaginatedCollectionModel{
 }
 
 class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
+
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
     
@@ -28,50 +29,37 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
     var loadingMore: Variable<Bool>
     
     init(client:ClientProtocol = Client.shared){
+        self.client = client
         isRefreshing = BehaviorSubject(value: false)
         loadingMore = Variable(false)
-        self.client = client
-        dataSource = Variable([
-            ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
-            ("Youtube TV", "4€", "2/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("HBO", "4€", "3/4","Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728"),
-            ("Spotify", "4€", "3/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("Netflix", "4€", "3/4","Dwight Schrute","https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Rainn_Wilson.jpg/220px-Rainn_Wilson.jpg"),
-            ("Youtube TV", "4€", "2/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986"),
-            ("HBO", "4€", "3/4","Rick Sanchez","http://vignette3.wikia.nocookie.net/rickandmorty/images/a/a6/Rick_Sanchez.png/revision/latest?cb=20160923150728"),
-            ("Spotify", "4€", "3/4","Michael Scott","http://www.businessnewsdaily.com/images/i/000/008/678/original/michael-scott-the-office.PNG?1432126986")
-            ])
+        dataSource = Variable([])
         
         didRefresh = {
-            self.reloadCollection()
+        
         }
         
         onLoadMore = {
-            self.isNextPageAvailable = self.collectionKeys.count > (self.currentPage + 1) * client.itemsPerPage
-            if(self.collectionKeys.count > self.currentPage * client.itemsPerPage && !self.loadingMore.value){
-                self.fetchProducts()
-            }
+
         }
+        
+        AppManager.shared.userLogged.asObservable().map { $0?.productIDs }.filter{$0 != nil}.bindNext {[unowned self] productIDs in
+            productIDs!.forEach { productID in
+                if !self.dataSource.value.contains(where: {($0 as! Product).id == productID}){
+                    client.product(withID: productID){[weak self] product, error in
+                        guard let `self` = self else {
+                            return
+                        }
+                        if let error = error{
+                            print(error)
+                            return
+                        }
+                        self.dataSource.value.append(product!)
+                    }
+                }
+            }
+        }.addDisposableTo(disposeBag)
     }
-    
     func reloadCollection() {
         
-    }
-    
-    func fetchProducts(){
-        self.loadingMore.value = true
-        self.client.products(startingAt: self.collectionKeys[self.currentPage * self.client.itemsPerPage]).subscribe(onNext:{[weak self] product in
-            guard let `self` = self else {
-                return
-            }
-            self.dataSource.value.append(product)
-            }, onCompleted:{
-                print("Downloaded")
-                self.currentPage += 1
-                self.isRefreshing.onNext(false)
-                self.loadingMore.value = false
-                
-                print(self.dataSource.value.count)
-        }).addDisposableTo(self.disposeBag)
     }
 }

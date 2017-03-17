@@ -22,6 +22,7 @@ public enum ClientError:Error{
     case logInCanceled
     case invalidEmail
     case invalidParameters
+    case transactionNotFound
 }
 
 // MARK: - Firebase Errors

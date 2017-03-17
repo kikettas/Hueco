@@ -184,6 +184,20 @@ extension Client{
         }
     }
     
+    func product(withID: String, completion: @escaping (Product?, ClientError?) -> ()) {
+        FIRDatabase.database().reference().child("products").child(withID).observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
+            if let productJson = snapshot.value as? [String:Any] {
+                self.user(withId: productJson["seller"] as! String){user ,error in
+                    if let error = error{
+                        completion(nil, error)
+                        return
+                    }
+                    completion(Product(json: productJson, seller: user!), nil)
+                }
+            }
+        })
+    }
+    
     fileprivate func fetchUser(fromProducts:[String:Any], atIndex index:Int, observer:AnyObserver<Product>){
         let productJson:[String:Any] = Array(fromProducts.values)[index] as! [String : Any]
         
@@ -205,6 +219,8 @@ extension Client{
         }
         
     }
+    
+
     
     func productKeys(completion: @escaping ([String], ClientError?) -> ()) {
         sessionManager.request(URL(string:"https://infinite-loopers.firebaseio.com/products.json?shallow=true")!).responseValidatedJson{
@@ -266,6 +282,16 @@ extension Client{
                         completion((),error as? ClientError)
                     }
                 }
+            }
+        }
+    }
+    
+    func transaction(withID: String, completion: @escaping (Transaction?, ClientError?) -> ()) {
+        FIRDatabase.database().reference().child("transactions").child(withID).observeSingleEvent(of: .value){(snapshot,x) in
+            if let transactionJson = snapshot.value as? [String:Any], let transaction = Transaction(JSON:transactionJson){
+                completion(transaction,nil)
+            }else{
+                completion(nil, ClientError.transactionNotFound)
             }
         }
     }

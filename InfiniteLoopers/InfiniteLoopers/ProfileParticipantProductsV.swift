@@ -34,18 +34,14 @@ extension ProfileParticipantProductsV{
         self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         
         self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProductCell.self)){[unowned self] row, element, cell in
-            let product = self.model.dataSource.value[row] as! (String,String,String,String,String)
-            cell.productName.text = product.0
-            cell.productPrice.text = product.1
-            cell.productType.text = "Cuenta"
-            cell.productOwner.text = product.3
-            cell.productSpaces.text = product.2
-            cell.productOwnerImage.kf.setImage(with: URL(string:product.4))
-            cell.productOwnerRating.rating = 3
-        }.addDisposableTo(disposeBag)
-        
-        self.collectionView.rx.itemSelected.bindNext{[unowned self] _ in
-            print(self.collectionView.numberOfItems(inSection: 0))
+            let product = self.model.dataSource.value[row] as! Product
+            cell.productName.text = product.name
+            cell.productPrice.text = product.priceWithCurrency
+            cell.productType.text = product.category.name
+            cell.productOwner.text = product.seller.nickname
+            cell.productSpaces.text = product.slotsFormatted
+            cell.productOwnerImage.setAvatarImage(urlString: product.seller.avatar)
+            cell.productOwnerRating.rating = product.seller.rating
         }.addDisposableTo(disposeBag)
         
         self.collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] indexPath in

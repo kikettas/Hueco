@@ -55,9 +55,7 @@ extension SearchV{
             cell.productType.text = product.category.name
             cell.productPrice.text = product.priceWithCurrency
             cell.productSpaces.text = product.slotsFormatted
-            
-            let url = URL(string: product.seller.avatar ?? "")
-            cell.productOwnerImage.kf.setImage(with: url, placeholder: UIImage(named:"ic_avatar_placeholder"),options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)])
+            cell.productOwnerImage.setAvatarImage(urlString: product.seller.avatar, options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)])
             
             
             }.addDisposableTo(disposeBag)

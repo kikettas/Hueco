@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 
 protocol PaginatedCollectionModel{
+    
     var didRefresh:(() -> ())! { get set }
     var onLoadMore:(() -> ())! { get set }
     

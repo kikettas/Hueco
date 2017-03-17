@@ -77,7 +77,7 @@ extension ProductDetailV{
         
         model.participants.asObservable().bindTo(productParticipantsCollection.rx.items(cellIdentifier: "ParticipantCell", cellType: ParticipantCell.self)){row, element, cell in
             if let participant = element{
-                cell.participantImage.kf.setImage(with: URL(string:participant.avatar ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
+                cell.participantImage.setAvatarImage(urlString: participant.avatar)
                 cell.participantImage.highlightedImage = nil
                 cell.participantName.text = participant.nickname
             }else{
