@@ -26,16 +26,18 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     var disposeBag = DisposeBag()
     var isNextPageAvailable: Bool = false
     var loadingMore: Variable<Bool>
+    var reloadData: BehaviorSubject<(insert: [Int], delete: [Int], update: [Int])?>
     
     var transactionIDs: [String]
-    var dataSource: Variable<[Any]>
+    var dataSource: [Any]
 
     init(client:ClientProtocol = Client.shared){
         self.client = client
         isRefreshing = BehaviorSubject(value: false)
         loadingMore = Variable(false)
         transactionIDs = []
-        dataSource = Variable([])
+        dataSource = []
+        reloadData = BehaviorSubject(value: nil)
         
         didRefresh = {
             
@@ -67,7 +69,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                                         print(error)
                                         return
                                     }
-                                    self.dataSource.value.append(product!)
+                                    self.dataSource.append(product!)
                                 }
                             }
                         }

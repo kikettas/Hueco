@@ -10,8 +10,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-private let reuseIdentifier = "ProfileHostedProductsCell"
-
 class ProfileHostedProductsV: ProductPresenterController {
     
     var viewOrigin:CGPoint!
@@ -31,16 +29,15 @@ class ProfileHostedProductsV: ProductPresenterController {
 extension ProfileHostedProductsV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(UINib(nibName: "ProfileHostedProductsCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
         
-        
-        self.model.dataSource.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: reuseIdentifier, cellType: ProfileHostedProductsCell.self)){[unowned self] row, element, cell in
-            let product = self.model.dataSource.value[row] as! Product
-            cell.productName.text = product.name
-            cell.productPrice.text = product.priceWithCurrency
-            cell.productType.text = product.category.name
-            cell.productSpaces.text = product.slotsFormatted
-            }.addDisposableTo(disposeBag)
+        self.model.reloadData.bindNext{[unowned self] changeSet in
+            if let changeSet = changeSet{
+                self.collectionView.applyChangeset(deleted: changeSet.delete, inserted: changeSet.insert, updated: changeSet.update)
+            }else{
+                self.collectionView.reloadData()
+            }
+        }.addDisposableTo(disposeBag)
         
         self.collectionView.rx.itemSelected.bindNext{[unowned self] _ in
             print(self.collectionView.numberOfItems(inSection: 0))
@@ -51,7 +48,7 @@ extension ProfileHostedProductsV{
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x + self.viewOrigin.x, y: cellCenter.y + self.viewOrigin.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
             
-            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
+            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
     }
 }

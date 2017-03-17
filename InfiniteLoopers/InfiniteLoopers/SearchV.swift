@@ -32,6 +32,7 @@ extension SearchV{
         super.viewDidLoad()
         setupAppNavBarStyle()
         setupSearchController()
+        setupCollectionView()
     }
     
     override func setupCollectionView(){
@@ -43,23 +44,17 @@ extension SearchV{
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
             
-            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
+            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
         
-        model.dataSource.asObservable().bindTo(collectionView.rx.items(cellIdentifier: "ProductCell", cellType: ProductCell.self)){row, element, cell in
-            let product = element as! Product
-            cell.productName.text = product.name
-            cell.productOwner.text = product.seller.nickname
-            cell.productOwnerRating.rating = Int(arc4random_uniform(UInt32(5) - UInt32(0)) + UInt32(0))
-            cell.productOwnerRating.rating = product.seller.rating
-            cell.productType.text = product.category.name
-            cell.productPrice.text = product.priceWithCurrency
-            cell.productSpaces.text = product.slotsFormatted
-            cell.productOwnerImage.setAvatarImage(urlString: product.seller.avatar, options: [.transition(ImageTransition.fade(1)), .processor(DefaultImageProcessor.default)])
-            
-            
-            }.addDisposableTo(disposeBag)
-        
+        model.reloadData.bindNext { changeSet in
+            if let changeSet = changeSet {
+                self.collectionView.applyChangeset(deleted: changeSet.delete, inserted: changeSet.insert, updated: changeSet.update)
+            }else{
+                self.collectionView.reloadData()
+            }
+        }.addDisposableTo(disposeBag)
+
     }
     
     func setupSearchController(){

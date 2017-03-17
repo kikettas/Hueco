@@ -16,7 +16,7 @@ protocol SearchVMProtocol:PaginatedCollectionModel{
 }
 
 class SearchVM:SearchVMProtocol{
-    var dataSource: Variable<[Any]>
+    var dataSource: [Any]
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
     var loadingMore: Variable<Bool>
@@ -26,13 +26,15 @@ class SearchVM:SearchVMProtocol{
     var collectionKeys: [String] = []
     var currentPage: Int = 0
     var isNextPageAvailable: Bool = true
+    var reloadData: BehaviorSubject<(insert: [Int], delete: [Int], update: [Int])?>
     
     init(client:ClientProtocol = Client.shared) {
         self.client = client
         
         loadingMore = Variable(false)
-        dataSource = Variable([])
+        dataSource = []
         isRefreshing = BehaviorSubject(value: true)
+        reloadData = BehaviorSubject(value: nil)
         reloadCollection()
         
         didRefresh = { [unowned self] in
@@ -41,16 +43,17 @@ class SearchVM:SearchVMProtocol{
         }
         
         onLoadMore = { [unowned self] in
-            print("onLoadMore")
             self.isNextPageAvailable = self.collectionKeys.count > (self.currentPage + 1) * client.itemsPerPage
             if(self.collectionKeys.count > self.currentPage * client.itemsPerPage && !self.loadingMore.value){
+                print("onLoadMore")
                 self.fetchProducts()
             }
         }
     }
     
     func reloadCollection() {
-        self.dataSource.value = []
+        self.dataSource = []
+        self.reloadData.onNext(nil)
         self.currentPage = 0
         client.productKeys{ [weak self] keys, error in
             guard let `self` = self else {
@@ -69,19 +72,25 @@ class SearchVM:SearchVMProtocol{
     }
     
     func fetchProducts(){
+        var newProducts:[Any] = []
         self.loadingMore.value = true
-        self.client.products(startingAt: self.collectionKeys[self.currentPage * self.client.itemsPerPage]).subscribe(onNext:{[weak self] product in
+        self.client.products(startingAt: self.collectionKeys[self.currentPage * self.client.itemsPerPage]).subscribe(onNext:{ product in
+            newProducts.append(product)
+        }, onCompleted:{[weak self] in
             guard let `self` = self else {
                 return
             }
-            self.dataSource.value.append(product)
-            }, onCompleted:{
-                print("Downloaded")
-                self.currentPage += 1
-                self.isRefreshing.onNext(false)
-                self.loadingMore.value = false
-                
-                print(self.dataSource.value.count)
+            self.currentPage += 1
+            self.isRefreshing.onNext(false)
+            self.loadingMore.value = false
+            var insertions:[Int] = []
+            
+            for (index,_) in newProducts.enumerated(){
+                insertions.append(self.dataSource.count + index)
+            }
+            self.dataSource.append(contentsOf: newProducts)
+            self.reloadData.onNext((insertions, [], []))
+            
         }).addDisposableTo(self.disposeBag)
     }
 }

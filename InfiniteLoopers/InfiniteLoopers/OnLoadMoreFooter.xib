@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OnLoadMoreFooter" id="U6b-Vx-4bR" customClass="OnLoadMoreFooter" customModule="InfiniteLoopers" customModuleProvider="target">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="onLoadMoreFooter" id="U6b-Vx-4bR" customClass="OnLoadMoreFooter" customModule="InfiniteLoopers" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -23,7 +23,7 @@
                     </constraints>
                 </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.74901960779999999" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="4B3-LG-cK5" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="7yl-R3-8Sr"/>
                 <constraint firstItem="4B3-LG-cK5" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="e8N-pB-AXa"/>

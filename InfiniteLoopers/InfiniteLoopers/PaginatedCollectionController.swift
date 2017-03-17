@@ -20,7 +20,7 @@ class PaginatedCollectionController: UIViewController, UICollectionViewDelegateF
     
     var cellHeight:CGFloat!
     var cellWidth:CGFloat!
-    var disposeBag:DisposeBag!
+    var disposeBag:DisposeBag! = DisposeBag()
     var onLoadItemLimit:Int! = 1
     var refreshControl:UIRefreshControl!
     
@@ -32,12 +32,9 @@ extension PaginatedCollectionController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        refreshControl = UIRefreshControl()
-        disposeBag = DisposeBag()
-
         setupRefreshControl()
-        setupCollectionView()
+
+
         
         model.isRefreshing
             .observeOn(MainScheduler.instance)
@@ -52,10 +49,12 @@ extension PaginatedCollectionController{
     }
     
     func setupCollectionView(){
-        collectionView.register(UINib(nibName: "OnLoadMoreFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "OnLoadMoreFooter")
+        collectionView.delegate = self
+        collectionView.register(UINib(nibName: "OnLoadMoreFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "onLoadMoreFooter")
     }
     
     func setupRefreshControl(){
+        refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.lightGray
         refreshControl?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         refreshControl?
@@ -69,7 +68,7 @@ extension PaginatedCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if((model.dataSource.value.count - indexPath.row) == self.onLoadItemLimit){
+        if((model.dataSource.count - indexPath.row) == self.onLoadItemLimit){
             self.onLoadMore()
         }
     }
@@ -82,11 +81,7 @@ extension PaginatedCollectionController{
         self.collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.white
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "OnLoadMoreFooter", for: indexPath)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {        
-        return model.isNextPageAvailable ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
+        return model.isNextPageAvailable && model.dataSource.count > 0 ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
     }
 }
