@@ -13,11 +13,10 @@ class User:Mappable{
     
     var uid:String!
     var nickname:String?
-    var firstName:String?
-    var lastName:String?
+    var name:String?
     var email:String?
     var avatar:String?
-    var gender:Int?
+    var gender:Gender?
     var phone:String?
     var createdAt:Date!
     var updatedAt:Date!
@@ -29,6 +28,20 @@ class User:Mappable{
     var productIDs:[String]?
     var rating:Int!
     
+    enum Gender:String{
+        case male = "male", female = "female"
+        
+        var commonDescription:String {
+            switch self{
+            case .male:
+                return NSLocalizedString("male", comment: "male")
+            case .female:
+                return NSLocalizedString("female", comment: "female")
+            }
+        }
+    }
+    
+    
     required init?(map: Map) {
 
     }
@@ -39,8 +52,7 @@ class User:Mappable{
 extension User{
     func mapping(map: Map) {
         nickname <- map["nickname"]
-        firstName <- map["firstName"]
-        lastName <- map["lastName"]
+        name <- map["name"]
         email <- map["email"]
         gender <- map["gender"]
         avatar <- map["avatar"]

@@ -70,8 +70,9 @@ extension NewProductSecondStepV{
             .tap.observeOn(MainScheduler.instance)
             .bindNext {[unowned self] in
                 let name = (self.parent as! NewProductPagingV).model.newProductName
+                let quantity = self.quantityTF.text?.replacingOccurrences(of: ",", with: ".")
                 self.model.publishProduct(name: name, category: ProductCategory(name:self.productTypeSelector.text!),
-                                          price: Float(self.quantityTF.text!)!, slots: Int(self.sharingCountTF.text!)!, description: self.descriptionTF.text!,
+                                          price: Float(quantity!)!, slots: Int(self.sharingCountTF.text!)!, description: self.descriptionTF.text!,
                                           currency: self.currencyTF.text!){ [weak self] _, error in
                                             guard let `self` = self else {
                                                 return

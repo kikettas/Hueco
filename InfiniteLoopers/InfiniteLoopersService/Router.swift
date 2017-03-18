@@ -12,6 +12,7 @@ import Alamofire
 enum Router:URLRequestConvertible{
     case checkNickName(parameters:Parameters)
     case signUp(parameters:Parameters)
+    case updateProfile(parameters:Parameters)
     
     static let baseURLString = "https://api.infiniteloopers.site/v1"
     
@@ -21,7 +22,8 @@ enum Router:URLRequestConvertible{
             return .get
         case .signUp:
             return .post
-            
+        case .updateProfile:
+            return .put
         }
     }
     
@@ -29,7 +31,7 @@ enum Router:URLRequestConvertible{
         switch self {
         case .checkNickName:
             return "check/nickname"
-        case .signUp:
+        case .signUp, .updateProfile:
             return "users"
         }
     }
@@ -44,6 +46,8 @@ enum Router:URLRequestConvertible{
         case .checkNickName(let parameters):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         case .signUp(let parameters):
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+        case .updateProfile(let parameters):
             urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         }
         

@@ -95,7 +95,7 @@ extension ProfileV{
         }
         
         let editProfileAction = UIAlertAction(title: NSLocalizedString("edit_profile", comment: "Edit profile"), style: .default){[unowned self] _ in
-
+            Navigator.navigateToEditProfile(fromProfile: self)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){[unowned self] _ in

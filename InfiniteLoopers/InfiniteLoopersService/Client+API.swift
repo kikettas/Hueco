@@ -11,6 +11,7 @@ import Alamofire
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 import FacebookLogin
 import GoogleSignIn
 import ObjectMapper
@@ -316,6 +317,30 @@ extension Client{
                 return
             }else{
                 completion((),nil)
+            }
+        }
+    }
+    
+    func uploadPicture(imageData data: Data,pictureName:String, completion: @escaping (String?, ClientError?) -> ()) {
+        let imageRef = FIRStorage.storage().reference().child("profile-pictures").child(pictureName+".jpg")
+        imageRef.put(data, metadata: nil){ metadata, error in
+            if let error = error{
+                completion(nil, ClientError.parseFirebaseError(errorCode: error._code))
+                return
+            }
+            completion(metadata?.downloadURL()?.absoluteString, nil)
+        }
+        
+    }
+    
+    func updateProfile(parameters: Parameters, completion: @escaping (Void, ClientError?) -> ()) {
+        sessionManager.request(Router.updateProfile(parameters: parameters)).responseValidatedJson{
+            switch $0 {
+            case .success(_):
+                completion((), nil)
+            case .failure(let error):
+                let error:ClientError = error as! ClientError
+                completion((), error)
             }
         }
     }

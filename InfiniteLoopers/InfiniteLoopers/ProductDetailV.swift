@@ -89,8 +89,13 @@ extension ProductDetailV{
             }.addDisposableTo(disposeBag)
         
         productParticipantsCollection.rx.itemSelected.observeOn(MainScheduler.instance).bindNext{[unowned self] indexPath in
-            self.showJoinAlert()
+            if let _ = self.model.participants.value[indexPath.row]{
+                // Show user profile
+            }else{
+                self.showJoinAlert()
+            }
             self.productParticipantsCollection.deselectItem(at: indexPath, animated: true)
+
             }.addDisposableTo(disposeBag)
         
     }

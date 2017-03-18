@@ -40,6 +40,8 @@ protocol ClientProtocol {
     func transaction(withID:String, completion:@escaping ClientCompletion<Transaction?>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
+    func updateProfile(parameters:Parameters, completion: @escaping ClientCompletion<Void>)
+    func uploadPicture(imageData data: Data, pictureName:String, completion: @escaping ClientCompletion<String?>)
     func user(withId id:String, completion:@escaping ClientCompletion<User?>)
 }
 
@@ -93,12 +95,15 @@ extension DataRequest{
                     callback(.success(response.result.value as! JSON))
                 }else{
                     print("❌ Failure (\(response.response?.statusCode)) request: ➡️ \(response.request!)")
-                    
-                    if let data = response.data, let jsonError:JSON = try! JSONSerialization.jsonObject(with: data, options: []) as? JSON{
+                    do{
+                    if let data = response.data, let jsonError:JSON = try JSONSerialization.jsonObject(with: data, options: []) as? JSON{
                         let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as! String)
                         print("❌ Error: \(error)")
                         callback(.failure(error))
                         return
+                        }
+                    }catch{
+                            
                     }
                     callback(.failure(ClientError.unknownError))
                 }

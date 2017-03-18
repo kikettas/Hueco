@@ -108,7 +108,14 @@ class Navigator{
             }
         }
     }
-        
+    
+    
+    // MARK: - Profile
+    
+    public static func navigateToEditProfile(fromProfile:UIViewController){
+        let editProfileV = EditProfileV(model: EditProfileVM())
+        fromProfile.navigationController?.pushViewController(editProfileV, animated: true)
+    }
     
     // MARK: - Common
     
