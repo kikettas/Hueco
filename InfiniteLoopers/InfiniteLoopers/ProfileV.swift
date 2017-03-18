@@ -50,25 +50,22 @@ extension ProfileV{
         setupAppNavBarStyle()
         profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
         
-        ratingsCount.text = "(143)"
-        
-        AppManager.shared.userLogged.asObservable()
-            .map{return $0?.nickname ?? ""}
-            .bindTo(userName.rx.text)
+        model.nickname.asDriver()
+            .drive(userName.rx.text)
             .addDisposableTo(disposeBag)
         
-        AppManager.shared.userLogged.asObservable()
-            .map{return $0?.avatar}
-            .bindNext{[unowned self] avatar in
-                self.profilePicture.setAvatarImage(urlString: avatar)
-        }.addDisposableTo(disposeBag)
-    
-    
-        AppManager.shared.userLogged.asObservable()
-            .map{return $0?.rating}
-            .bindNext{[unowned self] in
-                self.userRating.rating = $0!
-            }
+        model.image.asDriver()
+            .drive(onNext:{ [unowned self] avatar in
+            self.profilePicture.setAvatarImage(urlString: avatar)
+        }).addDisposableTo(disposeBag)
+        
+        model.rating.asDriver()
+            .drive(onNext:{ [unowned self] rating in
+            self.userRating.rating = rating
+        }).addDisposableTo(disposeBag)
+        
+        model.ratingCount.asDriver()
+            .drive(ratingsCount.rx.text)
             .addDisposableTo(disposeBag)
         
         setPageController()
