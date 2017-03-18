@@ -21,10 +21,12 @@ class Product:Mappable{
     var sellerID:String!
     var price:Float!
     var slots:Int!
-    var freeSlots:Int!
     var productDescription:String?
     var participantKeys:[String]?
     var id:String!
+    var freeSlots:Int {
+        return slots - (participantKeys?.count ?? 0)
+    }
     
     var priceWithCurrency:String {
         return price.clean + currency
@@ -53,7 +55,6 @@ class Product:Mappable{
         self.publishDate = Date()
         self.published = true
         self.slots = slots
-        self.freeSlots = slots
     }
 }
 
@@ -71,7 +72,6 @@ extension Product{
         price <- map["price"]
         slots <- map["slots"]
         sellerID <- map["seller"]
-        freeSlots <- map["free_slots"]
         productDescription <- map["description"]
         currency <- map["currency"]
         if let participants = map["participants"].currentValue as? [String:Any]{

@@ -70,6 +70,8 @@ class Client: ClientProtocol {
                     return
                 }
                 completion(idToken, nil)
+                print("TOKEN")
+                print(idToken)
             }
         }else{
             completion(nil,ClientError.userNotFound)

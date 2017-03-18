@@ -11,14 +11,14 @@ import ObjectMapper
 
 public class DateTransform: TransformType {
     public typealias Object = Date
-    public typealias JSON = Double
+    public typealias JSON = String
     
     public func transformFromJSON(_ value: Any?) -> Object?{
-        return value != nil ? Date(timeIntervalSince1970: value as! TimeInterval) : nil
+        return value != nil && value! is String ? Date.fromUTC(format: value as! String) : nil
         
     }
     public func transformToJSON(_ value: Date?) -> JSON? {
-        return value != nil ? value!.timeIntervalSince1970 : nil
+        return value != nil ? Date.toUTC(from: value!) : nil
         
     }
 }

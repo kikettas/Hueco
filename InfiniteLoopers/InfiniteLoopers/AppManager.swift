@@ -35,14 +35,6 @@ class AppManager{
                             self.userLogged.value = user
                         }
                     })
-                    
-                    Client.shared.refreshAccessToken{ token, error in
-                        if let error = error{
-                            print(error)
-                            return
-                        }
-                        print(token)
-                    }
                 }
 
             }else{

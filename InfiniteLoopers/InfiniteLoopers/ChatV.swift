@@ -62,7 +62,7 @@ extension ChatV{
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        let message = ChatMessage(text: text, senderId: senderId, senderDisplayName: senderDisplayName, date: date.timeIntervalSince1970, isMediaMessage: false, senderPhoto:senderImageUrl)
+        let message = ChatMessage(text: text, senderId: senderId, senderDisplayName: senderDisplayName, date: Date.toUTC(from: Date())!, isMediaMessage: false, senderPhoto:senderImageUrl)
         model.sendMessage(withData: message)
         finishSendingMessage(animated: true)
     }

@@ -15,17 +15,17 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
     var senderId_: String
     var senderDisplayName_: String
     var senderImage: String?
-    var date_:TimeInterval
+    var date_:String
     var isMediaMessage_: Bool
     
     required init?(map: Map) {
         senderId_ = ""
         senderDisplayName_ = ""
-        date_ = 0
+        date_ = ""
         isMediaMessage_ = false
     }
     
-    init(text:String, senderId:String, senderDisplayName:String, date:TimeInterval, isMediaMessage:Bool, senderPhoto:String){
+    init(text:String, senderId:String, senderDisplayName:String, date:String, isMediaMessage:Bool, senderPhoto:String){
         self.text_ = text
         self.senderId_ = senderId
         self.senderDisplayName_ = senderDisplayName
@@ -44,7 +44,7 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
     }
     
     func date() -> Date! {
-        return Date(timeIntervalSinceNow: date_)
+        return Date.fromUTC(format: date_)
     }
     
     func isMediaMessage() -> Bool {

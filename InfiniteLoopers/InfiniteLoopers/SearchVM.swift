@@ -25,7 +25,7 @@ class SearchVM:SearchVMProtocol{
     var client: ClientProtocol
     var collectionKeys: [String] = []
     var currentPage: Int = 0
-    var isNextPageAvailable: Bool = true
+    var isNextPageAvailable: Bool = false
     var reloadData: BehaviorSubject<(insert: [Int], delete: [Int], update: [Int])?>
     
     init(client:ClientProtocol = Client.shared) {
