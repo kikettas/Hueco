@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseDatabase
 import RxCocoa
 import RxSwift
 
@@ -14,7 +15,18 @@ protocol ProductDetailVMProtocol{
     var client:ClientProtocol { get set }
     var participants:Variable<[User?]> { get }
     var product:Variable<Product> { get }
-    func join(completion: @escaping ClientCompletion<Chat?>)}
+    
+    var productName:Variable<String?> { get }
+    var productCategory:Variable<String?> { get }
+    var productDescription:Variable<String?> { get }
+    var productPrice:Variable<String?> { get }
+    var productSellerNickname:Variable<String?> { get }
+    var productSellerAvatar:Variable<String?> { get }
+    var productSellerRating:Variable<Int?> { get }
+    var productSpaces:Variable<String?> { get }
+    
+    func join(completion: @escaping ClientCompletion<Chat?>)
+}
 
 class ProductDetailVM:ProductDetailVMProtocol{
     
@@ -23,25 +35,65 @@ class ProductDetailVM:ProductDetailVMProtocol{
     var participants: Variable<[User?]>
     var product: Variable<Product>
     
+    var productName: Variable<String?> = Variable(nil)
+    var productCategory: Variable<String?> = Variable(nil)
+    var productDescription: Variable<String?> = Variable(nil)
+    var productPrice: Variable<String?> = Variable(nil)
+    var productSellerNickname: Variable<String?> = Variable(nil)
+    var productSellerAvatar: Variable<String?> = Variable(nil)
+    var productSellerRating: Variable<Int?> = Variable(nil)
+    var productSpaces: Variable<String?> = Variable(nil)
+    
+    var productRef:FIRDatabaseReference? = nil
+    var productHandle:FIRDatabaseHandle? = nil
     
     init(product:Product, client:ClientProtocol = Client.shared){
         self.client = client
         self.product = Variable(product)
         self.participants = Variable([])
-        for _ in 0...(self.product.value.slots - 2){
-            participants.value.append(nil)
-        }
-        if let participants = self.product.value.participantKeys{
-            participants.forEach{
-                self.client.user(withId: $0){ [weak self] user, error in
-                    guard let `self` = self else {
-                        return
+        
+        self.productRef = FIRDatabase.database().reference().child("products").child(product.id)
+        self.productHandle = productRef!.observe(.value, with: {[unowned self] (snapshot) in
+            if let productJson = snapshot.value as? [String:Any] {
+                self.product.value = Product(json: productJson, seller: self.product.value.seller)
+                self.updateParticipants(productKeys: self.product.value.participantKeys)
+
+            }
+        })
+        
+        self.product.asObservable().bindNext {[unowned self] product in
+            self.productName.value = product.name
+            self.productCategory.value = product.category.name
+            self.productDescription.value = product.productDescription ?? "No description provided"
+            self.productPrice.value = product.priceWithCurrency
+            self.productSpaces.value = product.slotsFormatted
+            self.productSellerNickname.value = product.seller.nickname
+            self.productSellerRating.value = product.seller.rating
+            self.productSellerAvatar.value = product.seller.avatar
+            
+            
+            }.addDisposableTo(disposeBag)
+    }
+    
+    private func updateParticipants(productKeys:[String]?){
+        if let participants = productKeys{
+            if participants.count != self.participants.value.count{
+                self.participants.value.removeAll()
+                participants.forEach{ uid in
+                    if !self.participants.value.contains(where: {$0?.uid == uid}){
+                        self.client.user(withId: uid){ [weak self] user, error in
+                            guard let `self` = self else {
+                                return
+                            }
+                            
+                            self.participants.value.append(user)
+                        }
                     }
-                    
-                    self.participants.value.removeLast()
-                    self.participants.value.insert(user, at: 0)
                 }
             }
+            
+        }else{
+            participants.value.removeAll()
         }
         
     }
@@ -52,5 +104,11 @@ class ProductDetailVM:ProductDetailVMProtocol{
         },onError: {error in
             completion(nil, error as? ClientError)
         }).addDisposableTo(disposeBag)
+    }
+    
+    deinit {
+        self.productRef?.removeObserver(withHandle: self.productHandle!)
+        self.productRef = nil
+        self.productHandle = nil
     }
 }

@@ -9,9 +9,10 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxOptional
 import Swarkn
 
-class ProductDetailV: UIViewController {
+class ProductDetailV: UIViewController, UICollectionViewDataSource {
     
     var model:ProductDetailVMProtocol!
     var disposeBag = DisposeBag()
@@ -52,41 +53,35 @@ extension ProductDetailV{
     }
     
     func syncModelAndView(){
-        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.name}.bindTo(productName.rx.text).addDisposableTo(disposeBag)
-        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.category.name}.bindTo(productType.rx.text).addDisposableTo(disposeBag)
-        model.product.asObservable().observeOn(MainScheduler.instance).map{$0.productDescription}.bindTo(productDescription.rx.text).addDisposableTo(disposeBag)
+        model.productName.asDriver().filterNil().drive(productName.rx.text).addDisposableTo(disposeBag)
+        model.productCategory.asDriver().filterNil().drive(productType.rx.text).addDisposableTo(disposeBag)
+        model.productDescription.asDriver().filterNil().drive(productDescription.rx.text).addDisposableTo(disposeBag)
+        model.productPrice.asDriver().filterNil().drive(productPrice.rx.text).addDisposableTo(disposeBag)
+        model.productSpaces.asDriver().filterNil().drive(productSpaces.rx.text).addDisposableTo(disposeBag)
+        model.productSellerNickname.asDriver().filterNil().drive(productOwnerName.rx.text).addDisposableTo(disposeBag)
+
+        model.productSellerRating.asDriver().filterNil().drive(onNext:{[unowned self] rating in
+            self.productOwnerRating.rating = rating
+        }).addDisposableTo(disposeBag)
         
-        productOwnerRating.rating = model.product.value.seller.rating
+        model.productSellerAvatar.asDriver().drive(onNext:{ [unowned self] avatar in
+            self.productOwnerImage.setAvatarImage(urlString: avatar)
+        }).addDisposableTo(disposeBag)
+        
         productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
-        productOwnerImage.kf.setImage(with: URL(string:model.product.value.seller.avatar ?? ""), placeholder: UIImage(named: "ic_avatar_placeholder"))
-        productOwnerName.text = model.product.value.seller.nickname
-        productSpaces.text = model.product.value.slotsFormatted
-        productPrice.text = model.product.value.priceWithCurrency
     }
     
     func setupCollection(){
+        productParticipantsCollection.dataSource = self
         productParticipantsCollection.register(UINib(nibName: "ParticipantCell", bundle: nil), forCellWithReuseIdentifier: "ParticipantCell")
         productParticipantsCollection
             .rx
             .observe(CGSize.self, "contentSize")
             .observeOn(MainScheduler.instance)
             .distinctUntilChanged({return $0.0?.height == $0.1?.height})
-            .subscribe(onNext:{ size in
+            .subscribe(onNext:{[unowned self] size in
                 self.productParticipantsCollectionHeight.constant = (size?.height)!
             }).addDisposableTo(disposeBag)
-        
-        model.participants.asObservable().bindTo(productParticipantsCollection.rx.items(cellIdentifier: "ParticipantCell", cellType: ParticipantCell.self)){row, element, cell in
-            if let participant = element{
-                cell.participantImage.setAvatarImage(urlString: participant.avatar)
-                cell.participantImage.highlightedImage = nil
-                cell.participantName.text = participant.nickname
-            }else{
-                cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
-                cell.participantImage.highlightedImage = UIImage(named: "ic_plus_w_padding_highlighted")
-                
-                cell.participantName.text = "¡Únete!"
-            }
-            }.addDisposableTo(disposeBag)
         
         productParticipantsCollection.rx.itemSelected.observeOn(MainScheduler.instance).bindNext{[unowned self] indexPath in
             if let _ = self.model.participants.value[indexPath.row]{
@@ -98,6 +93,10 @@ extension ProductDetailV{
 
             }.addDisposableTo(disposeBag)
         
+        model.participants.asObservable().subscribe(onNext:{ [unowned self] _ in
+            self.productParticipantsCollection.reloadData()
+        }).addDisposableTo(disposeBag)
+        
     }
     
     
@@ -106,7 +105,7 @@ extension ProductDetailV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
+            .bindNext(){ [unowned self] in
                 self.dismiss(animated: true, completion: nil)
             }
             .addDisposableTo(disposeBag)
@@ -161,3 +160,31 @@ extension ProductDetailV{
         }
     }
 }
+
+
+// MARK: - UICollectionViewDataSource
+
+extension ProductDetailV{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return model.product.value.slots - 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ParticipantCell", for: indexPath) as! ParticipantCell
+        if indexPath.row < model.participants.value.count{
+            let participant = model.participants.value[indexPath.row]
+            cell.participantImage.setAvatarImage(urlString: participant?.avatar)
+            cell.participantImage.highlightedImage = nil
+            cell.participantName.text = participant?.nickname
+        }else{
+            cell.participantImage.image = UIImage(named: "ic_plus_w_padding")
+            cell.participantImage.highlightedImage = UIImage(named: "ic_plus_w_padding_highlighted")
+            
+            cell.participantName.text = "¡Únete!"
+        }
+        return cell
+    }
+}
+
+
+

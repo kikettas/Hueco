@@ -48,6 +48,7 @@ extension ProfileV{
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
         setupAppNavBarStyle()
+        userRating.translatesAutoresizingMaskIntoConstraints = false
         profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
         
         model.nickname.asDriver()

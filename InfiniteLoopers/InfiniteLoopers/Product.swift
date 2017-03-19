@@ -25,7 +25,7 @@ class Product:Mappable{
     var participantKeys:[String]?
     var id:String!
     var freeSlots:Int {
-        return slots - (participantKeys?.count ?? 0)
+        return slots - ((participantKeys?.count ?? 0) + 1)
     }
     
     var priceWithCurrency:String {

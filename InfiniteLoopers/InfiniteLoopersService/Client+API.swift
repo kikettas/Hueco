@@ -221,8 +221,6 @@ extension Client{
         
     }
     
-
-    
     func productKeys(completion: @escaping ([String], ClientError?) -> ()) {
         sessionManager.request(URL(string:"https://infinite-loopers.firebaseio.com/products.json?shallow=true")!).responseValidatedJson{
             switch $0{
@@ -244,6 +242,8 @@ extension Client{
                     observer.onError(ClientError.parseFirebaseError(errorCode: error._code))
                     return
                 }
+                
+                FIRDatabase.database().reference().child("users").child(product["seller"] as! String).child("products").child(dbReference.key).setValue(true)
                 observer.onCompleted()
             }
             return Disposables.create()

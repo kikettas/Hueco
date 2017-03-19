@@ -36,16 +36,15 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ek6-AX-NAP">
-                    <rect key="frame" x="111" y="25" width="212" height="35.5"/>
+                    <rect key="frame" x="111" y="25" width="212" height="36"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                     <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ndM-ur-Zg1" customClass="RatingView" customModule="Swarkn">
-                    <rect key="frame" x="111" y="68.5" width="93" height="13"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ndM-ur-Zg1" customClass="RatingView" customModule="Swarkn">
+                    <rect key="frame" x="111" y="69" width="93" height="13"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="93" id="nPZ-Mt-3JS"/>
-                        <constraint firstAttribute="height" constant="13" id="xTR-Kb-zKs"/>
+                        <constraint firstAttribute="width" priority="999" constant="93" id="nPZ-Mt-3JS"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="ic_star_filled"/>
@@ -68,24 +67,24 @@
                     <state key="highlighted" image="ic_settings_gear_highlighted"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-Db-A4n">
-                    <rect key="frame" x="0.0" y="111" width="375" height="0.5"/>
+                    <rect key="frame" x="0.0" y="111" width="375" height="1"/>
                     <color key="backgroundColor" red="0.83137254901960778" green="0.83137254901960778" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="2pq-CT-dq4"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTn-HU-VgR">
-                    <rect key="frame" x="0.0" y="173.5" width="375" height="0.5"/>
+                    <rect key="frame" x="0.0" y="174" width="375" height="0.0"/>
                     <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="f5z-uw-Hl5"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1EN-0Q-tSG">
-                    <rect key="frame" x="0.0" y="111.5" width="375" height="62"/>
+                    <rect key="frame" x="0.0" y="112" width="375" height="62"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQk-85-wPI">
-                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="62"/>
+                            <rect key="frame" x="0.0" y="0.0" width="188" height="62"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Creadas">
@@ -99,7 +98,7 @@
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Mi-J3-aiL">
-                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="62"/>
+                            <rect key="frame" x="188" y="0.0" width="187" height="62"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Participando">
@@ -118,7 +117,7 @@
                     </constraints>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFz-oL-mAi">
-                    <rect key="frame" x="212" y="68.5" width="29.5" height="14"/>
+                    <rect key="frame" x="212" y="69" width="30" height="14"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
