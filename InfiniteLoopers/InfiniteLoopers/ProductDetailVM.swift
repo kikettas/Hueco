@@ -64,7 +64,7 @@ class ProductDetailVM:ProductDetailVMProtocol{
         self.product.asObservable().bindNext {[unowned self] product in
             self.productName.value = product.name
             self.productCategory.value = product.category.name
-            self.productDescription.value = product.productDescription ?? "No description provided"
+            self.productDescription.value = product.productDescription == nil || (product.productDescription?.isEmpty)! ? "No description provided" : product.productDescription
             self.productPrice.value = product.priceWithCurrency
             self.productSpaces.value = product.slotsFormatted
             self.productSellerNickname.value = product.seller.nickname
