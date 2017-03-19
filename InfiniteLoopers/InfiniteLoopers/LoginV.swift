@@ -106,7 +106,14 @@ extension LoginV{
                 guard let `self` = self else {
                     return
                 }
-                self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!)
+                self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!){_, error in
+                    
+                    if let error = error{
+                        print(error)
+                        return
+                    }
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
             .addDisposableTo(disposeBag)
         

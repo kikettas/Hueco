@@ -49,9 +49,9 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
         
         AppManager.shared.userLogged.asObservable()
             .map { $0?.transactionIDs }
-            .filter{ $0 != nil }
             .subscribe(onNext:{ [unowned self] transactions in
-                transactions!.forEach {
+                if let transactions = transactions{
+                transactions.forEach {
                     if(!self.transactionIDs.contains($0)){
                         self.transactionIDs.append($0)
                         self.client.transaction(withID: $0){[weak self] transaction, error in
@@ -74,6 +74,9 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                             }
                         }
                     }
+                }
+                }else{
+                    self.dataSource.value.removeAll()
                 }
             }).addDisposableTo(disposeBag)
         

@@ -40,10 +40,10 @@ extension SearchV{
     override func setupCollectionView(){
         super.setupCollectionView()
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
-        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_notifications_message", comment: "empty_notifications_message"), frame: self.collectionView.frame)
+        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_products_message", comment: "empty_notifications_message"), frame: self.collectionView.frame)
         collectionView.backgroundView = emptyView
         Observable.combineLatest(model.dataSource.asObservable().map{$0.isNotEmpty},model.isRefreshing){
-            return $0 && !$1
+            return $0 || $1
         }.bindTo(emptyView.rx.isHidden).addDisposableTo(disposeBag)
         
         model.dataSource.asObservable()

@@ -12,7 +12,7 @@ protocol LoginVMProtocol{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
-    func logIn(withEmail:String,password:String)
+    func logIn(withEmail:String,password:String, completion: @escaping ClientCompletion<Void>)
 }
 
 class LoginVM: LoginVMProtocol{
@@ -22,13 +22,13 @@ class LoginVM: LoginVMProtocol{
         self.client = client
     }
     
-    func logIn(withEmail: String, password: String) {
+    func logIn(withEmail: String, password: String, completion: @escaping ClientCompletion<Void>) {
         client.logIn(withEmail: withEmail, password: password){ user, error in
             if let error = error{
-                print(error)
+                completion((), error)
                 return
             }
-            print(user)
+            completion((), nil)
         }
     }
 }

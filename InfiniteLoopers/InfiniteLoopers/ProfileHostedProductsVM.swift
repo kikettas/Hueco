@@ -11,11 +11,11 @@ import RxCocoa
 import RxSwift
 
 protocol ProfileHostedProductsVMProtocol:PaginatedCollectionModel{
-
+    
 }
 
 class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
-
+    
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
     
@@ -35,32 +35,37 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
         loadingMore = Variable(false)
         dataSource = Variable([])
         reloadData = BehaviorSubject(value: nil)
-
-        didRefresh = {
         
+        didRefresh = {
+            
         }
         
         onLoadMore = {
-
+            
         }
         
-        AppManager.shared.userLogged.asObservable().map { $0?.productIDs }.filter{$0 != nil}.bindNext {[unowned self] productIDs in
-            productIDs!.forEach { productID in
-                if !self.dataSource.value.contains(where: {($0 as! Product).id == productID}){
-                    client.product(withID: productID){[weak self] product, error in
-                        guard let `self` = self else {
-                            return
+        AppManager.shared.userLogged.asObservable().map { $0?.productIDs }.bindNext {[unowned self] productIDs in
+            if let productIDs = productIDs{
+                productIDs.forEach { productID in
+                    if !self.dataSource.value.contains(where: {($0 as! Product).id == productID}){
+                        client.product(withID: productID){[weak self] product, error in
+                            guard let `self` = self else {
+                                return
+                            }
+                            if let error = error{
+                                print(error)
+                                return
+                            }
+                            self.dataSource.value.append(product!)
+                            self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                         }
-                        if let error = error{
-                            print(error)
-                            return
-                        }
-                        self.dataSource.value.append(product!)
-                        self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                     }
                 }
+            }else{
+                self.dataSource.value.removeAll()
+                self.reloadData.onNext(nil)
             }
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
     }
     func reloadCollection() {
         

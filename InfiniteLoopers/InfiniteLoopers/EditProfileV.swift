@@ -9,7 +9,9 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxOptional
 import Kingfisher
+import Swarkn
 
 class EditProfileV: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -39,10 +41,7 @@ class EditProfileV: UIViewController, UINavigationControllerDelegate, UIImagePic
 extension EditProfileV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupChangePictureButton()
-        setupSaveButton()
-        setGenderPicker()
-        
+
         model.profilePictureUrl.asDriver()
             .drive(onNext:{ [unowned self] avatar in
             self.profilePicture.setAvatarImage(urlString: avatar)
@@ -61,6 +60,10 @@ extension EditProfileV{
         model.phone.asDriver()
             .drive(phoneTF.rx.text)
             .addDisposableTo(disposeBag)
+        
+        setupSaveButton()
+        setupChangePictureButton()
+        setGenderPicker()
     }
     
     func setupChangePictureButton(){
@@ -88,6 +91,14 @@ extension EditProfileV{
                 }
                 _ = self.navigationController?.popViewController(animated: true)
             }
+        }.addDisposableTo(disposeBag)
+        
+        Observable.combineLatest(phoneTF.rx.text.map{phone in Validation.Phone.isPhoneValid(withNumber: phone!, countryCode: "es") || phone!.isEmpty}, nameTF.rx.text.map{
+            name in name!.characters.count > 2 }, resultSelector:
+            {
+                !$0 || !$1
+        }).distinctUntilChanged().bindNext { [unowned self] in
+            self.navigationItem.rightBarButtonItem = $0 ? nil : self.saveButton
         }.addDisposableTo(disposeBag)
     }
     

@@ -25,7 +25,7 @@ class AppManager{
         userLogged = Variable(nil)
         FIRAuth.auth()?.addStateDidChangeListener(){[unowned self](auth, user) in
             if let fUser = user{
-                if self.userReference == nil{
+                if self.userLogged.value == nil{
                     self.userReference = FIRDatabase.database().reference().child("users").child(fUser.uid)
                     self.userReference!.keepSynced(true)
                     
@@ -39,9 +39,9 @@ class AppManager{
 
             }else{
                 self.userLogged.value = nil
-                self.userReference?.removeObserver(withHandle: self.userHandle!)
-                self.userReference = nil
-                self.userHandle = nil
+//                self.userReference?.removeObserver(withHandle: self.userHandle!)
+//                self.userReference = nil
+//                self.userHandle = nil
             }
         }
     }

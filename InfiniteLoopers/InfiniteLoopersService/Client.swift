@@ -101,6 +101,7 @@ extension DataRequest{
                     if let data = response.data, let jsonError:JSON = try JSONSerialization.jsonObject(with: data, options: []) as? JSON{
                         let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as! String)
                         print("❌ Error: \(error)")
+                        print(jsonError)
                         callback(.failure(error))
                         return
                         }

@@ -64,7 +64,21 @@ class EditProfileVM:EditProfileVMProtocol{
     }
     
     func updateProfile(name: String?, gender: String?, phone: String?, image: UIImage?, completion: @escaping ClientCompletion<Void>) {
-        var parameters = ["name": name, "gender": gender, "phone":phone]
+        var parameters:[String:Any] = [:]
+        
+        if let name = name, !name.isEmpty{
+            parameters["name"] = name
+        }
+        
+        if let gender = gender, !gender.isEmpty{
+            parameters["gender"] = gender
+        }
+        
+        if let phone = phone, !phone.isEmpty{
+            parameters["phone"] = phone
+        }
+        
+        
         if let image = image{
             let data:Data
             if(image.size.width > 512){
