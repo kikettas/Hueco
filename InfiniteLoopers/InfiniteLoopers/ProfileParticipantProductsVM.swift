@@ -29,14 +29,14 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     var reloadData: BehaviorSubject<(insert: [Int], delete: [Int], update: [Int])?>
     
     var transactionIDs: [String]
-    var dataSource: [Any]
-
+    var dataSource: Variable<[Any]>
+    
     init(client:ClientProtocol = Client.shared){
         self.client = client
         isRefreshing = BehaviorSubject(value: false)
         loadingMore = Variable(false)
         transactionIDs = []
-        dataSource = []
+        dataSource = Variable([])
         reloadData = BehaviorSubject(value: nil)
         
         didRefresh = {
@@ -69,7 +69,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                                         print(error)
                                         return
                                     }
-                                    self.dataSource.append(product!)
+                                    self.dataSource.value.append(product!)
                                 }
                             }
                         }

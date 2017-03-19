@@ -84,7 +84,7 @@ extension ProductDetailV{
             }).addDisposableTo(disposeBag)
         
         productParticipantsCollection.rx.itemSelected.observeOn(MainScheduler.instance).bindNext{[unowned self] indexPath in
-            if let _ = self.model.participants.value[indexPath.row]{
+            if indexPath.row < self.model.participants.value.count{
                 // Show user profile
             }else{
                 self.showJoinAlert()
@@ -132,7 +132,7 @@ extension ProductDetailV{
         
         let attString = NSMutableAttributedString()
         attString.append(NSAttributedString(string: "¡Habla con ", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Light", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
-        attString.append(NSAttributedString(string: (self.model.product.value.seller.nickname ?? "")!, attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
+        attString.append(NSAttributedString(string: (self.model.product.value.seller.nickname ?? "")! + "!", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
     }

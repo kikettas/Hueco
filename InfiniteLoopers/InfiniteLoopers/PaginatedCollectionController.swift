@@ -68,7 +68,7 @@ extension PaginatedCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if((model.dataSource.count - indexPath.row) == self.onLoadItemLimit){
+        if((model.dataSource.value.count - indexPath.row) == self.onLoadItemLimit){
             self.onLoadMore()
         }
     }
@@ -82,6 +82,6 @@ extension PaginatedCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {        
-        return model.isNextPageAvailable && model.dataSource.count > 0 ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
+        return model.isNextPageAvailable && model.dataSource.value.count > 0 ? CGSize(width: UIScreen.main.bounds.width, height: 50) : CGSize(width: 0.1, height: 0.1)
     }
 }

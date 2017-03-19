@@ -14,6 +14,8 @@ import RxSwift
 class SearchV: ProductPresenterController,UISearchControllerDelegate {
     
     var searchController: UISearchController!
+    var emptyView:EmptyCollectionBackgroundView!
+
     
     convenience init(model:SearchVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -38,13 +40,23 @@ extension SearchV{
     override func setupCollectionView(){
         super.setupCollectionView()
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
+        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_notifications_message", comment: "empty_notifications_message"), frame: self.collectionView.frame)
+        collectionView.backgroundView = emptyView
+        Observable.combineLatest(model.dataSource.asObservable().map{$0.isNotEmpty},model.isRefreshing){
+            return $0 && !$1
+        }.bindTo(emptyView.rx.isHidden).addDisposableTo(disposeBag)
+        
+        model.dataSource.asObservable()
+            .map{$0.isNotEmpty}
+            .bindTo(emptyView.rx.isHidden)
+            .addDisposableTo(disposeBag)
         
         collectionView.rx.itemSelected.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] indexPath in
             let cell = self.collectionView.cellForItem(at: indexPath)
             let cellCenter = self.collectionView.convert((cell?.frame.origin)!, to: self.collectionView.superview)
             self.originFrame = CGRect(x: cellCenter.x, y: cellCenter.y, width: (cell?.frame.width)!, height: (cell?.frame.height)!)
             
-            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource[indexPath.row] as! Product, transitionDelegate: self)
+            Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
         
         model.reloadData.bindNext { changeSet in

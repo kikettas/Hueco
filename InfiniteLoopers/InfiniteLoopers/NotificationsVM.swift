@@ -7,12 +7,17 @@
 //
 
 import Foundation
-
+import RxCocoa
+import RxSwift
 
 protocol NotificationsVMProtocol{
-    
+    var dataSource:Variable<[Any]> { get }
 }
 
 class NotificationsVM:NotificationsVMProtocol{
+    var dataSource: Variable<[Any]>
     
+    init(){
+        dataSource = Variable([])
+    }
 }

@@ -24,7 +24,7 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
     var client: ClientProtocol
     var collectionKeys: [String] = []
     var currentPage: Int = 0
-    var dataSource: [Any]
+    var dataSource: Variable<[Any]>
     var isNextPageAvailable: Bool = false
     var loadingMore: Variable<Bool>
     var reloadData: BehaviorSubject<(insert: [Int], delete: [Int], update: [Int])?>
@@ -33,7 +33,7 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
         self.client = client
         isRefreshing = BehaviorSubject(value: false)
         loadingMore = Variable(false)
-        dataSource = []
+        dataSource = Variable([])
         reloadData = BehaviorSubject(value: nil)
 
         didRefresh = {
@@ -46,7 +46,7 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
         
         AppManager.shared.userLogged.asObservable().map { $0?.productIDs }.filter{$0 != nil}.bindNext {[unowned self] productIDs in
             productIDs!.forEach { productID in
-                if !self.dataSource.contains(where: {($0 as! Product).id == productID}){
+                if !self.dataSource.value.contains(where: {($0 as! Product).id == productID}){
                     client.product(withID: productID){[weak self] product, error in
                         guard let `self` = self else {
                             return
@@ -55,8 +55,8 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
                             print(error)
                             return
                         }
-                        self.dataSource.append(product!)
-                        self.reloadData.onNext(([self.dataSource.count - 1],[],[]))
+                        self.dataSource.value.append(product!)
+                        self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                     }
                 }
             }

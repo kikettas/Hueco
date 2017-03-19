@@ -50,7 +50,7 @@ extension ProductPresenterController{
         previewingContext.sourceRect = CGRect(x: 16, y: 16, width: UIScreen.main.bounds.width - 32, height: UIScreen.main.bounds.height - 32)
         if let indexPath = collectionView.indexPathForItem(at: location), let cellAttributes = collectionView.layoutAttributesForItem(at: indexPath) {
             previewingContext.sourceRect = cellAttributes.frame
-            return ProductDetailV(model:ProductDetailVM(product: model.dataSource[indexPath.row] as! Product))
+            return ProductDetailV(model:ProductDetailVM(product: model.dataSource.value[indexPath.row] as! Product))
         }
         return nil
         
@@ -66,12 +66,12 @@ extension ProductPresenterController{
 extension ProductPresenterController{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.dataSource.count
+        return model.dataSource.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
-        let product = self.model.dataSource[indexPath.row] as! Product
+        let product = self.model.dataSource.value[indexPath.row] as! Product
         cell.productName.text = product.name
         cell.productType.text = product.category.name
         cell.productPrice.text = product.priceWithCurrency

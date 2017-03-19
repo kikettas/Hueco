@@ -32,7 +32,7 @@ class ChatsV: UIViewController {
 extension ChatsV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        emptyView = EmptyCollectionBackgroundView(message: "En estos momentos no tienes ninguna conversación empezada.\n ¡Comparte y empieza a hablar con el resto de usuarios! 💬", frame: tableView.frame)
+        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_chats_message", comment: "empty_chats_message"), frame: tableView.frame)
         setupAppNavBarStyle()
         tableView.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "ChatCell")
         tableView.backgroundView = emptyView

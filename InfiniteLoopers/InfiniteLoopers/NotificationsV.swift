@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class NotificationsV: UIViewController {
 
+    var disposeBag = DisposeBag()
     var model:NotificationsVMProtocol!
+    
+    @IBOutlet weak var tableView:UITableView!
+    var emptyView:EmptyCollectionBackgroundView!
     
     convenience init(model:NotificationsVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -27,5 +33,12 @@ extension NotificationsV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
+        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_notifications_message", comment: "empty_notifications_message"), frame: self.tableView.frame)
+        tableView.backgroundView = emptyView
+        
+        model.dataSource.asObservable()
+            .map{$0.isNotEmpty}
+            .bindTo(emptyView.rx.isHidden)
+            .addDisposableTo(disposeBag)
     }
 }

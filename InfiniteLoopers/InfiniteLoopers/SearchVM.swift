@@ -16,7 +16,7 @@ protocol SearchVMProtocol:PaginatedCollectionModel{
 }
 
 class SearchVM:SearchVMProtocol{
-    var dataSource: [Any]
+    var dataSource: Variable<[Any]>
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
     var loadingMore: Variable<Bool>
@@ -32,7 +32,7 @@ class SearchVM:SearchVMProtocol{
         self.client = client
         
         loadingMore = Variable(false)
-        dataSource = []
+        self.dataSource = Variable([])
         isRefreshing = BehaviorSubject(value: true)
         reloadData = BehaviorSubject(value: nil)
         reloadCollection()
@@ -52,7 +52,7 @@ class SearchVM:SearchVMProtocol{
     }
     
     func reloadCollection() {
-        self.dataSource = []
+        self.dataSource = Variable([])
         self.reloadData.onNext(nil)
         self.currentPage = 0
         client.productKeys{ [weak self] keys, error in
@@ -86,9 +86,9 @@ class SearchVM:SearchVMProtocol{
             var insertions:[Int] = []
             
             for (index,_) in newProducts.enumerated(){
-                insertions.append(self.dataSource.count + index)
+                insertions.append(self.dataSource.value.count + index)
             }
-            self.dataSource.append(contentsOf: newProducts)
+            self.dataSource.value.append(contentsOf: newProducts)
             self.reloadData.onNext((insertions, [], []))
             
         }).addDisposableTo(self.disposeBag)
