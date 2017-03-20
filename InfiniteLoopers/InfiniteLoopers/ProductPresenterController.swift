@@ -21,7 +21,6 @@ extension ProductPresenterController{
         super.viewDidLoad()
         self.collectionView.dataSource = self
         registerForPreviewing(with: self, sourceView: collectionView)
-
     }
 }
 

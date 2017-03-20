@@ -33,7 +33,11 @@ struct Chat:Mappable{
         self.productID = productID
         self.memberIDs = members
     }
-    
+}
+
+// MARK: - Mappable
+
+extension Chat{
     mutating func mapping(map: Map) {
         photo <- map["photo"]
         name <- map["name"]
