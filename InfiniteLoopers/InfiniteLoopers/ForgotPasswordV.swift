@@ -85,7 +85,20 @@ extension ForgotPasswordV{
                 guard let `self` = self else {
                     return
                 }
-                self.model.sendResetPasswordTo(email: self.emailTF.text!)
+                self.model.sendResetPasswordTo(email: self.emailTF.text!){_, error in
+                    if let error = error{
+                        print(error)
+                        return
+                    }
+                    let emailSentDialog = CustomAlertV(title: nil, message: NSLocalizedString("recover_password_mail_message", comment: "recover_password_mail_message"), positiveMessage: "OK", negativeMessage: nil){_ in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                    emailSentDialog.modalPresentationStyle = .overFullScreen
+                    emailSentDialog.modalTransitionStyle = .crossDissolve
+                    self.present(emailSentDialog, animated: true, completion: nil)
+                }
+                self.view.resignFirstResponder()
                 
             }
             .addDisposableTo(disposeBag)

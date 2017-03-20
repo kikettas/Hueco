@@ -33,8 +33,24 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
         self.isMediaMessage_ = isMediaMessage
         self.senderImage = senderPhoto
     }
-    
-    
+}
+
+// MARK: - Mappable
+
+extension ChatMessage{
+    func mapping(map: Map) {
+        text_ <- map["text"]
+        senderId_ <- map["senderId"]
+        senderDisplayName_ <- map["senderDisplayName"]
+        isMediaMessage_ <- map["isMediaMessage"]
+        date_ <- map["date"]
+        senderImage <- map["senderImage"]
+    }
+}
+
+// MARK: - JSQMessageData
+
+extension ChatMessage{
     func senderId() -> String! {
         return senderId_
     }
@@ -57,18 +73,5 @@ class ChatMessage:NSObject,JSQMessageData, Mappable{
     
     func text() -> String! {
         return text_
-    }
-}
-
-// MARK: - Mappable
-
-extension ChatMessage{
-    func mapping(map: Map) {
-        text_ <- map["text"]
-        senderId_ <- map["senderId"]
-        senderDisplayName_ <- map["senderDisplayName"]
-        isMediaMessage_ <- map["isMediaMessage"]
-        date_ <- map["date"]
-        senderImage <- map["senderImage"]
     }
 }

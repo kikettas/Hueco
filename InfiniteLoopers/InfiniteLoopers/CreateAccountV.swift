@@ -37,6 +37,9 @@ class CreateAccountV: UIViewController {
     
 }
 
+// MARK: - UIViewController
+
+
 extension CreateAccountV{
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,11 +128,5 @@ extension CreateAccountV{
                 }).addDisposableTo(self.disposeBag)
             }
             .addDisposableTo(disposeBag)
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
     }
 }

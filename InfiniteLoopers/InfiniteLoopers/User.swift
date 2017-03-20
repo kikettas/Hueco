@@ -41,7 +41,6 @@ class User:Mappable{
         }
     }
     
-    
     required init?(map: Map) {
 
     }

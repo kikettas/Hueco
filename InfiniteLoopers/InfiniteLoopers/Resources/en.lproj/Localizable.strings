@@ -32,3 +32,4 @@
 "empty_participated_products" = "You did not take part in any product yet";
 "join_in_button" = "Join in!";
 "no_description_provided" = "No description provided";
+"recover_password_mail_message" = "We have sent you an email with the instructions for recovering your password 📩";

@@ -30,4 +30,5 @@
 "empty_participated_products" = "No has participado en ningún producto todavía";
 "join_in_button" = "¡Unirse!";
 "no_description_provided" = "Sin descripción";
+"recover_password_mail_message" = "Te hemos enviado un email con las instrucciones para recuperar tu contraseña 📩";
 

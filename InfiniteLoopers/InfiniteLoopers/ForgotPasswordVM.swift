@@ -13,7 +13,7 @@ protocol ForgotPasswordVMProtocol{
     
     init(client:ClientProtocol)
     
-    func sendResetPasswordTo(email:String)
+    func sendResetPasswordTo(email:String, completion: @escaping ClientCompletion<Void>)
 }
 
 class ForgotPasswordVM:ForgotPasswordVMProtocol{
@@ -23,13 +23,13 @@ class ForgotPasswordVM:ForgotPasswordVMProtocol{
         self.client = client
     }
     
-    func sendResetPasswordTo(email: String) {
+    func sendResetPasswordTo(email: String, completion: @escaping (Void, ClientError?) -> ()) {
         client.sendResetPaswordTo(email: email){_,error in
             if let error = error{
-                print(error)
+                completion((), error)
                 return
             }
-            print("SHOW positive dialog, email sent")
+            completion((), nil)
         }
     }
 }

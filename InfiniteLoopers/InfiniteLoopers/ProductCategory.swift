@@ -19,9 +19,13 @@ class ProductCategory:Mappable{
     init(name:String){
         self.name = name
     }
-    
+}
+
+// MARK: - Mappable
+
+extension ProductCategory{
     func mapping(map: Map) {
         name <- map["name"]
     }
-    
 }
+
