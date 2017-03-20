@@ -73,17 +73,21 @@ extension CreateAccountV{
         
         userNameTF
             .rx.text
-            .filter{($0?.characters.count)! > 3}
             .debounce(0.3, scheduler: MainScheduler.instance)
+            .filterNil()
             .subscribe(onNext: {[unowned self] text in
-                self.model.check(nickName: text!)
-                    .catchError(){error in
-                        return .just(false)
-                    }
-                    .map{!$0}
-                    .distinctUntilChanged()
-                    .bindTo(isUserNameCheckHidden)
-                    .addDisposableTo(self.disposeBag)
+                if(text.characters.count > 3){
+                    self.model.check(nickName: text)
+                        .catchError(){error in
+                            return .just(false)
+                        }
+                        .map{!$0}
+                        .distinctUntilChanged()
+                        .bindTo(isUserNameCheckHidden)
+                        .addDisposableTo(self.disposeBag)
+                }else{
+                    isUserNameCheckHidden.value = true
+                }
             }).addDisposableTo(disposeBag)
         
         Observable.combineLatest(isUserNameCheckHidden.asObservable(), isEmailCheckHidden, isPasswordCheckHidden){
@@ -123,9 +127,9 @@ extension CreateAccountV{
                 self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!, nickName:self.userNameTF.text!)
                     .subscribe(onNext: {
                         self.dismiss(animated: true, completion: nil)
-                }, onError: {error in
-                    
-                }).addDisposableTo(self.disposeBag)
+                    }, onError: {error in
+                        
+                    }).addDisposableTo(self.disposeBag)
             }
             .addDisposableTo(disposeBag)
     }
