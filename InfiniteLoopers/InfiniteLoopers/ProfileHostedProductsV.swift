@@ -13,7 +13,8 @@ import RxSwift
 class ProfileHostedProductsV: ProductPresenterController {
     
     var viewOrigin:CGPoint!
-    
+    var emptyView:EmptyCollectionBackgroundView!
+
     convenience init(model:ProfileHostedProductsVMProtocol, viewControllerOrigin:CGPoint) {
         self.init(nibName: nil, bundle: nil)
         self.viewOrigin = viewControllerOrigin
@@ -29,6 +30,9 @@ class ProfileHostedProductsV: ProductPresenterController {
 extension ProfileHostedProductsV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        emptyView = EmptyCollectionBackgroundView(frame: collectionView.frame)
+        self.collectionView.backgroundView = emptyView
+
         self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
         
         self.model.reloadData.bindNext{[unowned self] changeSet in
@@ -50,5 +54,17 @@ extension ProfileHostedProductsV{
             
             Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
+        
+        Observable.combineLatest(model.dataSource.asObservable()
+            .map{ return $0.isNotEmpty },model.loadingMore.asObservable(), resultSelector: {
+                return $0 || $1
+        }).bindNext { hideMessage in
+            if hideMessage{
+                self.emptyView.setLabelMessage(emoji: nil, text: nil)
+            }else{
+                self.emptyView.setLabelMessage(emoji: "🚀", text: NSLocalizedString("empty_hosted_products", comment: "empty_hosted_products"))
+            }
+            
+            }.addDisposableTo(disposeBag)
     }
 }

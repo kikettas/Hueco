@@ -28,3 +28,5 @@
 "empty_products_message" = "There are not available products at this moment";
 "empty_notifications_message" = "You do not have any notification yet";
 "empty_chats_message" = "You have not started any conversation yet. Start sharing with other people!";
+"empty_hosted_products" = "You have not started to share. Let's publish!";
+"empty_participated_products" = "You did not take part in any product yet";

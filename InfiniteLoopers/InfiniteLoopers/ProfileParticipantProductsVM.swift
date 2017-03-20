@@ -34,7 +34,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     init(client:ClientProtocol = Client.shared){
         self.client = client
         isRefreshing = BehaviorSubject(value: false)
-        loadingMore = Variable(false)
+        loadingMore = Variable(true)
         transactionIDs = []
         dataSource = Variable([])
         reloadData = BehaviorSubject(value: nil)
@@ -69,6 +69,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                                         print(error)
                                         return
                                     }
+                                    self.loadingMore.value = false
                                     self.dataSource.value.append(product!)
                                 }
                             }
@@ -77,6 +78,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                 }
                 }else{
                     self.dataSource.value.removeAll()
+                    self.loadingMore.value = false
                 }
             }).addDisposableTo(disposeBag)
         
