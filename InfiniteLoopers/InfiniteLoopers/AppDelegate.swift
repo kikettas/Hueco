@@ -12,17 +12,23 @@ import FirebaseDatabase
 import FBSDKLoginKit
 import GoogleSignIn
 import Swarkn
+import RxCocoa
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var disposeBag = DisposeBag()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         AppManager.initialize()
+        AppManager.shared.isInitialized.subscribe(onCompleted:{
+            self.loadFirstView()
+        }).addDisposableTo(disposeBag)
 
-        self.loadFirstView()
+        keepLaunchScreenUntilInitialized()
         
         return true
     }
@@ -37,10 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func loadFirstView(){
         let mainTabBarController = MainTabBarV(nibName: nil, bundle: nil)
-        
+        Navigator.changeRootViewController(with: mainTabBarController, color: .white, transition: .transitionCrossDissolve)
+    }
+    
+    func keepLaunchScreenUntilInitialized(){
+        let launchScreen = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateViewController(withIdentifier: "launchV")
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        self.window?.rootViewController = mainTabBarController
+        self.window?.rootViewController = launchScreen
         self.window?.makeKeyAndVisible()
     }
 }

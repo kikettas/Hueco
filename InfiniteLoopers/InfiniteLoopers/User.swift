@@ -18,8 +18,8 @@ class User:Mappable{
     var avatar:String?
     var gender:Gender?
     var phone:String?
-    var createdAt:Date!
-    var updatedAt:Date!
+    var createAt:Date!
+    var updateAt:Date!
     var favoriteProducts:[Product]?
     var transactions:[Transaction]?
     var chatIDs:[String]?
@@ -57,8 +57,8 @@ extension User{
         gender <- map["gender"]
         avatar <- map["avatar"]
         phone <- map["phone"]
-        updatedAt <- (map["updatedAt"], DateTransform())
-        createdAt <- (map["createdAt"],DateTransform())
+        updateAt <- (map["updateAt"], DateTransform())
+        createAt <- (map["createAt"],DateTransform())
         transactions <- map["transactions"]
         favoriteProducts <- map["favorites"]
         uid <- map["uid"]

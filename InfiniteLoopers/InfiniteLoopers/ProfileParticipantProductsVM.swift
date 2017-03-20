@@ -71,6 +71,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                                     }
                                     self.loadingMore.value = false
                                     self.dataSource.value.append(product!)
+                                    self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                                 }
                             }
                         }
@@ -78,6 +79,7 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                 }
                 }else{
                     self.dataSource.value.removeAll()
+                    self.reloadData.onNext(nil)
                     self.loadingMore.value = false
                 }
             }).addDisposableTo(disposeBag)

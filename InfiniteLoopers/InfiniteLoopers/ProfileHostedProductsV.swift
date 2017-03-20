@@ -32,17 +32,8 @@ extension ProfileHostedProductsV{
         super.viewDidLoad()
         emptyView = EmptyCollectionBackgroundView(frame: collectionView.frame)
         self.collectionView.backgroundView = emptyView
-
         self.collectionView!.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
-        
-        self.model.reloadData.bindNext{[unowned self] changeSet in
-            if let changeSet = changeSet{
-                self.collectionView.applyChangeset(deleted: changeSet.delete, inserted: changeSet.insert, updated: changeSet.update)
-            }else{
-                self.collectionView.reloadData()
-            }
-        }.addDisposableTo(disposeBag)
-        
+
         self.collectionView.rx.itemSelected.bindNext{[unowned self] _ in
             print(self.collectionView.numberOfItems(inSection: 0))
             }.addDisposableTo(disposeBag)
@@ -65,6 +56,14 @@ extension ProfileHostedProductsV{
                 self.emptyView.setLabelMessage(emoji: "🚀", text: NSLocalizedString("empty_hosted_products", comment: "empty_hosted_products"))
             }
             
+            }.addDisposableTo(disposeBag)
+        
+        self.model.reloadData.bindNext{[unowned self] changeSet in
+            if let changeSet = changeSet{
+                self.collectionView.applyChangeset(deleted: changeSet.delete, inserted: changeSet.insert, updated: changeSet.update)
+            }else{
+                self.collectionView.reloadData()
+            }
             }.addDisposableTo(disposeBag)
     }
 }

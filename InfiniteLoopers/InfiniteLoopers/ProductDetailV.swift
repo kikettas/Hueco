@@ -131,8 +131,7 @@ extension ProductDetailV{
             .addDisposableTo(disposeBag)
         
         let attString = NSMutableAttributedString()
-        attString.append(NSAttributedString(string: "¡Habla con ", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Light", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
-        attString.append(NSAttributedString(string: (self.model.product.value.seller.nickname ?? "")! + "!", attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
+        attString.append(NSAttributedString(string: NSLocalizedString("join_in_button", comment: "join_in_button"), attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
     }

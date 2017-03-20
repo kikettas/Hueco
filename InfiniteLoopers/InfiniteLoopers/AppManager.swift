@@ -19,7 +19,7 @@ class AppManager{
     
     fileprivate var userReference:FIRDatabaseReference?
     fileprivate var userHandle:FIRDatabaseHandle?
-    fileprivate var isInitializingApp:Bool = true
+    var isInitialized:PublishSubject<Bool> = PublishSubject()
     var userLogged: Variable<User?>
     private init(){
         userLogged = Variable(nil)
@@ -34,14 +34,13 @@ class AppManager{
                             let user = User(JSON: json)
                             self.userLogged.value = user
                         }
+                        self.isInitialized.onCompleted()
                     })
                 }
 
             }else{
                 self.userLogged.value = nil
-//                self.userReference?.removeObserver(withHandle: self.userHandle!)
-//                self.userReference = nil
-//                self.userHandle = nil
+                self.isInitialized.onCompleted()
             }
         }
     }

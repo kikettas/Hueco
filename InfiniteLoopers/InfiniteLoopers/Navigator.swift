@@ -101,20 +101,24 @@ class Navigator{
         }else if(from is SearchV || from is ProfileV || from is NotificationsV){
             if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
                 (tabBarV as! UITabBarController).selectedIndex = 3
-                if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
-                    (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
-                }else if let splitV = (tabBarV as! UITabBarController).selectedViewController, splitV is ChatSplitterV{
-                    (splitV as! ChatSplitterV).changeChatOnDetailV(chat: chat)
+                if let splitV = (tabBarV as! UITabBarController).selectedViewController as? ChatSplitterV{
+                    if(IS_IPHONE){
+                        splitV.viewControllers[0].navigationController?.pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+                    }else{
+                        splitV.changeChatOnDetailV(chat: chat)
+                    }
                 }
             }
         }else{
             from.dismiss(animated: true){
                 if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
                     (tabBarV as! UITabBarController).selectedIndex = 3
-                    if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
-                        (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
-                    }else if let splitV = (tabBarV as! UITabBarController).selectedViewController, splitV is ChatSplitterV{
-                        (splitV as! ChatSplitterV).changeChatOnDetailV(chat: chat)
+                    if let splitV = (tabBarV as! UITabBarController).selectedViewController as? ChatSplitterV{
+                        if(IS_IPHONE){
+                            splitV.viewControllers[0].navigationController?.pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+                        }else{
+                            splitV.changeChatOnDetailV(chat: chat)
+                        }
                     }
                 }
             }
@@ -170,5 +174,37 @@ class Navigator{
         alert.modalPresentationStyle = .overFullScreen
         alert.modalTransitionStyle = .crossDissolve
         on.present(alert, animated: true, completion: nil)
+    }
+    
+    public static func changeRootViewController(with:UIViewController,color:UIColor? = .black, transition:UIViewAnimationOptions, completion:(() -> ())? = nil){
+        UIApplication.shared.keyWindow?.backgroundColor = UIColor.black
+        
+        if transition == .transitionCrossDissolve{
+            let overlayView = UIScreen.main.snapshotView(afterScreenUpdates: false)
+            with.view.addSubview(overlayView)
+            UIApplication.shared.keyWindow?.rootViewController = with
+            
+            UIView.animate(withDuration: 0.65, delay: 0, options: transition, animations: {
+                overlayView.alpha = 0
+            }, completion: { finished in
+                overlayView.removeFromSuperview()
+                if let completion = completion{
+                    completion()
+                }
+                UIApplication.shared.keyWindow?.backgroundColor = color!
+            })
+        }else{
+            UIApplication.shared.keyWindow?.backgroundColor = color!
+            _ = with.view
+            UIView.transition(with: UIApplication.shared.keyWindow!, duration: 0.65,options: transition, animations:{
+                UIApplication.shared.keyWindow?.rootViewController = with
+            }){_ in
+                if let completion = completion{
+                    completion()
+                }
+                
+            }
+        }
+        
     }
 }
