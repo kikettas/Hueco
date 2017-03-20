@@ -31,7 +31,7 @@ class SearchVM:SearchVMProtocol{
     init(client:ClientProtocol = Client.shared) {
         self.client = client
         
-        loadingMore = Variable(false)
+        loadingMore = Variable(true)
         self.dataSource = Variable([])
         isRefreshing = BehaviorSubject(value: true)
         reloadData = BehaviorSubject(value: nil)
@@ -88,8 +88,8 @@ class SearchVM:SearchVMProtocol{
             for (index,_) in newProducts.enumerated(){
                 insertions.append(self.dataSource.value.count + index)
             }
-            self.dataSource.value.append(contentsOf: newProducts)
-            self.reloadData.onNext((insertions, [], []))
+//            self.dataSource.value.append(contentsOf: newProducts)
+//            self.reloadData.onNext((insertions, [], []))
             
         }).addDisposableTo(self.disposeBag)
     }

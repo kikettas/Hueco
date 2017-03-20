@@ -21,6 +21,8 @@
 "photo_gallery" = "Galería";
 "male" = "Hombre";
 "female" = "Mujer";
+"empty_notifications_message_not_logged" = "Para empezar a recibir notificaciones tienes que iniciar sesión antes";
+"empty_chats_message_not_logged" = "Para hablar con otras personas tienes que iniciar sesión antes";
+"empty_products_message" = "No hay productos disponibles en este momento";
 "empty_notifications_message" = "No tienes ninguna notificación todavía";
-"empty_products_message" = "No hay productos en este momento";
-"empty_chats_message" = "En estos momentos no tienes ninguna conversación empezada.\n ¡Comparte y empieza a hablar con el resto de usuarios! 💬";
+"empty_chats_message" = "En estos momentos no tienes ninguna conversación empezada.\n ¡Comparte y empieza a hablar con el resto de usuarios!";

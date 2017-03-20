@@ -33,12 +33,25 @@ extension NotificationsV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
-        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_notifications_message", comment: "empty_notifications_message"), frame: self.tableView.frame)
+        emptyView = EmptyCollectionBackgroundView(frame: self.tableView.frame)
         tableView.backgroundView = emptyView
         
         model.dataSource.asObservable()
             .map{$0.isNotEmpty}
             .bindTo(emptyView.rx.isHidden)
             .addDisposableTo(disposeBag)
+        
+        Observable.combineLatest(model.dataSource.asObservable()
+            .map{ return $0.isEmpty },AppManager.shared.userLogged.asObservable().map{$0 == nil}, resultSelector: { return ($0, $1)}).bindNext {(emptyNotifications, notLogged ) in
+                if(notLogged){
+                    self.emptyView.setLabelMessage(emoji: "🔑", text: NSLocalizedString("empty_notifications_message_not_logged", comment: "empty_notifications_message_not_logged"))
+                }else{
+                    if !emptyNotifications{
+                        self.emptyView.setLabelMessage(emoji: nil, text: nil)
+                    }else{
+                        self.emptyView.setLabelMessage(emoji: "📥", text: NSLocalizedString("empty_notifications_message", comment: "empty_notifications_message"))
+                    }
+                }
+            }.addDisposableTo(disposeBag)
     }
 }

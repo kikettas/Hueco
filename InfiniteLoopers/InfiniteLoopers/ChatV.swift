@@ -46,8 +46,8 @@ extension ChatV{
         collectionView.collectionViewLayout.springinessEnabled = true
         automaticallyScrollsToMostRecentMessage = true
         
-        senderDisplayName = AppManager.shared.userLogged.value?.nickname
-        senderId = AppManager.shared.userLogged.value?.uid
+        senderDisplayName = AppManager.shared.userLogged.value?.nickname ?? ""
+        senderId = AppManager.shared.userLogged.value?.uid ?? ""
         senderImageUrl = AppManager.shared.userLogged.value?.avatar ?? ""
         avatarPlaceholder = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ic_avatar_placeholder"), diameter: UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width))
         

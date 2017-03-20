@@ -161,6 +161,7 @@ class Navigator{
             productDetailV.modalTransitionStyle = transitionStyle
         }
         
+        productDetailV.view.frame = UIScreen.main.bounds
         from.present(productDetailV, animated: true, completion: nil)
     }
     

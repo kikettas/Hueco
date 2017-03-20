@@ -22,6 +22,9 @@
 "photo_gallery" = "Photo gallery";
 "male" = "Male";
 "female" = "Female";
+"pepe" = "pepito";
+"empty_notifications_message_not_logged" = "You need to log in first in order to start receiving notifications";
+"empty_chats_message_not_logged" = "You need to log in first in order to chat with other people";
+"empty_products_message" = "There are not available products at this moment";
 "empty_notifications_message" = "You do not have any notification yet";
-"empty_products_message" = "There are not any products in this moment";
-"empty_chats_message" = "You have not started any conversation yet. Share and start chatting with other people! 💬";
+"empty_chats_message" = "You have not started any conversation yet. Start sharing with other people!";

@@ -33,10 +33,26 @@ extension ChatsV{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyView = EmptyCollectionBackgroundView(message: NSLocalizedString("empty_chats_message", comment: "empty_chats_message"), frame: tableView.frame)
+        emptyView = EmptyCollectionBackgroundView(frame: tableView.frame)
         setupAppNavBarStyle()
         tableView.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "ChatCell")
         tableView.backgroundView = emptyView
+        
+        Observable.combineLatest(model.chats.asObservable()
+            .map{ return $0.isEmpty },AppManager.shared.userLogged.asObservable().map{$0 == nil}, resultSelector: { return ($0, $1)}).bindNext {(emptyChats, notLogged ) in
+                if(notLogged){
+                    let message = NSLocalizedString("empty_chats_message_not_logged", comment: "empty_chats_message_not_logged")
+                    self.emptyView.setLabelMessage(emoji: "🔑", text: message)
+                }else{
+                    if !emptyChats{
+                        self.emptyView.setLabelMessage(emoji: nil, text: nil)
+                    }else{
+                        self.emptyView.setLabelMessage(emoji: "💬", text: NSLocalizedString("empty_chats_message", comment: "empty_chats_message"))
+                    }
+                }
+        }.addDisposableTo(disposeBag)
+        
+        
         
         model.chats.asObservable()
             .map{ return $0.count != 0}

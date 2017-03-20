@@ -33,8 +33,6 @@ extension PaginatedCollectionController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-
-
         
         model.isRefreshing
             .observeOn(MainScheduler.instance)
