@@ -9,14 +9,14 @@
 import UIKit
 
 class MainTabBarV: UITabBarController, UITabBarControllerDelegate {
-
+    
     var model:MainTabBarVMProtocol!
     
     convenience init(model:MainTabBarVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
     }
-
+    
 }
 
 // MARK: - UITabBarController
@@ -37,10 +37,11 @@ extension MainTabBarV{
     func setupViewControllers(){
         let searchTab = SearchV(model:SearchVM())
         let notificationsTab = NotificationsV(model:NotificationsVM())
-        let chatsTab = ChatsV(model:ChatsVM())
+        //let chatsTab = ChatsV(model:ChatsVM())
         let profileTab = ProfileV(model:ProfileVM())
+        let chatsTab = ChatSplitterV()
         
-        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: DummyNewProduct()), UINavigationController(rootViewController: chatsTab), UINavigationController(rootViewController: profileTab)]
+        self.viewControllers = [UINavigationController(rootViewController: searchTab), UINavigationController(rootViewController: notificationsTab), UINavigationController(rootViewController: DummyNewProduct()), chatsTab, UINavigationController(rootViewController: profileTab)]
     }
 }
 

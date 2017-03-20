@@ -89,12 +89,22 @@ class Navigator{
     
     public static func navigateToChat(from:UIViewController, chat:Chat){
         if(from is ChatsV){
-            from.navigationController?.pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+            if IS_IPHONE{
+                from.navigationController?.pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+            }else{
+                if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
+                    if let splitV = (tabBarV as! UITabBarController).selectedViewController, splitV is ChatSplitterV{
+                        (splitV as! ChatSplitterV).changeChatOnDetailV(chat: chat)
+                    }
+                }
+            }
         }else if(from is SearchV || from is ProfileV || from is NotificationsV){
             if let tabBarV = UIApplication.shared.keyWindow?.rootViewController, tabBarV is MainTabBarV{
                 (tabBarV as! UITabBarController).selectedIndex = 3
                 if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
                     (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+                }else if let splitV = (tabBarV as! UITabBarController).selectedViewController, splitV is ChatSplitterV{
+                    (splitV as! ChatSplitterV).changeChatOnDetailV(chat: chat)
                 }
             }
         }else{
@@ -103,6 +113,8 @@ class Navigator{
                     (tabBarV as! UITabBarController).selectedIndex = 3
                     if let navVC = (tabBarV as! UITabBarController).selectedViewController, navVC is UINavigationController, navVC.childViewControllers.first is ChatsV{
                         (navVC as! UINavigationController).pushViewController(ChatV(model: ChatVM(chat:chat)), animated: true)
+                    }else if let splitV = (tabBarV as! UITabBarController).selectedViewController, splitV is ChatSplitterV{
+                        (splitV as! ChatSplitterV).changeChatOnDetailV(chat: chat)
                     }
                 }
             }
@@ -114,6 +126,7 @@ class Navigator{
     
     public static func navigateToEditProfile(fromProfile:UIViewController){
         let editProfileV = EditProfileV(model: EditProfileVM())
+
         fromProfile.navigationController?.pushViewController(editProfileV, animated: true)
     }
     

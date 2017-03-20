@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainTabBarV" customModule="InfiniteLoopers" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tabBarController id="24i-OR-206" customClass="MainTabBarV" customModule="InfiniteLoopers" customModuleProvider="target">
+        <tabBarController extendedLayoutIncludesOpaqueBars="YES" id="24i-OR-206" customClass="MainTabBarV" customModule="InfiniteLoopers" customModuleProvider="target">
             <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="ETH-oA-d9z">
                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>

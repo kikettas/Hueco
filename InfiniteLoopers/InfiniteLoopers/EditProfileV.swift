@@ -107,7 +107,10 @@ extension EditProfileV{
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         imagePicker.sourceType = sourceType
-        imagePicker.modalPresentationStyle = .popover
+//        imagePicker.modalPresentationStyle = .popover
+//        if(IS_IPAD){
+//            imagePicker.popoverPresentationController?.sourceView = self.view
+//        }
         self.present(imagePicker, animated: true, completion: nil)
     }
     
@@ -128,6 +131,13 @@ extension EditProfileV{
         actionSheet.addAction(camera)
         actionSheet.addAction(gallery)
         actionSheet.addAction(cancelAction)
+        
+        if(IS_IPAD){
+            actionSheet.modalPresentationStyle = .popover
+            actionSheet.popoverPresentationController?.sourceView = self.view
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.changePictureButton.frame.origin.x, y: self.changePictureButton.frame.origin.x, width: self.changePictureButton.frame.width, height: self.changePictureButton.frame.height + (self.changePictureButton.frame.height / 2))
+            actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+        }
         
         self.present(actionSheet, animated: true, completion: nil)
     }

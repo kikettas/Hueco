@@ -14,33 +14,43 @@ import RxSwift
 import ObjectMapper
 
 protocol ChatVMProtocol{
-    var ref:FIRDatabaseReference! { get }
-    var _refHandle:FIRDatabaseHandle! { get }
+    var ref:FIRDatabaseReference? { get }
+    var _refHandle:FIRDatabaseHandle? { get }
     var newMessage:PublishSubject<Void> { get }
     var chatMessages:[ChatMessage] { get }
-    var chat:Chat { get }
+    var chat: Variable<Chat?> { get set }
     
-    func initializeChat()
+    func initializeChat(chat:Chat)
     func sendMessage(withData data: ChatMessage)
 }
 
 class ChatVM:ChatVMProtocol{
-    var ref: FIRDatabaseReference!
-    var _refHandle: FIRDatabaseHandle!
+    
+    var disposeBag = DisposeBag()
+    var ref: FIRDatabaseReference?
+    var _refHandle: FIRDatabaseHandle?
     var newMessage: PublishSubject<Void> = PublishSubject()
     var chatMessages: [ChatMessage]
-    var chat: Chat
+    var chat: Variable<Chat?>
     
-    init(chat:Chat){
-        self.chat = chat
+    init(chat:Chat?){
         chatMessages = []
-        initializeChat()
+        self.chat = Variable(chat)
+        
+        self.chat.asObservable().filterNil().subscribe(onNext:{ [unowned self] chat in
+            self.ref?.removeObserver(withHandle: self._refHandle!)
+            self._refHandle = nil
+            self.ref = nil
+            self.chatMessages.removeAll()
+            self.newMessage.onNext()
+            self.initializeChat(chat: chat)
+        }).addDisposableTo(disposeBag)
     }
     
-    func initializeChat() {
-        ref = FIRDatabase.database().reference().child("chats").child(chat.chatID)
-        ref.keepSynced(true)
-        _refHandle = self.ref.child("messages").queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
+    func initializeChat(chat:Chat) {
+        ref = FIRDatabase.database().reference().child("chats").child(chat.chatID).child("messages")
+        ref!.keepSynced(true)
+        _refHandle = self.ref!.queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
             guard let `self` = self else {
                 return
             }
@@ -55,10 +65,12 @@ class ChatVM:ChatVMProtocol{
     func sendMessage(withData data: ChatMessage) {
         let message = Mapper().toJSON(data)
         
-        self.ref.child("messages").childByAutoId().setValue(message)
+        self.ref!.childByAutoId().setValue(message)
     }
     
     deinit {
-        ref.removeObserver(withHandle: _refHandle)
+        if let ref = ref{
+            ref.removeObserver(withHandle: _refHandle!)
+        }
     }
 }

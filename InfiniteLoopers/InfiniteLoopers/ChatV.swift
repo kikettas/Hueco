@@ -26,7 +26,6 @@ class ChatV: JSQMessagesViewController, UITextFieldDelegate {
     convenience init(model:ChatVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
-        self.title = model.chat.name
     }
 }
 
@@ -37,8 +36,10 @@ extension ChatV{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAppNavBarStyle()
+        model.chat.asObservable().filterNil().map {$0.name }.bindNext{
+            self.title = $0
+            }.addDisposableTo(disposeBag)
         
-        self.edgesForExtendedLayout = []
         setNavBarButtonImage()
         inputToolbar.contentView.leftBarButtonItem = nil
         collectionView.backgroundColor = UIColor.mainBackgroundColor
@@ -69,10 +70,13 @@ extension ChatV{
     
     func setNavBarButtonImage(){
         let button = UIButton(type: UIButtonType.custom)
-        let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill)
         button.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
         button.clipsToBounds = true
-        button.kf.setImage(with: URL(string:model.chat.photo ?? ""), for: .normal, placeholder: UIImage(named: "ic_avatar_placeholder"), options: [.processor(processor)])
+        model.chat.asObservable().map {$0?.photo}.bindNext { photo in
+            let processor = ResizingImageProcessor(targetSize: CGSize(width: 70, height: 70), contentMode: ContentMode.aspectFill)
+            button.kf.setImage(with: URL(string:photo ?? ""), for: .normal, placeholder: UIImage(named: "ic_avatar_placeholder"), options: [.processor(processor)])
+        }.addDisposableTo(disposeBag)
+        
         button.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
     }

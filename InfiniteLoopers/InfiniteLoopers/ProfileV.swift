@@ -107,6 +107,12 @@ extension ProfileV{
         actionSheet.addAction(logOutAction)
         actionSheet.addAction(cancelAction)
         
+        if(IS_IPAD){
+            actionSheet.modalPresentationStyle = .popover
+            actionSheet.popoverPresentationController?.sourceView = self.view
+            actionSheet.popoverPresentationController?.sourceRect = self.setttingsButton.frame
+            actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+        }
         self.present(actionSheet, animated: true, completion: nil)
     }
     
