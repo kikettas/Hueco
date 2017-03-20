@@ -109,7 +109,7 @@ extension LoginV{
                 self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!){_, error in
                     
                     if let error = error{
-                        print(error)
+                        MessageBar.showError(message: error.errorDescription)
                         return
                     }
                     self.dismiss(animated: true, completion: nil)

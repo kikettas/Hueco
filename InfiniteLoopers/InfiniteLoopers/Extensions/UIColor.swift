@@ -14,4 +14,5 @@ extension UIColor{
     static let mainRedTranslucent = UIColor(rgbValue: 0xDF0000, alpha:0.60)
     static let mainDarkGrey = UIColor(rgbValue: 0x4A4A4A)
     static let mainBackgroundColor = UIColor(rgbValue:0xEFEFF4)
+    static let mainErrorColor = UIColor(rgbValue: 0x5E6B87, alpha: 1)
 }

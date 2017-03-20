@@ -52,6 +52,7 @@
 		1F79D0FF1E7D96CF00373F2F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79D0FE1E7D96CF00373F2F /* Date.swift */; };
 		1F79D1021E7FD26E00373F2F /* ChatSplitterV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79D1001E7FD26E00373F2F /* ChatSplitterV.swift */; };
 		1F79D1031E7FD26E00373F2F /* ChatSplitterV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F79D1011E7FD26E00373F2F /* ChatSplitterV.xib */; };
+		1F79D10C1E8049B800373F2F /* MessageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79D10B1E8049B800373F2F /* MessageBar.swift */; };
 		1F7A1E931E45EE5200FF88D3 /* NotificationsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1E911E45EE5200FF88D3 /* NotificationsV.swift */; };
 		1F7A1E941E45EE5200FF88D3 /* NotificationsV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7A1E921E45EE5200FF88D3 /* NotificationsV.xib */; };
 		1F7A1E961E45EE6F00FF88D3 /* NotificationsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A1E951E45EE6F00FF88D3 /* NotificationsVM.swift */; };
@@ -201,6 +202,7 @@
 		1F79D0FE1E7D96CF00373F2F /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		1F79D1001E7FD26E00373F2F /* ChatSplitterV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSplitterV.swift; sourceTree = "<group>"; };
 		1F79D1011E7FD26E00373F2F /* ChatSplitterV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatSplitterV.xib; sourceTree = "<group>"; };
+		1F79D10B1E8049B800373F2F /* MessageBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBar.swift; sourceTree = "<group>"; };
 		1F7A1E911E45EE5200FF88D3 /* NotificationsV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsV.swift; sourceTree = "<group>"; };
 		1F7A1E921E45EE5200FF88D3 /* NotificationsV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsV.xib; sourceTree = "<group>"; };
 		1F7A1E951E45EE6F00FF88D3 /* NotificationsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsVM.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 			children = (
 				1F79D1091E803F5700373F2F /* UIKit */,
 				1F79D10A1E803F5D00373F2F /* Foundation */,
+				1F79D10B1E8049B800373F2F /* MessageBar.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1259,6 +1262,7 @@
 				1FA717151E450D6200CC0F39 /* AppDelegate.swift in Sources */,
 				1FAEA3571E45EC170007A1D2 /* SearchVM.swift in Sources */,
 				1F12A5301E6C7E2300B93BEA /* Chat.swift in Sources */,
+				1F79D10C1E8049B800373F2F /* MessageBar.swift in Sources */,
 				1FCAF54A1E63373200FA40E8 /* ChatCell.swift in Sources */,
 				1FF69B461E744A2B00E166F5 /* Float.swift in Sources */,
 				1FA69EC11E45D2CE005FD096 /* MainTabBarV.swift in Sources */,

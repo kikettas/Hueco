@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import RxCocoa
 import RxSwift
+import Swarkn
 
 class MainLoginV: UIViewController, GIDSignInUIDelegate {
     
@@ -81,7 +82,7 @@ extension MainLoginV{
                 }
                 self.model.loginWithGoogle(from: self){(user, error) in
                     if let error = error{
-                        print(error)
+                        MessageBar.showError(message: error.errorDescription)
                         return
                     }
                     self.dismiss(animated: true, completion: nil)
@@ -99,7 +100,7 @@ extension MainLoginV{
                 }
                 self.model.loginWithFacebook(from: self){(user, error) in
                     if let error = error{
-                        print(error)
+                        MessageBar.showError(message: error.errorDescription)
                         return
                     }
                     self.dismiss(animated: true, completion: nil)

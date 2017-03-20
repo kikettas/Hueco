@@ -126,7 +126,8 @@ extension CreateAccountV{
                 }
                 self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!, nickName:self.userNameTF.text!)
                     .subscribe(onError: {error in
-                        
+                        let error = error as! ClientError
+                        MessageBar.showError(message: error.errorDescription)
                     },onCompleted: {
                         self.dismiss(animated: true, completion: nil)
                     }).addDisposableTo(self.disposeBag)
