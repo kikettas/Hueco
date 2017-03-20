@@ -33,3 +33,21 @@
 "join_in_button" = "Join in!";
 "no_description_provided" = "No description provided";
 "recover_password_mail_message" = "We have sent you an email with the instructions for recovering your password 📩";
+
+/*
+ 
+ Errors
+ 
+ */
+"error_invalid_credentials" = "Email or password is incorrect";
+"error_unknown_error" = "There was an error... try again";
+"error_user_not_found" = "User not found";
+"error_account_disabled" = "Account disabled";
+"error_email_already_in_use" = "That email is already in use";
+"error_wrong_password" = "Wrong password";
+"error_weak_password" = "That password is too weak";
+"error_login_with_facebook" = "There was an error logging in with Facebook";
+"error_login_canceled" = "Log in was canceled";
+"error_invalid_email" = "That is not a valid email";
+"error_invalid_parameters" = "Invalid parameters";
+"error_transaction_not_found" = "Transaction not found";

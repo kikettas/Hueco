@@ -125,10 +125,10 @@ extension CreateAccountV{
                     return
                 }
                 self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!, nickName:self.userNameTF.text!)
-                    .subscribe(onNext: {
-                        self.dismiss(animated: true, completion: nil)
-                    }, onError: {error in
+                    .subscribe(onError: {error in
                         
+                    },onCompleted: {
+                        self.dismiss(animated: true, completion: nil)
                     }).addDisposableTo(self.disposeBag)
             }
             .addDisposableTo(disposeBag)

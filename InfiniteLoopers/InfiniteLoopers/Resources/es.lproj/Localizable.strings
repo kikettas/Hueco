@@ -32,3 +32,20 @@
 "no_description_provided" = "Sin descripción";
 "recover_password_mail_message" = "Te hemos enviado un email con las instrucciones para recuperar tu contraseña 📩";
 
+/*
+ 
+ Errors
+ 
+ */
+"error_invalid_credentials" = "Email o contraseña incorrectos";
+"error_unknown_error" = "Hubo un error... intenténtalo de nuevo";
+"error_user_not_found" = "Usuario no encontrado";
+"error_account_disabled" = "Cuenta deshabilitada";
+"error_email_already_in_use" = "Ese email ya está en uso";
+"error_wrong_password" = "Contraseña incorrecta";
+"error_weak_password" = "Esa password es muy débil";
+"error_login_with_facebook" = "Hubo un error iniciando sesión con Facebook";
+"error_login_canceled" = "Inicio de sesión cancelado";
+"error_invalid_email" = "Ese no es un email válido";
+"error_invalid_parameters" = "Invalid parameters";
+"error_transaction_not_found" = "Transaction not found";

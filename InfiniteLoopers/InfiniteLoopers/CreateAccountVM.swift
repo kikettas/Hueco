@@ -36,7 +36,7 @@ class CreateAccountVM:CreateAccountVMProtocol{
                     return
                 }
                 
-                observer.onNext()
+                observer.onCompleted()
                 return
             }
             return Disposables.create()
