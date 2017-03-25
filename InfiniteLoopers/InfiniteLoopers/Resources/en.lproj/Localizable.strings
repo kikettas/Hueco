@@ -39,6 +39,7 @@
  Errors
  
  */
+
 "error_invalid_credentials" = "Email or password is incorrect";
 "error_unknown_error" = "There was an error... try again";
 "error_user_not_found" = "User not found";

@@ -99,11 +99,11 @@ class ProductDetailVM:ProductDetailVMProtocol{
     }
     
     func join(completion: @escaping ClientCompletion<Chat?>) {
-        client.join(ownID: (AppManager.shared.userLogged.value?.uid)!, sellerID: product.value.seller.uid, name: product.value.name, chatID: product.value.chat, productID: product.value.id).subscribe(onNext: { chat in
-            completion(chat, nil)
-        },onError: {error in
-            completion(nil, error as? ClientError)
-        }).addDisposableTo(disposeBag)
+//        client.join(ownID: (AppManager.shared.userLogged.value?.uid)!, sellerID: product.value.seller.uid, name: product.value.name, chatID: product.value.chat, productID: product.value.id).subscribe(onNext: { chat in
+//            completion(chat, nil)
+//        },onError: {error in
+//            completion(nil, error as? ClientError)
+//        }).addDisposableTo(disposeBag)
     }
     
     deinit {

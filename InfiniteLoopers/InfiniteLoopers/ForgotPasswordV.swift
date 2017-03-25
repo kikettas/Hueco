@@ -55,12 +55,12 @@ extension ForgotPasswordV{
         isEmailCheckHidden.asObservable().bindTo(checkEmailImage.rx.isHidden).addDisposableTo(disposeBag)
         isEmailCheckHidden.asObservable().bindTo(submitButton.rx.isHidden).addDisposableTo(disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{[unowned self] notification in
             self.bottomSubmitButtonConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
             
         }).addDisposableTo(disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillHide).subscribe(onNext:{ notification in
+        NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillHide).subscribe(onNext:{[unowned self] notification in
             self.bottomSubmitButtonConstraint.constant = 0
             
         }).addDisposableTo(disposeBag)
@@ -72,7 +72,7 @@ extension ForgotPasswordV{
             .rx
             .tap
             .observeOn(MainScheduler.instance)
-            .bindNext(){
+            .bindNext(){[unowned self] in
                 Navigator.navigateBack(from: self.navigationController!)
             }
             .addDisposableTo(disposeBag)
@@ -87,7 +87,7 @@ extension ForgotPasswordV{
                 }
                 self.model.sendResetPasswordTo(email: self.emailTF.text!){_, error in
                     if let error = error{
-                        print(error)
+                        MessageBar.showError(message: error.errorDescription)
                         return
                     }
                     let emailSentDialog = CustomAlertV(title: nil, message: NSLocalizedString("recover_password_mail_message", comment: "recover_password_mail_message"), positiveMessage: "OK", negativeMessage: nil){_ in

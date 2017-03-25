@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="joinRequestCellIdentifier" id="gTV-IL-0wX" customClass="JoinRequestCollectionCell" customModule="InfiniteLoopers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="388" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="388" height="111"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6tT-tS-3zd">
+                        <rect key="frame" x="0.0" y="17" width="396" height="131"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b1d-Db-hHb">
+                                <rect key="frame" x="0.0" y="0.0" width="356" height="54"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXJ-eP-y3q">
+                                        <rect key="frame" x="0.0" y="2" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="US3-Zl-M7c"/>
+                                            <constraint firstAttribute="width" constant="50" id="bnz-Dk-Prc"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9W-Bn-xpP">
+                                        <rect key="frame" x="66" y="18.5" width="290" height="17"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-cR-0kJ">
+                                <rect key="frame" x="16" y="62" width="324" height="33"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VRb-Oq-Ibu">
+                                        <rect key="frame" x="0.0" y="0.0" width="97.5" height="33"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" title="Reject">
+                                            <color key="titleColor" red="0.87450980389999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4Z-t5-V4Z">
+                                        <rect key="frame" x="113.5" y="0.0" width="97" height="33"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" title="Accept">
+                                            <color key="titleColor" red="0.15686274509803921" green="0.792156862745098" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-wU-ZOd">
+                                        <rect key="frame" x="226.5" y="0.0" width="97.5" height="33"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dkS-cR-0kJ" secondAttribute="trailing" constant="16" id="53B-XT-80f"/>
+                            <constraint firstItem="dkS-cR-0kJ" firstAttribute="leading" secondItem="6tT-tS-3zd" secondAttribute="leading" constant="16" id="Cpt-dZ-Eva"/>
+                            <constraint firstItem="b1d-Db-hHb" firstAttribute="leading" secondItem="6tT-tS-3zd" secondAttribute="leading" id="MiQ-s3-8zt"/>
+                            <constraint firstAttribute="trailing" secondItem="b1d-Db-hHb" secondAttribute="trailing" id="z1G-nY-UDw"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6tT-tS-3zd" secondAttribute="trailing" constant="16" id="C5s-WO-aKa"/>
+                <constraint firstAttribute="bottom" secondItem="6tT-tS-3zd" secondAttribute="bottom" constant="8" id="KYo-wX-iIm"/>
+                <constraint firstItem="6tT-tS-3zd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="aZQ-4z-Utq"/>
+                <constraint firstItem="6tT-tS-3zd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="hcU-RM-FkZ"/>
+            </constraints>
+            <size key="customSize" width="388" height="109"/>
+            <connections>
+                <outlet property="acceptButton" destination="C4Z-t5-V4Z" id="zQH-Ux-ea3"/>
+                <outlet property="buttonStack" destination="dkS-cR-0kJ" id="rY2-ea-xIK"/>
+                <outlet property="loadingIndicator" destination="ntx-wU-ZOd" id="K80-6z-bwM"/>
+                <outlet property="participantPicture" destination="AXJ-eP-y3q" id="eRq-xL-ymx"/>
+                <outlet property="rejectButton" destination="VRb-Oq-Ibu" id="XcP-Uy-Mv7"/>
+                <outlet property="requestText" destination="M9W-Bn-xpP" id="Pwv-kE-kVd"/>
+            </connections>
+            <point key="canvasLocation" x="120" y="11.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

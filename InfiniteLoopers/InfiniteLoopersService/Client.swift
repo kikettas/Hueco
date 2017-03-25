@@ -23,8 +23,10 @@ protocol ClientProtocol {
     
     // API
     func chats(withChatIDs ids:[String]) -> Observable<Chat>
+    func changeJoinRequestStatus(joinRequest:JoinRequest, completion: @escaping  ClientCompletion<JoinRequest.JoinRequestStatus?>)
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
-    func join(ownID:String, sellerID: String, name:String, chatID:String?, productID:String) -> Observable<Chat>
+    func createChat(ownID:String, sellerID: String, name:String, chatID:String?, productID:String, completion: @escaping ClientCompletion<Chat?>)
+    func joinRequests(userID:String) -> Observable<JoinRequest>
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)

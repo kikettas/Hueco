@@ -36,13 +36,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ek6-AX-NAP">
-                    <rect key="frame" x="111" y="25" width="212" height="36"/>
+                    <rect key="frame" x="111" y="25" width="212" height="35.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                     <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ndM-ur-Zg1" customClass="RatingView" customModule="Swarkn">
-                    <rect key="frame" x="111" y="69" width="93" height="13"/>
+                    <rect key="frame" x="111" y="68.5" width="93" height="13"/>
                     <constraints>
                         <constraint firstAttribute="width" priority="999" constant="93" id="nPZ-Mt-3JS"/>
                     </constraints>
@@ -55,6 +55,7 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="interaction" value="NO"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sameRatio" value="YES"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="ic_star_filled"/>
                     </userDefinedRuntimeAttributes>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hf-rY-VVq">
@@ -84,7 +85,7 @@
                     <rect key="frame" x="0.0" y="112" width="375" height="62"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQk-85-wPI">
-                            <rect key="frame" x="0.0" y="0.0" width="188" height="62"/>
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="62"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Creadas">
@@ -98,7 +99,7 @@
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Mi-J3-aiL">
-                            <rect key="frame" x="188" y="0.0" width="187" height="62"/>
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="62"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Participando">
@@ -117,7 +118,7 @@
                     </constraints>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFz-oL-mAi">
-                    <rect key="frame" x="212" y="69" width="30" height="14"/>
+                    <rect key="frame" x="212" y="68.5" width="29.5" height="14"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

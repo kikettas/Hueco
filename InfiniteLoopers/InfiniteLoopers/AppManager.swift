@@ -47,7 +47,7 @@ class AppManager{
     
     static func initialize(){
         FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = false
+        FIRDatabase.database().persistenceEnabled = true
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
         _ = AppManager.shared        
