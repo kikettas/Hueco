@@ -10,12 +10,22 @@ import UIKit
 import Kingfisher
 import RxCocoa
 import RxSwift
+import IGListKit
 
-class ChatsV: UIViewController {
+class ChatsV: UIViewController, IGListAdapterDataSource {
     var model:ChatsVMProtocol!
     var disposeBag = DisposeBag()
     
-    @IBOutlet weak var tableView: UITableView!
+    var collectionView: IGListCollectionView = {
+        let view = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
+    lazy var adapter: IGListAdapter = {
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    }()
+    
     var emptyView:EmptyCollectionBackgroundView!
     
     convenience init(model:ChatsVMProtocol) {
@@ -34,22 +44,19 @@ extension ChatsV{
         super.viewDidLoad()
         setupAppNavBarStyle()
         setupEmptyView()
-        setupTableView()
-
-        model.chats.asObservable().bindTo(tableView.rx.items(cellIdentifier: "ChatCell", cellType: ChatCell.self)){row,element,cell in
-            
-            cell.userName.text = element.name
-            cell.userPhoto.setAvatarImage(urlString: element.photo)
-            cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-
-            cell.lastMessage.text = ""
+        view.addSubview(collectionView)
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+        
+        model.reloadData.filter{ $0 }.bindNext{_ in
+            self.adapter.performUpdates(animated: true, completion: nil)
         }.addDisposableTo(disposeBag)
     }
     
     func setupEmptyView(){
-        emptyView = EmptyCollectionBackgroundView(frame: tableView.frame)
+        emptyView = EmptyCollectionBackgroundView(frame: collectionView.frame)
 
-        Observable.combineLatest(model.chats.asObservable()
+        Observable.combineLatest(model.dataSource.asObservable()
             .map{ return $0.isEmpty },AppManager.shared.userLogged.asObservable().map{$0 == nil}, resultSelector: { return ($0, $1)}).bindNext {(emptyChats, notLogged ) in
                 if(notLogged){
                     let message = NSLocalizedString("empty_chats_message_not_logged", comment: "empty_chats_message_not_logged")
@@ -64,21 +71,27 @@ extension ChatsV{
             }.addDisposableTo(disposeBag)
     }
     
-    func setupTableView(){
-        tableView.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "ChatCell")
-        tableView.backgroundView = emptyView
-        tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor.mainBackgroundColor
-        
-        tableView.rx.itemSelected.observeOn(MainScheduler.instance).bindNext(){[weak self] indexpath in
-            guard let `self` = self else {
-                return
-            }
-            self.tableView.deselectRow(at: indexpath, animated: true)
-            
-            Navigator.navigateToChat(from: self, chat: self.model.chats.value[indexpath.row])
-            
-            }.addDisposableTo(disposeBag)
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.collectionView.frame = view.bounds
     }
 }
 
+// MARK: - IGListAdapterDataSource
+
+extension ChatsV{
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+        return model.dataSource.value as! [IGListDiffable]
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        return ChatSectionController(didSelectChat: { index in
+            Navigator.navigateToChat(from: self, chat: self.model.dataSource.value[index] as! Chat)
+        })
+    }
+    
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+        return emptyView
+    }
+}

@@ -15,55 +15,94 @@ import IGListKit
 
 protocol ChatsVMProtocol{
     var client:ClientProtocol { get }
-    var chats:Variable<[Chat]> { get set}
+    var dataSource:Variable<[Any]> { get set}
+    var reloadData:BehaviorSubject<Bool> { get }
 }
 
 class ChatsVM:ChatsVMProtocol{
     var disposeBag = DisposeBag()
-    var chats: Variable<[Chat]> = Variable([])
+    var dataSource: Variable<[Any]> = Variable([])
     var client: ClientProtocol
-    var chatsDBReference:FIRDatabaseReference?
+    var chatsReference:FIRDatabaseReference?
+    var chatsAddedHandle:FIRDatabaseHandle?
+    var chatsDeletedHandle:FIRDatabaseHandle?
+    var childReferences:[String:FIRDatabaseReference]?
+    var childHandles:[String:FIRDatabaseHandle]?
+    
+    var reloadData: BehaviorSubject<Bool>
+    var initialized:Bool = false
+    
     
     init(client:ClientProtocol = Client.shared){
         self.client = client
-        
+        reloadData = BehaviorSubject(value: false)
         
         AppManager.shared.userLogged.asObservable().subscribe(onNext:{[unowned self] user in
             if let user = user{
-                if let chats = user.chatIDs{
-                    self.updateChats(chatIds: chats)
+                if(!self.initialized){
+                    self.initializeCollection(userID: user.uid)
                 }
             }else{
-                self.chats.value.removeAll()
+                self.resetObservers()
             }
         }).addDisposableTo(disposeBag)
     }
     
-    func updateChats(chatIds:[String]){
-        removeDeletedChats(chatIds:chatIds)
-        _ = chatIds.map{ chatID in
-            if(!chats.value.contains(where:{ c in return chatID == c.chatID })){
-                _ = FIRDatabase.database().reference().child("chats").child(chatID).observeSingleEvent(of: FIRDataEventType.value, with: {[unowned self] snapshot in
-                    if let chatJson = snapshot.value as? [String:Any]{
-                        let c = Chat(id: chatID, json: chatJson)
-                        guard let chat = c else { return }
-                        self.chats.value.append(chat)
-                    }
-                })
-            }
+    func initializeCollection(userID:String){
+        self.initialized = true
+        childReferences = [:]
+        childHandles = [:]
+        
+        chatsReference = FIRDatabase.database().reference().child("users").child(userID).child("chats")
+        chatsAddedHandle = chatsReference?.observe(.childAdded, with: {[unowned self] snapshot in
+            self.initializeChildChatsReference(chatID: snapshot.key)
+        })
+        
+        chatsDeletedHandle = chatsReference?.observe(.childRemoved, with: {[unowned self] snapshot in
+            self.removeChat(chatID: snapshot.key)
+        })
+    }
+    
+    func initializeChildChatsReference(chatID:String){
+        if childReferences?[chatID] == nil{
+            childReferences?[chatID] = FIRDatabase.database().reference().child("chats").child(chatID)
+            childHandles?[chatID] = childReferences?[chatID]!.observe(.value, with: {[unowned self] snapshot in
+                if let chatJson = snapshot.value as? [String:Any]{
+                    let c = Chat(id: chatID, json: chatJson)
+                    guard let chat = c else { return }
+                    self.dataSource.value.append(chat)
+                    self.reloadData.onNext(true)
+                }
+            })
         }
     }
     
-    func removeDeletedChats(chatIds:[String]){
-        var removeIndexes:[Int] = []
-        for i in 0..<chats.value.count{
-            if(!chatIds.contains(chats.value[i].chatID)){
-                removeIndexes.append(i)
+    func resetObservers(){
+        self.initialized = false
+        chatsReference?.removeAllObservers()
+
+        childReferences?.forEach{
+            $0.value.removeObserver(withHandle: childHandles![$0.key]!)
+        }
+        chatsReference = nil
+        chatsAddedHandle = nil
+        chatsDeletedHandle = nil
+        self.dataSource.value.removeAll()
+        self.reloadData.onNext(true)
+        
+    }
+    
+    func removeChat(chatID:String){
+        var removeIndex:Int?
+        for (index, element) in dataSource.value.enumerated(){
+            if let element = element as? Chat, (element.chatID == chatID){
+                removeIndex = index
+                break
             }
         }
-        
-        removeIndexes.forEach{
-            chats.value.remove(at: $0)
+        if let removeIndex = removeIndex{
+            self.dataSource.value.remove(at: removeIndex)
+            self.reloadData.onNext(true)
         }
     }
 }

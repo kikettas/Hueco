@@ -16,6 +16,7 @@ class Chat:Mappable, IGListDiffable{
     var name:String!
     var productID:String?
     var memberIDs:[String]!
+    var updatedAt:Date!
 
 
     required init?(map: Map) {
@@ -33,6 +34,7 @@ class Chat:Mappable, IGListDiffable{
         self.name = name
         self.productID = productID
         self.memberIDs = members
+        self.updatedAt = Date()
     }
 }
 
@@ -43,6 +45,7 @@ extension Chat{
         photo <- map["photo"]
         name <- map["name"]
         productID <- map["productID"]
+        updatedAt <- (map["updatedAt"], DateTransform())
         if let members = map["members"].currentValue as? [String:Any]{
             memberIDs = members.keys.sorted()
         }
@@ -58,7 +61,7 @@ extension Chat{
     
     func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
         if let object = object as? Chat{
-            return object.chatID == chatID
+            return object.updatedAt.compare(updatedAt) == ComparisonResult.orderedSame
         }
         return false
     }

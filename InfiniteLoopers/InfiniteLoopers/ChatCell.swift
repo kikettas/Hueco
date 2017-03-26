@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatCell: UITableViewCell {
+class ChatCell: UICollectionViewCell {
 
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -17,13 +17,6 @@ class ChatCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        userPhoto.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

@@ -17,6 +17,9 @@ protocol NotificationsVMProtocol{
     var reloadData:BehaviorSubject<Bool> { get }
     
     func changeJoinRequestValue(joinRequest: JoinRequest, completion: @escaping ClientCompletion<JoinRequest.JoinRequestStatus?>)
+    func initializeCollection(userID:String)
+    func initializeJoinRequestChangedReference(requestID:String)
+    func removeJoinRequest(joinRequestID:String)
     func resetObservers()
 }
 
@@ -27,10 +30,10 @@ class NotificationsVM:NotificationsVMProtocol{
     var disposeBag = DisposeBag()
     var initialized:Bool = false
     var joinRequestsRef:FIRDatabaseReference?
-    var joinRequestsHandle:FIRDatabaseHandle?
+    var joinRequestsAddedHandle:FIRDatabaseHandle?
+    var joinRequestsRemovededHandle:FIRDatabaseHandle?
     var childReferences:[String:FIRDatabaseReference]?
     var childHandles:[String:FIRDatabaseHandle]?
-    
     var reloadData: BehaviorSubject<Bool>
     
     
@@ -66,8 +69,12 @@ class NotificationsVM:NotificationsVMProtocol{
         childHandles = [:]
         
         joinRequestsRef = FIRDatabase.database().reference().child("users").child(userID).child("join_requests")
-        joinRequestsHandle = joinRequestsRef?.observe(.childAdded, with: { snapshot in
+        joinRequestsAddedHandle = joinRequestsRef?.observe(.childAdded, with: { snapshot in
             self.initializeJoinRequestChangedReference(requestID: snapshot.key)
+        })
+        
+        joinRequestsRemovededHandle = joinRequestsRef?.observe(.childRemoved, with: { snapshot in
+            self.removeJoinRequest(joinRequestID: snapshot.key)
         })
     }
     
@@ -89,14 +96,29 @@ class NotificationsVM:NotificationsVMProtocol{
         }
     }
     
+    func removeJoinRequest(joinRequestID:String){
+        var removeIndex:Int?
+        for (index, element) in dataSource.value.enumerated(){
+            if let element = element as? JoinRequest, (element.id == joinRequestID){
+                removeIndex = index
+                break
+            }
+        }
+        if let removeIndex = removeIndex{
+            self.dataSource.value.remove(at: removeIndex)
+            self.reloadData.onNext(true)
+        }
+    }
+    
     func resetObservers(){
         self.initialized = false
-        joinRequestsRef?.removeObserver(withHandle: joinRequestsHandle!)
+        joinRequestsRef?.removeAllObservers()
         childReferences?.forEach{
             $0.value.removeObserver(withHandle: childHandles![$0.key]!)
         }
         joinRequestsRef = nil
-        joinRequestsHandle = nil
+        joinRequestsAddedHandle = nil
+        joinRequestsRemovededHandle = nil
         self.dataSource.value.removeAll()
         self.reloadData.onNext(true)
         

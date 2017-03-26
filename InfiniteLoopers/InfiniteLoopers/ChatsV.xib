@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatsV" customModule="InfiniteLoopers" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="cXk-5B-qye" id="nuT-In-zMR"/>
                 <outlet property="view" destination="0Mf-lP-78Y" id="z2c-1K-eFh"/>
             </connections>
         </placeholder>
@@ -19,19 +18,7 @@
         <view contentMode="scaleToFill" id="0Mf-lP-78Y">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cXk-5B-qye">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-            </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="cXk-5B-qye" firstAttribute="leading" secondItem="0Mf-lP-78Y" secondAttribute="leading" id="4Wd-g9-PXP"/>
-                <constraint firstItem="cXk-5B-qye" firstAttribute="top" secondItem="0Mf-lP-78Y" secondAttribute="top" id="DE1-Ux-9nS"/>
-                <constraint firstAttribute="bottom" secondItem="cXk-5B-qye" secondAttribute="bottom" id="LTR-Ml-log"/>
-                <constraint firstAttribute="trailing" secondItem="cXk-5B-qye" secondAttribute="trailing" id="iAx-cn-DKj"/>
-            </constraints>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </view>
     </objects>
 </document>
