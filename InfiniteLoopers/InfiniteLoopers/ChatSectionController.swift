@@ -10,7 +10,7 @@ import UIKit
 import IGListKit
 
 class ChatSectionController: IGListSectionController, IGListSectionType {
-    var chat:Chat!
+    var chats:ChatSectionDataSource!
     var didSelectChat:((Int) -> ())!
     
     convenience init(didSelectChat:@escaping ((Int) -> ())) {
@@ -19,7 +19,7 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
     }
     
     func numberOfItems() -> Int {
-        return 1
+        return chats.items.count
     }
     
     func sizeForItem(at index: Int) -> CGSize {
@@ -33,19 +33,18 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
             return cellCollection!
         }
         
-        cell.userName.text = chat.name
-        cell.userPhoto.setAvatarImage(urlString: chat.photo)
+        cell.userName.text = chats.items[index].name
+        cell.userPhoto.setAvatarImage(urlString: chats.items[index].photo)
         cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-        cell.lastMessage.text = chat.lastMessage ?? ""
+        cell.lastMessage.text = chats.items[index].lastMessage ?? ""
         return cell
     }
     
     func didUpdate(to object: Any) {
-        chat = object as? Chat
+        chats = object as? ChatSectionDataSource
     }
     
     func didSelectItem(at index: Int) {
-        
         didSelectChat(index)
     }
     
@@ -63,8 +62,6 @@ class ChatSectionDataSource:IGListDiffable{
     }
     
     func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
-        if let object = object as? ChatSectionDataSource{
-            
-        }
+        return false
     }
 }
