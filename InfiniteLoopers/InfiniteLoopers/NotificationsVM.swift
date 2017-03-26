@@ -9,9 +9,11 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import IGListKit
 
 protocol NotificationsVMProtocol{
     var dataSource:Variable<[Any]> { get }
+    var reloadData:BehaviorSubject<Bool> { get }
     
     func reloadCollection(userID:String)
     func changeJoinRequestValue(joinRequest: JoinRequest, completion: @escaping ClientCompletion<JoinRequest.JoinRequestStatus?>)
@@ -24,9 +26,12 @@ class NotificationsVM:NotificationsVMProtocol{
     var disposeBag = DisposeBag()
     var initialized:Bool = false
     
+    var reloadData: BehaviorSubject<Bool>
+    
     
     init(client:Client = Client.shared){
         self.client = client
+        reloadData = BehaviorSubject(value: false)
         dataSource = Variable([])
         AppManager.shared.userLogged.asObservable().subscribe(onNext:{[unowned self] user in
             if let user = user{
@@ -54,6 +59,7 @@ class NotificationsVM:NotificationsVMProtocol{
                 
         }, onCompleted:{
             print("onCompleted")
+            self.reloadData.onNext(true)
         }).addDisposableTo(self.disposeBag)
 
     }

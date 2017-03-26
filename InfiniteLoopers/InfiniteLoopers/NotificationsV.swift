@@ -9,13 +9,23 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import IGListKit
 
-class NotificationsV: UIViewController, UICollectionViewDelegateFlowLayout {
+class NotificationsV: UIViewController, IGListAdapterDataSource {
 
     var disposeBag = DisposeBag()
     var model:NotificationsVMProtocol!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    let collectionView: IGListCollectionView = {
+        let view = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
+    lazy var adapter: IGListAdapter = {
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    }()
+    
     var emptyView:EmptyCollectionBackgroundView!
     
     convenience init(model:NotificationsVMProtocol) {
@@ -26,77 +36,20 @@ class NotificationsV: UIViewController, UICollectionViewDelegateFlowLayout {
     }
 }
 
-
 // MARK: - UIViewController
 
 extension NotificationsV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(collectionView)
         setupAppNavBarStyle()
         emptyView = EmptyCollectionBackgroundView(frame: self.collectionView.frame)
-        collectionView.backgroundView = emptyView
-        collectionView.register(UINib.init(nibName: "JoinRequestCollectionCell", bundle: nil), forCellWithReuseIdentifier: "joinRequestCellIdentifier")
-        collectionView.delegate = self
         
-        model.dataSource.asObservable()
-            .map{$0.isNotEmpty}
-            .bindTo(emptyView.rx.isHidden)
-            .addDisposableTo(disposeBag)
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
         
-        model.dataSource.asObservable().bindTo(collectionView.rx.items(cellIdentifier: "joinRequestCellIdentifier", cellType: JoinRequestCollectionCell.self)){ row, element, cell in
-            if let joinRequest = element as? JoinRequest{
-                cell.loadingIndicator.isHidden = true
-                cell.participantPicture.setAvatarImage(urlString: joinRequest.participant.avatar)
-                cell.participantPicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-                let att = NSMutableAttributedString(string: joinRequest.participant.nickname!,attributes:[NSFontAttributeName:UIFont.init(name: "HelveticaNeue-Bold", size: 14)!])
-            
-                att.append(NSAttributedString(string: " ha solicitado unirse a "))
-                att.append(NSAttributedString(string: joinRequest.product.name, attributes: [NSFontAttributeName:UIFont.init(name: "HelveticaNeue-Bold", size: 14)!]))
-                att.append(NSAttributedString(string: ".\n ¿Aceptas que se una?"))
-                cell.requestText.attributedText = att
-                cell.acceptButton.setBorderAndRadius(color: UIColor(rgbValue: 0x28CA86).cgColor, width: 1, cornerRadius: 5)
-                cell.acceptButton.rx.tap.observeOn(MainScheduler.instance).bindNext {[weak self] in
-                    guard let `self` = self else {
-                        return
-                    }
-                    cell.acceptButton.isHidden = true
-                    cell.rejectButton.isHidden = true
-                    cell.loadingIndicator.isHidden = false
-                    cell.loadingIndicator.startAnimating()
-
-                    joinRequest.status = .accepted
-                    
-                    self.model.changeJoinRequestValue(joinRequest: joinRequest){_,_ in
-                        print("Accepted")
-                        cell.buttonStack.isHidden = true
-                        self.collectionView.reloadData()
-                    }
-                    
-                }.addDisposableTo(self.disposeBag)
-                cell.rejectButton.setBorderAndRadius(color: UIColor.mainRedTranslucent.cgColor, width: 1, cornerRadius: 5)
-                
-                cell.rejectButton.rx.tap.observeOn(MainScheduler.instance).bindNext {[weak self] in
-                    guard let `self` = self else {
-                        return
-                    }
-                    cell.acceptButton.isHidden = true
-                    cell.rejectButton.isHidden = true
-                    cell.loadingIndicator.isHidden = false
-                    cell.loadingIndicator.startAnimating()
-                    
-                    joinRequest.status = .rejected
-                    
-                    self.model.changeJoinRequestValue(joinRequest: joinRequest){_,_ in
-                        print("Rejected")
-                        cell.buttonStack.isHidden = true
-                        self.collectionView.reloadData()
-                    }
-                    
-                    }.addDisposableTo(self.disposeBag)
-                
-                cell.buttonStack.isHidden = joinRequest.status != .pending
-            }
-            
+        model.reloadData.filter{ $0 }.bindNext{ reload in
+            self.adapter.performUpdates(animated: true, completion: nil)
         }.addDisposableTo(disposeBag)
         
         Observable.combineLatest(model.dataSource.asObservable()
@@ -112,11 +65,25 @@ extension NotificationsV{
                 }
             }.addDisposableTo(disposeBag)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let joinRequest = model.dataSource.value[indexPath.row] as? JoinRequest, joinRequest.status == .pending {
-            return CGSize(width: 375, height: 130)
-        }else{
-            return CGSize(width: 375, height: 70)
-        }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
+    }
+}
+
+// MARK: - IGListAdapterDataSource
+
+extension NotificationsV{
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+        return model.dataSource.value as! [IGListDiffable]
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        return JoinRequestSectionController(model:model)
+    }
+    
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+        return emptyView
     }
 }

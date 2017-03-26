@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 import RxCocoa
 import RxSwift
+import IGListKit
 
 protocol ChatsVMProtocol{
     var client:ClientProtocol { get }
@@ -37,8 +38,9 @@ class ChatsVM:ChatsVMProtocol{
             }
         }).addDisposableTo(disposeBag)
     }
-
+    
     func updateChats(chatIds:[String]){
+        removeDeletedChats(chatIds:chatIds)
         _ = chatIds.map{ chatID in
             if(!chats.value.contains(where:{ c in return chatID == c.chatID })){
                 _ = FIRDatabase.database().reference().child("chats").child(chatID).observeSingleEvent(of: FIRDataEventType.value, with: {[unowned self] snapshot in
@@ -50,11 +52,18 @@ class ChatsVM:ChatsVMProtocol{
                 })
             }
         }
-        
+    }
+    
+    func removeDeletedChats(chatIds:[String]){
+        var removeIndexes:[Int] = []
         for i in 0..<chats.value.count{
             if(!chatIds.contains(chats.value[i].chatID)){
-                self.chats.value.remove(at: i)
+                removeIndexes.append(i)
             }
+        }
+        
+        removeIndexes.forEach{
+            chats.value.remove(at: $0)
         }
     }
 }

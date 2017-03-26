@@ -8,8 +8,9 @@
 
 import Foundation
 import ObjectMapper
+import IGListKit
 
-struct Chat:Mappable{
+class Chat:Mappable, IGListDiffable{
     var chatID:String!
     var photo:String?
     var name:String!
@@ -17,11 +18,11 @@ struct Chat:Mappable{
     var memberIDs:[String]!
 
 
-    init?(map: Map) {
+    required init?(map: Map) {
         
     }
     
-    init?(id:String, json:JSON) {
+    convenience init?(id:String, json:JSON) {
         self.init(JSON:json)
         chatID = id
     }
@@ -38,7 +39,7 @@ struct Chat:Mappable{
 // MARK: - Mappable
 
 extension Chat{
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         photo <- map["photo"]
         name <- map["name"]
         productID <- map["productID"]
@@ -47,3 +48,19 @@ extension Chat{
         }
     }
 }
+
+// MARK: - IGListDiffable
+
+extension Chat{
+    func diffIdentifier() -> NSObjectProtocol {
+        return chatID as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        if let object = object as? Chat{
+            return object.chatID == chatID
+        }
+        return false
+    }
+}
+

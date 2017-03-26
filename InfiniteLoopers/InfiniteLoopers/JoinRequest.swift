@@ -8,8 +8,9 @@
 
 import Foundation
 import ObjectMapper
+import IGListKit
 
-class JoinRequest:Mappable{
+class JoinRequest:Mappable, IGListDiffable{
     
     var owner:User!
     var participant:User!
@@ -47,4 +48,18 @@ extension JoinRequest{
     }
 }
 
+// MARK: - IGListDiffable
+
+extension JoinRequest{
+    func diffIdentifier() -> NSObjectProtocol {
+        return id as NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        if let object = object as? JoinRequest {
+            return id == object.id
+        }
+        return false
+    }
+}
 

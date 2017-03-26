@@ -31,6 +31,10 @@
 "join_in_button" = "¡Unirse!";
 "no_description_provided" = "Sin descripción";
 "recover_password_mail_message" = "Te hemos enviado un email con las instrucciones para recuperar tu contraseña 📩";
+"join_request_message" = " ha solicitado unirse a ";
+"accept_for_joining" = "¿Aceptas que se una?";
+"rejected_join_request_message" = " fue rechazado para unirse a ";
+"accepted_join_request_message" = " fue aceptado para unirse a ";
 
 /*
  

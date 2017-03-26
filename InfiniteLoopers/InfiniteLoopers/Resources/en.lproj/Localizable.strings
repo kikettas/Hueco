@@ -33,6 +33,12 @@
 "join_in_button" = "Join in!";
 "no_description_provided" = "No description provided";
 "recover_password_mail_message" = "We have sent you an email with the instructions for recovering your password 📩";
+"join_request_message" = " has requested joining to ";
+"accept_for_joining" = "Do you accept that?";
+"rejected_join_request_message" = " was rejected to join ";
+"accepted_join_request_message" = " was accepted to join ";
+
+
 
 /*
  
