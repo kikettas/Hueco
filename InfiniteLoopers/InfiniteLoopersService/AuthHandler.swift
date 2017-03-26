@@ -21,7 +21,7 @@ class AuthHandler:RequestAdapter, RequestRetrier {
     
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         var urlRequest = urlRequest
-        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(Router.baseURLString), accessToken != nil{
+        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(Router.baseURLString) , accessToken != nil{
             urlRequest.setValue(accessToken!, forHTTPHeaderField: "x-access-token")
         }
         

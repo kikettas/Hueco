@@ -26,15 +26,16 @@ protocol ClientProtocol {
     func changeJoinRequestStatus(joinRequest:JoinRequest, completion: @escaping  ClientCompletion<JoinRequest.JoinRequestStatus?>)
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
     func createChat(ownID:String, sellerID: String, name:String, chatID:String?, productID:String, completion: @escaping ClientCompletion<Chat?>)
-    func joinRequests(userID:String) -> Observable<JoinRequest>
+    func joinRequest(withID id:String, completion: @escaping ClientCompletion<JoinRequest?>)
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
     func logInWithGoogle(from: UIViewController, completion: @escaping ClientCompletion<Void>)
-    func products(startingAt:Any) -> Observable<Product>
+    func products(startingAt:String) -> Observable<Product>
     func product(withID:String, completion: @escaping ClientCompletion<Product?>)
     func productKeys(completion: @escaping ClientCompletion<[String]>)
     func publishProduct(product:[String:Any]) -> Observable<Void>
+    func requestToJoin(ownerID:String, participantID:String, product:String, completion: @escaping ClientCompletion<Void>)
     func refreshAccessToken(completion:@escaping ClientCompletion<String?>)
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
     func signOut(completion:@escaping ClientCompletion<Void>)
@@ -73,7 +74,7 @@ class Client: ClientProtocol {
                 }
                 completion(idToken, nil)
                 print("TOKEN")
-                print(idToken)
+                print(idToken ?? "No token")
             }
         }else{
             completion(nil,ClientError.userNotFound)
@@ -92,16 +93,20 @@ extension DataRequest{
         self.validate().responseJSON { response in
             if(response.result.isSuccess){
                 print("✅ Success request: ➡️ \(response.request!)")
-                callback(.success(response.result.value as! JSON))
+                if let json = response.result.value as? JSON{
+                    callback(.success(json))
+                }else{
+                    callback(.success([:]))
+                }
             }else if(response.result.isFailure){
                 if(response.response?.statusCode == 200){
                     print("✅ Success request: ➡️ \(response.request!)")
-                    callback(.success(response.result.value as! JSON))
+                    callback(.success(response.result.value as? JSON ?? [:]))
                 }else{
                     print("❌ Failure (\(response.response?.statusCode)) request: ➡️ \(response.request!)")
                     do{
                     if let data = response.data, let jsonError:JSON = try JSONSerialization.jsonObject(with: data, options: []) as? JSON{
-                        let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as! String)
+                        let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as? String ?? "")
                         print("❌ Error: \(error)")
                         print(jsonError)
                         callback(.failure(error))

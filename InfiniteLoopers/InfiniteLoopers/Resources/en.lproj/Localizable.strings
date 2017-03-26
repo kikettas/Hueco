@@ -38,6 +38,9 @@
 "rejected_join_request_message" = " was rejected to join ";
 "accepted_join_request_message" = " was accepted to join ";
 
+"you_requested_to_join" = "You requested to join ";
+"rejected_you_join_request_message" = " rejected you to join ";
+"accepted_you_join_request_message" = " accepted you to join ";
 
 
 /*

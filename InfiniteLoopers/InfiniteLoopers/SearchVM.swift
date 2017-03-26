@@ -76,6 +76,10 @@ class SearchVM:SearchVMProtocol{
         self.loadingMore.value = true
         self.client.products(startingAt: self.collectionKeys[self.currentPage * self.client.itemsPerPage]).subscribe(onNext:{ product in
             newProducts.append(product)
+        },onError:{error in
+            self.reloadData.onNext(nil)
+            self.isRefreshing.onNext(false)
+            self.loadingMore.value = false
         }, onCompleted:{[weak self] in
             guard let `self` = self else {
                 return

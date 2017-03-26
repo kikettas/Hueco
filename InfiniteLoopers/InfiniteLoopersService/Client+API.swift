@@ -54,7 +54,7 @@ extension Client{
                                             print(error)
                                             return
                                         }
-                                        var mutableChat = chat
+                                        let mutableChat = chat
                                         mutableChat.photo = user!.avatar
                                         observer.onNext(mutableChat)
                                     }
@@ -86,86 +86,68 @@ extension Client{
     }
     
     func createChat(ownID: String, sellerID: String, name: String, chatID: String?, productID: String, completion: @escaping (Chat?, ClientError?) -> ()) {
-            let membersChat = [ownID:true, sellerID:true]
-            let chatReference:FIRDatabaseReference
-            if let chatID = chatID {
-                chatReference = FIRDatabase.database().reference().child("chats").child(chatID)
-            }else{
-                chatReference = FIRDatabase.database().reference().child("chats").childByAutoId()
-                FIRDatabase.database().reference().child("products").child(productID).child("chat").setValue(chatReference.key)
+        let membersChat = [ownID:true, sellerID:true]
+        let chatReference:FIRDatabaseReference
+        if let chatID = chatID {
+            chatReference = FIRDatabase.database().reference().child("chats").child(chatID)
+        }else{
+            chatReference = FIRDatabase.database().reference().child("chats").childByAutoId()
+            FIRDatabase.database().reference().child("products").child(productID).child("chat").setValue(chatReference.key)
+        }
+        
+        chatReference.child("name").setValue(name)
+        chatReference.child("createdAt").setValue(Date().timeIntervalSince1970)
+        chatReference.child("productID").setValue(productID)
+        chatReference.child("members").setValue(membersChat){ error, dbreference in
+            if let error = error{
+                completion(nil,ClientError.parseFirebaseError(errorCode: error._code) )
+                return
             }
-            
-            chatReference.child("name").setValue(name)
-            chatReference.child("createdAt").setValue(Date().timeIntervalSince1970)
-            chatReference.child("productID").setValue(productID)
-            chatReference.child("members").setValue(membersChat){ error, dbreference in
+            FIRDatabase.database().reference().child("products").child(productID)
+            FIRDatabase.database().reference().child("users").child(sellerID).child("chats").child(chatReference.key).setValue(true)
+            FIRDatabase.database().reference().child("users").child(ownID).child("chats").child(chatReference.key).setValue(true){ error, dbreference in
                 if let error = error{
                     completion(nil,ClientError.parseFirebaseError(errorCode: error._code) )
                     return
                 }
-                FIRDatabase.database().reference().child("products").child(productID)
-                FIRDatabase.database().reference().child("users").child(sellerID).child("chats").child(chatReference.key).setValue(true)
-                FIRDatabase.database().reference().child("users").child(ownID).child("chats").child(chatReference.key).setValue(true){ error, dbreference in
-                    if let error = error{
-                        completion(nil,ClientError.parseFirebaseError(errorCode: error._code) )
-                        return
-                    }
-                    // This will change when first step validation is enabled
-                    completion(Chat(id: chatReference.key, photo: nil, name: name,productID:productID, members:[ownID,sellerID]), nil)
-                }
+                // This will change when first step validation is enabled
+                completion(Chat(id: chatReference.key, photo: nil, name: name,productID:productID, members:[ownID,sellerID]), nil)
             }
+        }
     }
     
-    func joinRequests(userID: String) -> Observable<JoinRequest> {
-        return Observable.create{ observer in
-            self.sessionManager.request("https://infinite-loopers.firebaseio.com/users/"+userID+"/join_requests.json").responseValidatedJson{response in
-                if(response.isSuccess){
-                    if let response = response.value{
-                        let keys = response.keys.sorted()
-                        let count = Counter()
-                        keys.forEach{
-                            _ = FIRDatabase.database().reference().child("join_requests").child($0).observeSingleEvent(of: .value, with:{snapshot in
-                                if let joinRequestJson = snapshot.value as? [String:Any]{
-                                    guard let joinRequest = JoinRequest(JSON:joinRequestJson) else{
-                                        count.increment()
-                                        if Int32(keys.count) == count.value{observer.onCompleted()}
-                                        return
-                                    }
-                                    
-                                    self.user(withId: joinRequestJson["owner"] as! String){ user, error in
-                                        guard let user = user else{
-                                            count.increment()
-                                            if Int32(keys.count) == count.value{observer.onCompleted()}
-                                            return }
-                                        joinRequest.owner = user
-                                        self.user(withId: joinRequestJson["participant"] as! String){ user, error in
-                                            guard let user = user else{
-                                                count.increment()
-                                                if Int32(keys.count) == count.value{observer.onCompleted()}
-                                                return }
-                                            joinRequest.participant = user
-                                            self.product(withID:joinRequestJson["product"] as! String){product, error in
-                                                guard let product = product else{
-                                                    count.increment()
-                                                    if Int32(keys.count) == count.value{observer.onCompleted()}
-                                                    return }
-                                                joinRequest.product = product
-                                                observer.onNext(joinRequest)
-                                                if Int32(keys.count) == count.value{observer.onCompleted()}
-                                            }
-                                        }
-                                    }
-                                }
-                            })
-                        }
-                        
+    func joinRequest(withID id: String, completion: @escaping (JoinRequest?, ClientError?) -> ()) {
+        _ = FIRDatabase.database().reference().child("join_requests").child(id).observeSingleEvent(of: .value, with:{snapshot in
+            if let joinRequestJson = snapshot.value as? [String:Any]{
+                guard let joinRequest = JoinRequest(JSON:joinRequestJson) else{
+                    completion(nil,ClientError.unknownError)
+                    return
+                }
+                
+                self.user(withId: joinRequestJson["owner"] as! String){ user, error in
+                    guard let user = user else{
+                    completion(nil,ClientError.unknownError)
+                        return
                     }
-                }else if(response.isFailure){
-                    observer.onError(ClientError.unknownError)
+                    joinRequest.owner = user
+                    self.user(withId: joinRequestJson["participant"] as! String){ user, error in
+                        guard let user = user else{
+                            completion(nil,ClientError.unknownError)
+                            return
+                        }
+                        joinRequest.participant = user
+                        self.product(withID:joinRequestJson["product"] as! String){product, error in
+                            guard let product = product else{
+                                completion(nil,ClientError.unknownError)
+                                return
+                            }
+                            joinRequest.product = product
+                            completion(joinRequest, nil)
+                        }
+                    }
                 }
             }
-            return Disposables.create()
-        }
+        })
     }
     
     func joinRequest(joinRequestID: String, completion: @escaping (JoinRequest?, ClientError?) -> ()) {
@@ -243,30 +225,20 @@ extension Client{
         GIDSignIn.sharedInstance()?.signIn()
     }
     
-    func products(startingAt:Any) -> Observable<Product> {
+    func products(startingAt:String) -> Observable<Product> {
         return Observable.create {[unowned self] observer in
-            FIRDatabase.database().reference().child("products").queryOrderedByKey().queryLimited(toFirst: UInt(self.itemsPerPage)).queryStarting(atValue: startingAt).observeSingleEvent(of: FIRDataEventType.value, with: { snapshot in
-                if let productsJson = snapshot.value as? [String:Any]{
-                    print("products...\(productsJson.count)")
-                    self.fetchUser(fromProducts: productsJson, atIndex: 0, observer: observer)
-                    //                    for (index, element) in productsJson.enumerated(){
-                    //                        let productJson:[String:Any] = element.value as! [String : Any]
-                    //
-                    //                        self.user(withId: productJson["seller"] as! String){ user, error in
-                    //                            if let _ = error{
-                    //                                print("Error")
-                    //                                return
-                    //                            }
-                    //                            observer.onNext(Product(json:productJson, seller:user))
-                    //                            if(index == (productsJson.count - 1)){
-                    //                                observer.onCompleted()
-                    //                            }
-                    //                        }
-                    //                    }
-                }else{
-                    observer.onError(ClientError.unknownError as Error)
+            let url = "https://infinite-loopers.firebaseio.com/products.json"
+            let parameters = ["orderBy":"\"id\"", "limitToFirst":self.itemsPerPage, "startAt":"\""+startingAt+"\""] as [String : Any]
+            self.sessionManager.request(URL(string:url)!, parameters: parameters).responseValidatedJson{result in
+                if result.isSuccess{
+                    if let json = result.value{
+                        print("products...\(json.count)")
+                        self.fetchUser(fromProducts: json, atIndex: 0, observer: observer)
+                    }
+                }else if result.isFailure{
+                    observer.onError(result.error!)
                 }
-            })
+            }
             return Disposables.create()
         }
     }
@@ -334,6 +306,42 @@ extension Client{
             }
             return Disposables.create()
         }
+    }
+    
+    func requestToJoin(ownerID: String, participantID: String, product: String, completion: @escaping (Void, ClientError?) -> ()) {
+        let joinRequestRef = FIRDatabase.database().reference().child("join_requests").childByAutoId()
+        var newJoinRequestJson = JoinRequest(id: joinRequestRef.key).toJSON()
+        newJoinRequestJson["owner"] = ownerID
+        newJoinRequestJson["participant"] = participantID
+        newJoinRequestJson["product"] = product
+        joinRequestRef.setValue(newJoinRequestJson, withCompletionBlock: { error, _ in
+            if let error = error{
+                completion((), ClientError.parseFirebaseError(errorCode: error._code))
+                return
+            }
+            _ = FIRDatabase.database().reference().child("users").child(ownerID).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+                if let error = error{
+                    completion((), ClientError.parseFirebaseError(errorCode: error._code))
+                    return
+                }
+                
+                _ = FIRDatabase.database().reference().child("users").child(participantID).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+                    if let error = error{
+                        completion((), ClientError.parseFirebaseError(errorCode: error._code))
+                        return
+                    }
+                    
+                    _ = FIRDatabase.database().reference().child("products").child(product).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+                        if let error = error{
+                            completion((), ClientError.parseFirebaseError(errorCode: error._code))
+                            return
+                        }
+                        
+                        completion((),nil)
+                    })
+                })
+            })
+        })
     }
     
     func signOut(completion: @escaping ClientCompletion<Void>) {

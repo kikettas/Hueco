@@ -15,7 +15,7 @@ class JoinRequest:Mappable, IGListDiffable{
     var owner:User!
     var participant:User!
     var product:Product!
-    var date:Date!
+    var createdAt:Date!
     var status:JoinRequestStatus!
     var id:String!
     
@@ -29,11 +29,10 @@ class JoinRequest:Mappable, IGListDiffable{
         
     }
     
-    convenience init?(json:JSON, owner:User, participant:User, product:Product){
-        self.init(JSON:json)
-        self.owner = owner
-        self.participant = participant
-        self.product = product
+    init(id:String){
+        self.createdAt = Date()
+        self.status = .pending
+        self.id = id
     }
 }
 
@@ -43,7 +42,7 @@ extension JoinRequest{
     
     func mapping(map: Map) {
         id <- map["id"]
-        date <- (map["date"], DateTransform())
+        createdAt <- (map["createdAt"], DateTransform())
         status <- map["status"]
     }
 }
@@ -57,7 +56,7 @@ extension JoinRequest{
     
     func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
         if let object = object as? JoinRequest {
-            return id == object.id
+            return status == object.status
         }
         return false
     }

@@ -36,6 +36,10 @@
 "rejected_join_request_message" = " fue rechazado para unirse a ";
 "accepted_join_request_message" = " fue aceptado para unirse a ";
 
+"you_requested_to_join" = "Has solicitado unirte a ";
+"rejected_you_join_request_message" = " rechazó que te unieses a ";
+"accepted_you_join_request_message" = " aceptó que te unieses a ";
+
 /*
  
  Errors

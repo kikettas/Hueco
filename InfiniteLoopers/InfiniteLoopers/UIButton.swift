@@ -18,7 +18,7 @@ extension UIButton{
         }else{
             options = [.processor(processor)]
         }
-
+        self.imageView?.contentMode = .scaleAspectFill
         self.kf.setImage(with: URL(string: urlString ?? ""), for: controlState, placeholder:UIImage(named:"ic_avatar_placeholder"), options:options)
     }
 }

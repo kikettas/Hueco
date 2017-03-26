@@ -34,6 +34,8 @@ class ProductDetailV: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var chatButton: UIButton!
     
+    var loadingView:UIView!
+    
     convenience init(model:ProductDetailVMProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.model = model
@@ -59,7 +61,7 @@ extension ProductDetailV{
         model.productPrice.asDriver().filterNil().drive(productPrice.rx.text).addDisposableTo(disposeBag)
         model.productSpaces.asDriver().filterNil().drive(productSpaces.rx.text).addDisposableTo(disposeBag)
         model.productSellerNickname.asDriver().filterNil().drive(productOwnerName.rx.text).addDisposableTo(disposeBag)
-
+        
         model.productSellerRating.asDriver().filterNil().drive(onNext:{[unowned self] rating in
             self.productOwnerRating.rating = rating
         }).addDisposableTo(disposeBag)
@@ -90,7 +92,7 @@ extension ProductDetailV{
                 self.showJoinAlert()
             }
             self.productParticipantsCollection.deselectItem(at: indexPath, animated: true)
-
+            
             }.addDisposableTo(disposeBag)
         
         model.participants.asObservable().subscribe(onNext:{ [unowned self] _ in
@@ -134,6 +136,7 @@ extension ProductDetailV{
         attString.append(NSAttributedString(string: NSLocalizedString("join_in_button", comment: "join_in_button"), attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
+        chatButton.isHidden = self.model.product.value.seller.uid == (AppManager.shared.userLogged.value?.uid ?? "-1")
     }
     
     func showJoinAlert(){
@@ -141,16 +144,17 @@ extension ProductDetailV{
             let owner = self.productOwnerName.text ?? ""
             Navigator.showAlert(on: self,title:"¿Quieres enviar una petición para unirte a \(self.productName.text!)?", message: "Una vez que tu petición para unirte sea aceptada, podrás hablar con \(owner) y empezar a compartir 🤝", positiveMessage: "Enviar", negativeMessage:"Cancelar"){ positive in
                 if(positive){
-                    print("positive")
+                    self.loadingView = self.view.addLoadingView(isBlurred:true)
                     self.model.join(){ [weak self] chat, error in
                         guard let `self` = self else {
                             return
                         }
+                        self.loadingView.removeFromSuperview()
                         if let error = error{
-                            print(error)
+                            MessageBar.showError(message: error.errorDescription)
                             return
                         }
-                        Navigator.navigateToChat(from: self, chat: chat!)
+                        Navigator.showAlert(on: self, message: "Se ha enviado la petición a \(owner) para unirte a \(self.productName.text ?? "") 🖖", positiveMessage: "OK"){_ in}
                     }
                 }
             }

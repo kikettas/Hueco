@@ -25,7 +25,7 @@ protocol ProductDetailVMProtocol{
     var productSellerRating:Variable<Int?> { get }
     var productSpaces:Variable<String?> { get }
     
-    func join(completion: @escaping ClientCompletion<Chat?>)
+    func join(completion: @escaping ClientCompletion<Void>)
 }
 
 class ProductDetailVM:ProductDetailVMProtocol{
@@ -98,12 +98,15 @@ class ProductDetailVM:ProductDetailVMProtocol{
         
     }
     
-    func join(completion: @escaping ClientCompletion<Chat?>) {
-//        client.join(ownID: (AppManager.shared.userLogged.value?.uid)!, sellerID: product.value.seller.uid, name: product.value.name, chatID: product.value.chat, productID: product.value.id).subscribe(onNext: { chat in
-//            completion(chat, nil)
-//        },onError: {error in
-//            completion(nil, error as? ClientError)
-//        }).addDisposableTo(disposeBag)
+    func join(completion: @escaping ClientCompletion<Void>) {
+        client.requestToJoin(ownerID: product.value.seller.uid, participantID: (AppManager.shared.userLogged.value?.uid)!, product: product.value.id){_, error in
+            
+            if let error = error{
+                completion((), error)
+                return
+            }
+            completion((), nil)
+        }
     }
     
     deinit {
