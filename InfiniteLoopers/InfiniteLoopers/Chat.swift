@@ -17,6 +17,7 @@ class Chat:Mappable, IGListDiffable{
     var productID:String?
     var memberIDs:[String]!
     var updatedAt:Date!
+    var lastMessage:String?
 
 
     required init?(map: Map) {
@@ -35,6 +36,7 @@ class Chat:Mappable, IGListDiffable{
         self.productID = productID
         self.memberIDs = members
         self.updatedAt = Date()
+        self.lastMessage = nil
     }
 }
 
@@ -45,6 +47,7 @@ extension Chat{
         photo <- map["photo"]
         name <- map["name"]
         productID <- map["productID"]
+        lastMessage <- map["lastMessage"]
         updatedAt <- (map["updatedAt"], DateTransform())
         if let members = map["members"].currentValue as? [String:Any]{
             memberIDs = members.keys.sorted()

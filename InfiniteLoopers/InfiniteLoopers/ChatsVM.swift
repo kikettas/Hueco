@@ -1,4 +1,4 @@
-//
+v//
 //  ChatsVM.swift
 //  InfiniteLoopers
 //
@@ -70,7 +70,7 @@ class ChatsVM:ChatsVMProtocol{
                 if let chatJson = snapshot.value as? [String:Any]{
                     let c = Chat(id: chatID, json: chatJson)
                     guard let chat = c else { return }
-                    self.dataSource.value.append(chat)
+                    self.updateChat(chat: chat)
                     self.reloadData.onNext(true)
                 }
             })
@@ -90,6 +90,21 @@ class ChatsVM:ChatsVMProtocol{
         self.dataSource.value.removeAll()
         self.reloadData.onNext(true)
         
+    }
+    
+    func updateChat(chat:Chat){
+        let indexTpUpdate = self.dataSource.value.index(where: {
+            if let chatToUpdate = $0 as? Chat{
+                return chat.chatID == chatToUpdate.chatID
+            }
+            return false
+        })
+        
+        if let index = indexTpUpdate{
+            self.dataSource.value[index] = chat
+        }else{
+            self.dataSource.value.insert(chat, at: 0)
+        }
     }
     
     func removeChat(chatID:String){

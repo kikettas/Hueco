@@ -36,7 +36,7 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
         cell.userName.text = chat.name
         cell.userPhoto.setAvatarImage(urlString: chat.photo)
         cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-        cell.lastMessage.text = ""
+        cell.lastMessage.text = chat.lastMessage ?? ""
         return cell
     }
     
@@ -46,5 +46,25 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
     
     func didSelectItem(at index: Int) {
         
+        didSelectChat(index)
+    }
+    
+}
+
+class ChatSectionDataSource:IGListDiffable{
+    let items:[Chat]
+    
+    init(chats:[Chat]){
+        items = chats
+        
+    }
+    func diffIdentifier() -> NSObjectProtocol {
+        return self as! NSObjectProtocol
+    }
+    
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        if let object = object as? ChatSectionDataSource{
+            
+        }
     }
 }

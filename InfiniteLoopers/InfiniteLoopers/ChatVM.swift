@@ -14,8 +14,6 @@ import RxSwift
 import ObjectMapper
 
 protocol ChatVMProtocol{
-    var ref:FIRDatabaseReference? { get }
-    var _refHandle:FIRDatabaseHandle? { get }
     var newMessage:PublishSubject<Void> { get }
     var chatMessages:[ChatMessage] { get }
     var chat: Variable<Chat?> { get set }
@@ -27,8 +25,9 @@ protocol ChatVMProtocol{
 class ChatVM:ChatVMProtocol{
     
     var disposeBag = DisposeBag()
-    var ref: FIRDatabaseReference?
-    var _refHandle: FIRDatabaseHandle?
+    var chatReference: FIRDatabaseReference?
+    var chatMessagesReference: FIRDatabaseReference?
+    var chatMessagesHandle: FIRDatabaseHandle?
     var newMessage: PublishSubject<Void> = PublishSubject()
     var chatMessages: [ChatMessage]
     var chat: Variable<Chat?>
@@ -38,9 +37,10 @@ class ChatVM:ChatVMProtocol{
         self.chat = Variable(chat)
         
         self.chat.asObservable().filterNil().subscribe(onNext:{ [unowned self] chat in
-            self.ref?.removeObserver(withHandle: self._refHandle!)
-            self._refHandle = nil
-            self.ref = nil
+            self.chatMessagesReference?.removeObserver(withHandle: self.chatMessagesHandle!)
+            self.chatMessagesHandle = nil
+            self.chatMessagesReference = nil
+            self.chatReference = nil
             self.chatMessages.removeAll()
             self.newMessage.onNext()
             self.initializeChat(chat: chat)
@@ -48,9 +48,10 @@ class ChatVM:ChatVMProtocol{
     }
     
     func initializeChat(chat:Chat) {
-        ref = FIRDatabase.database().reference().child("chats").child(chat.chatID).child("messages")
-        ref!.keepSynced(true)
-        _refHandle = self.ref!.queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
+        chatReference = FIRDatabase.database().reference().child("chats").child(chat.chatID)
+        chatMessagesReference = chatReference!.child("messages")
+        chatMessagesReference!.keepSynced(true)
+        chatMessagesHandle = self.chatMessagesReference!.queryOrdered(byChild: "date").observe(.childAdded, with:{[weak self] (snapshot) in
             guard let `self` = self else {
                 return
             }
@@ -65,12 +66,15 @@ class ChatVM:ChatVMProtocol{
     func sendMessage(withData data: ChatMessage) {
         let message = Mapper().toJSON(data)
         
-        self.ref!.childByAutoId().setValue(message)
+        self.chatReference?.child("lastMessage").setValue(data.text())
+        self.chatReference?.child("updatedAt").setValue(Date.toUTC(from: data.date()))
+
+        self.chatMessagesReference!.childByAutoId().setValue(message)
     }
     
     deinit {
-        if let ref = ref{
-            ref.removeObserver(withHandle: _refHandle!)
+        if let ref = chatMessagesReference{
+            ref.removeObserver(withHandle: chatMessagesHandle!)
         }
     }
 }

@@ -96,7 +96,7 @@ extension Client{
         }
         
         chatReference.child("name").setValue(name)
-        chatReference.child("createdAt").setValue(Date().timeIntervalSince1970)
+        chatReference.child("createdAt").setValue(Date.toUTC(from: Date()))
         chatReference.child("productID").setValue(productID)
         chatReference.child("members").setValue(membersChat){ error, dbreference in
             if let error = error{

@@ -35,6 +35,11 @@ class ChatV: JSQMessagesViewController, UITextFieldDelegate {
 extension ChatV{
     override func viewDidLoad() {
         super.viewDidLoad()
+        senderDisplayName = AppManager.shared.userLogged.value?.nickname ?? ""
+        senderId = AppManager.shared.userLogged.value?.uid ?? ""
+        senderImageUrl = AppManager.shared.userLogged.value?.avatar ?? ""
+        avatarPlaceholder = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ic_avatar_placeholder"), diameter: UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width))
+        
         setupAppNavBarStyle()
         model.chat.asObservable().filterNil().map {$0.name }.bindNext{
             self.title = $0
@@ -46,10 +51,7 @@ extension ChatV{
         collectionView.collectionViewLayout.springinessEnabled = true
         automaticallyScrollsToMostRecentMessage = true
         
-        senderDisplayName = AppManager.shared.userLogged.value?.nickname ?? ""
-        senderId = AppManager.shared.userLogged.value?.uid ?? ""
-        senderImageUrl = AppManager.shared.userLogged.value?.avatar ?? ""
-        avatarPlaceholder = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ic_avatar_placeholder"), diameter: UInt(self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width))
+
         
         self.model.newMessage.subscribe(onNext:{ [unowned self] in
             self.finishReceivingMessage(animated: true)
