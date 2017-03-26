@@ -16,6 +16,8 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
     convenience init(didSelectChat:@escaping ((Int) -> ())) {
         self.init()
         self.didSelectChat = didSelectChat
+        minimumInteritemSpacing = 1
+        minimumLineSpacing = 1
     }
     
     func numberOfItems() -> Int {
