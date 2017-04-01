@@ -20,3 +20,11 @@ pod install
 ## Keep in mind
 Don't open __.xcodeproj__ file, open __xcworkspace__ instead. Otherwise, you will come across different compiling issues.
 
+## Future work
+	- Filter and search products
+	- Rate other users
+	- Adapt all remaining CollectionViews to IGListKit
+	- Add push notifications on received messages and invitations.
+	- Add dynamic links
+	- Create tests
+	- Show more messages on error responses 
