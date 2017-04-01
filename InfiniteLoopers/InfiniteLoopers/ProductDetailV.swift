@@ -33,6 +33,7 @@ final class ProductDetailV: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var chatButton: UIButton!
+    @IBOutlet weak var chatButtonHeight: NSLayoutConstraint!
     
     var loadingView:UIView!
     
@@ -136,7 +137,10 @@ extension ProductDetailV{
         attString.append(NSAttributedString(string: NSLocalizedString("join_in_button", comment: "join_in_button"), attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
-        model.joinButtonIsHidden.asDriver().drive(chatButton.rx.isHidden).addDisposableTo(disposeBag)
+        model.joinButtonIsHidden.asDriver()
+            .map{return $0 ? CGFloat(0):CGFloat(50)}
+            .drive(chatButtonHeight.rx.constant)
+            .addDisposableTo(disposeBag)
     }
     
     func showJoinAlert(){
