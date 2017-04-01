@@ -58,7 +58,7 @@ extension NewProductFirstStepV{
         productNameTF
             .rx
             .text
-            .map{($0?.characters.count)! > 4}
+            .map{($0?.characters.count)! > 2}
             .bindTo(nextButton.rx.isEnabled)
             .addDisposableTo(disposeBag)
         

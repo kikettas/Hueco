@@ -15,7 +15,7 @@ protocol ProfileParticipantProductsVMProtocol:PaginatedCollectionModel{
 }
 
 class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
-
+    
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
     
@@ -48,35 +48,34 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
         }
         
         AppManager.shared.userLogged.asObservable()
-            .map { $0?.transactionIDs }
-            .subscribe(onNext:{ [unowned self] transactions in
-                if let transactions = transactions{
-                transactions.forEach {
-                    if(!self.transactionIDs.contains($0)){
-                        self.transactionIDs.append($0)
-                        self.client.transaction(withID: $0){[weak self] transaction, error in
-                            guard let `self` = self else {
-                                return
-                            }
-                            if let error = error{
-                                print(error)
-                                return
-                            }
-                            
-                            if transaction!.participant.uid == AppManager.shared.userLogged.value?.uid{
-                                self.client.product(withID: transaction!.product.id){ product, error in
-                                    if let error = error{
-                                        print(error)
-                                        return
+            .subscribe(onNext:{ [unowned self] user in
+                if let user = user, let transactions = user.transactionIDs{
+                    transactions.forEach {
+                        if(!self.transactionIDs.contains($0)){
+                            self.transactionIDs.append($0)
+                            self.client.transaction(withID: $0){[weak self] transaction, error in
+                                guard let `self` = self else {
+                                    return
+                                }
+                                if let error = error{
+                                    print(error)
+                                    return
+                                }
+                                
+                                if transaction!.participant.uid == AppManager.shared.userLogged.value?.uid{
+                                    self.client.product(withID: transaction!.product.id){ product, error in
+                                        if let error = error{
+                                            print(error)
+                                            return
+                                        }
+                                        self.loadingMore.value = false
+                                        self.dataSource.value.append(product!)
+                                        self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                                     }
-                                    self.loadingMore.value = false
-                                    self.dataSource.value.append(product!)
-                                    self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                                 }
                             }
                         }
                     }
-                }
                 }else{
                     self.dataSource.value.removeAll()
                     self.reloadData.onNext(nil)
@@ -87,6 +86,6 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     }
     
     func reloadCollection() {
-    
+        
     }
 }

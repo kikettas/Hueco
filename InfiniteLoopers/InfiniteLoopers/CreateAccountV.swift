@@ -27,7 +27,7 @@ class CreateAccountV: UIViewController {
     @IBOutlet weak var emailCheckedImage: UIImageView!
     @IBOutlet weak var passwordCheckedImage: UIImageView!
     @IBOutlet weak var createAccountButton: UIButton!
-    
+    var loadingView:UIView!
     @IBOutlet weak var createAccountButtonBottomConstraint: NSLayoutConstraint!
     
     convenience init(model:CreateAccountVMProtocol){
@@ -124,11 +124,15 @@ extension CreateAccountV{
                 guard let `self` = self else {
                     return
                 }
+                self.loadingView = self.view.addLoadingView(isBlurred:true)
+
                 self.model.signUp(withEmail: self.emailTF.text!, password: self.passwordTF.text!, nickName:self.userNameTF.text!)
                     .subscribe(onError: {error in
+                        self.loadingView.removeFromSuperview()
                         let error = error as! ClientError
                         MessageBar.showError(message: error.errorDescription)
                     },onCompleted: {
+                        self.loadingView.removeFromSuperview()
                         self.dismiss(animated: true, completion: nil)
                     }).addDisposableTo(self.disposeBag)
             }

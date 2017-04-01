@@ -26,7 +26,7 @@ class EditProfileV: UIViewController, UINavigationControllerDelegate, UIImagePic
     var saveButton:UIBarButtonItem!
     var genderPicker:UIPickerView!
     var imagePicker:UIImagePickerController!
-    
+    var loadingView:UIView!
     
     convenience init(model:EditProfileVMProtocol){
         self.init(nibName: nil, bundle: nil)
@@ -84,7 +84,13 @@ extension EditProfileV{
             }
             let image = self.profilePicture.kf.webURL == nil ? self.profilePicture.image : nil
             let gender = self.model.genders[self.genderPicker.selectedRow(inComponent: 0)].rawValue
-            self.model.updateProfile(name: self.nameTF.text, gender: gender, phone: self.phoneTF.text, image: image){_, error in
+            self.loadingView = self.view.addLoadingView(isBlurred:true)
+
+            self.model.updateProfile(name: self.nameTF.text, gender: gender, phone: self.phoneTF.text, image: image){[weak self] _, error  in
+                guard let `self` = self else {
+                    return
+                }
+                self.loadingView.removeFromSuperview()
                 if let error = error{
                     print(error)
                     return

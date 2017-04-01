@@ -45,16 +45,23 @@ extension ProfileParticipantProductsV{
             Navigator.navigateToProductDetail(from: self, presentationStyle: .overFullScreen, product: self.model.dataSource.value[indexPath.row] as! Product, transitionDelegate: self)
         }).addDisposableTo(disposeBag)
         
-        Observable.combineLatest(model.dataSource.asObservable()
-            .map{ return $0.isNotEmpty },model.loadingMore.asObservable(), resultSelector: {
-                return $0 || $1
-        }).bindNext { hideMessage in
+        model.dataSource.asObservable()
+            .map{ return $0.isNotEmpty }.bindNext { hideMessage in
             if hideMessage{
                 self.emptyView.setLabelMessage(emoji: nil, text: nil)
             }else{
                 self.emptyView.setLabelMessage(emoji: "🤝", text: NSLocalizedString("empty_participated_products", comment: "empty_participated_products"))
             }
             
+            }.addDisposableTo(disposeBag)
+        
+        self.model.reloadData.bindNext{[unowned self] changeSet in
+//            if let changeSet = changeSet, self.model.dataSource.value.count > 1{
+//                self.collectionView.applyChangeset(deleted: changeSet.delete, inserted: changeSet.insert, updated: changeSet.update)
+//            }else{
+//                self.collectionView.reloadData()
+//            }
+            self.collectionView.reloadData()
             }.addDisposableTo(disposeBag)
     }
 }

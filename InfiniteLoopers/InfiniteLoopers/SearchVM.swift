@@ -67,7 +67,13 @@ class SearchVM:SearchVMProtocol{
             print(keys)
             
             self.collectionKeys = keys
-            self.fetchProducts()
+            if(self.collectionKeys.isNotEmpty){
+                self.fetchProducts()
+            }else{
+                self.loadingMore.value = false
+                self.isRefreshing.onNext(false)
+                self.reloadData.onNext(nil)
+            }
         }
     }
     

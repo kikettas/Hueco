@@ -12,7 +12,7 @@ import FirebaseDatabase
 import RxCocoa
 import RxSwift
 
-protocol CreateAccountVMProtocol{
+protocol CreateAccountVMProtocol:class{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
@@ -21,7 +21,7 @@ protocol CreateAccountVMProtocol{
     
 }
 
-class CreateAccountVM:CreateAccountVMProtocol{
+final class CreateAccountVM:CreateAccountVMProtocol{
     var client: ClientProtocol
     
     required init(client: ClientProtocol = Client.shared) {

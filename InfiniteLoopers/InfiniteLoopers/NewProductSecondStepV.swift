@@ -20,7 +20,8 @@ class NewProductSecondStepV: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     var currencyPicker:UIPickerView!
     var typePicker:UIPickerView!
-
+    var loadingView:UIView!
+    
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var publishButton: UIButton!
     @IBOutlet weak var productTypeSelector: UITextField!
@@ -71,12 +72,16 @@ extension NewProductSecondStepV{
             .bindNext {[unowned self] in
                 let name = (self.parent as! NewProductPagingV).model.newProductName
                 let quantity = self.quantityTF.text?.replacingOccurrences(of: ",", with: ".")
+                self.loadingView = self.view.addLoadingView(isBlurred:true)
+
                 self.model.publishProduct(name: name, category: ProductCategory(name:self.productTypeSelector.text!),
                                           price: Float(quantity!)!, slots: Int(self.sharingCountTF.text!)!, description: self.descriptionTF.text!,
                                           currency: self.currencyTF.text!){ [weak self] _, error in
                                             guard let `self` = self else {
                                                 return
                                             }
+                                            self.loadingView.removeFromSuperview()
+
                                             if let error = error{
                                                 print(error)
                                                 return

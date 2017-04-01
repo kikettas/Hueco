@@ -11,7 +11,7 @@ import FirebaseDatabase
 import RxCocoa
 import RxSwift
 
-protocol ProductDetailVMProtocol{
+protocol ProductDetailVMProtocol:class{
     var client:ClientProtocol { get set }
     var participants:Variable<[User?]> { get }
     var product:Variable<Product> { get }
@@ -29,7 +29,7 @@ protocol ProductDetailVMProtocol{
     func join(completion: @escaping ClientCompletion<Void>)
 }
 
-class ProductDetailVM:ProductDetailVMProtocol{
+final class ProductDetailVM:ProductDetailVMProtocol{
     
     var client: ClientProtocol
     var disposeBag = DisposeBag()
@@ -104,7 +104,6 @@ class ProductDetailVM:ProductDetailVMProtocol{
     
     func join(completion: @escaping ClientCompletion<Void>) {
         client.requestToJoin(ownerID: product.value.seller.uid, participantID: (AppManager.shared.userLogged.value?.uid)!, product: product.value.id){_, error in
-            
             if let error = error{
                 completion((), error)
                 return

@@ -21,7 +21,7 @@ class PaginatedCollectionController: UIViewController, UICollectionViewDelegateF
     var cellHeight:CGFloat!
     var cellWidth:CGFloat!
     var disposeBag:DisposeBag! = DisposeBag()
-    var onLoadItemLimit:Int! = 1
+    var onLoadItemLimit:Int! = 5
     var refreshControl:UIRefreshControl!
     
     @IBOutlet weak var collectionView: UICollectionView!

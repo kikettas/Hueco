@@ -56,7 +56,16 @@ class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
                                 print(error)
                                 return
                             }
-                            self.dataSource.value.append(product!)
+                            if !self.dataSource.value.contains(where: {
+                                guard let prod = $0 as? Product else{
+                                    return false
+                                }
+                                return prod.id == product!.id
+                                
+                            }){
+                                self.dataSource.value.append(product!)
+
+                            }
                             self.loadingMore.value = false
                             self.reloadData.onNext(([self.dataSource.value.count - 1],[],[]))
                         }

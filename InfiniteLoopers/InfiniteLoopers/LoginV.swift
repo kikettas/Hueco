@@ -27,6 +27,7 @@ class LoginV: UIViewController {
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
+    var loadingView:UIView!
     
     convenience init(model:LoginVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -106,8 +107,10 @@ extension LoginV{
                 guard let `self` = self else {
                     return
                 }
+                self.loadingView = self.view.addLoadingView(isBlurred:true)
+
                 self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!){_, error in
-                    
+                    self.loadingView.removeFromSuperview()
                     if let error = error{
                         MessageBar.showError(message: error.errorDescription)
                         return

@@ -19,12 +19,12 @@ class ForgotPasswordV: UIViewController {
         return .default
     }
     
-    
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var checkEmailImage: UIImageView!
     @IBOutlet weak var bottomSubmitButtonConstraint: NSLayoutConstraint!
+    var loadingView:UIView!
     
     convenience init(model:ForgotPasswordVMProtocol) {
         self.init(nibName: nil, bundle: nil)
@@ -85,7 +85,15 @@ extension ForgotPasswordV{
                 guard let `self` = self else {
                     return
                 }
-                self.model.sendResetPasswordTo(email: self.emailTF.text!){_, error in
+                self.loadingView = self.view.addLoadingView(isBlurred:true)
+
+                self.model.sendResetPasswordTo(email: self.emailTF.text!){[weak self] _ , error in
+                    guard let `self` = self else {
+                        return
+                    }
+                    
+                    self.loadingView.removeFromSuperview()
+                    
                     if let error = error{
                         MessageBar.showError(message: error.errorDescription)
                         return
