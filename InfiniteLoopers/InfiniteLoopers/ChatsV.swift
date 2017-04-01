@@ -82,7 +82,7 @@ extension ChatsV{
 
 extension ChatsV{
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return [ChatSectionDataSource(chats:self.model.dataSource.value as! [Chat])] as! [IGListDiffable]
+        return [ChatSectionDataSource(chats:self.model.dataSource.value as! [Chat])] as [IGListDiffable]
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {

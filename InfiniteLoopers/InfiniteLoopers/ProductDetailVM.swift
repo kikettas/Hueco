@@ -24,7 +24,8 @@ protocol ProductDetailVMProtocol{
     var productSellerAvatar:Variable<String?> { get }
     var productSellerRating:Variable<Int?> { get }
     var productSpaces:Variable<String?> { get }
-    
+    var joinButtonIsHidden:Variable<Bool> { get }
+
     func join(completion: @escaping ClientCompletion<Void>)
 }
 
@@ -43,6 +44,7 @@ class ProductDetailVM:ProductDetailVMProtocol{
     var productSellerAvatar: Variable<String?> = Variable(nil)
     var productSellerRating: Variable<Int?> = Variable(nil)
     var productSpaces: Variable<String?> = Variable(nil)
+    var joinButtonIsHidden:Variable<Bool> = Variable(false)
     
     var productRef:FIRDatabaseReference? = nil
     var productHandle:FIRDatabaseHandle? = nil
@@ -70,6 +72,7 @@ class ProductDetailVM:ProductDetailVMProtocol{
             self.productSellerNickname.value = product.seller.nickname
             self.productSellerRating.value = product.seller.rating
             self.productSellerAvatar.value = product.seller.avatar
+            self.joinButtonIsHidden.value = product.seller.uid == (AppManager.shared.userLogged.value?.uid ?? "-1") || (product.participantKeys?.contains(AppManager.shared.userLogged.value?.uid ?? "- 1") ?? false)
             
             
             }.addDisposableTo(disposeBag)

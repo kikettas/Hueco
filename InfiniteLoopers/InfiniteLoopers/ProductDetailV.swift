@@ -136,7 +136,7 @@ extension ProductDetailV{
         attString.append(NSAttributedString(string: NSLocalizedString("join_in_button", comment: "join_in_button"), attributes: [NSFontAttributeName:UIFont(name: "HelveticaNeue-Bold", size: 17)!, NSForegroundColorAttributeName:UIColor.white]))
         
         chatButton.setAttributedTitle(attString, for: .normal)
-        chatButton.isHidden = self.model.product.value.seller.uid == (AppManager.shared.userLogged.value?.uid ?? "-1")
+        model.joinButtonIsHidden.asDriver().drive(chatButton.rx.isHidden).addDisposableTo(disposeBag)
     }
     
     func showJoinAlert(){
