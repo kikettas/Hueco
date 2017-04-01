@@ -1479,7 +1479,7 @@
 			baseConfigurationReference = 2CCDF9C83C6A96856FB3FA03 /* Pods-InfiniteLoopers.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
@@ -1496,7 +1496,7 @@
 			baseConfigurationReference = 4E0531130F58B1F01F3A1D19 /* Pods-InfiniteLoopers.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9E868WB98D;
 				INFOPLIST_FILE = InfiniteLoopers/Info.plist;
