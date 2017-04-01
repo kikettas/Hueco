@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 import IGListKit
 
-class ChatsV: UIViewController, IGListAdapterDataSource {
+final class ChatsV: UIViewController, IGListAdapterDataSource {
     var model:ChatsVMProtocol!
     var disposeBag = DisposeBag()
     

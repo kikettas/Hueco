@@ -53,5 +53,4 @@ enum Router:URLRequestConvertible{
         
         return urlRequest
     }
-
 }

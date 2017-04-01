@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 
-protocol EditProfileVMProtocol{
+protocol EditProfileVMProtocol:class{
     
     var client:ClientProtocol { get }
     var name:Variable<String?> { get }
@@ -26,7 +26,7 @@ protocol EditProfileVMProtocol{
     func updateProfile(name:String?, gender:String?, phone:String?, image:UIImage?, completion: @escaping ClientCompletion<Void>)
 }
 
-class EditProfileVM:EditProfileVMProtocol{
+final class EditProfileVM:EditProfileVMProtocol{
     
     var client: ClientProtocol
     var disposeBag = DisposeBag()

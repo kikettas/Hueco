@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class ProfilePagingV: UIPageViewController, UIPageViewControllerDataSource  {
+final class ProfilePagingV: UIPageViewController, UIPageViewControllerDataSource  {
     
     var disposeBag = DisposeBag()
     var model:ProfilePagingVMProtocol!

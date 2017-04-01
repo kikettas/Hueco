@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-class DummyNewProduct:UIViewController{
-    
-    
+final class DummyNewProduct:UIViewController{
     convenience init(){
         self.init(nibName: nil, bundle: nil)
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("publish", comment: "Publish tab title"), image: UIImage(named: "ic_publish_tab_unselected"), selectedImage: UIImage(named: "ic_publish_tab_selected"))

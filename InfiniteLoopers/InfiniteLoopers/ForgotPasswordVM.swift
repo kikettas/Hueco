@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ForgotPasswordVMProtocol{
+protocol ForgotPasswordVMProtocol:class{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
@@ -16,7 +16,7 @@ protocol ForgotPasswordVMProtocol{
     func sendResetPasswordTo(email:String, completion: @escaping ClientCompletion<Void>)
 }
 
-class ForgotPasswordVM:ForgotPasswordVMProtocol{
+final class ForgotPasswordVM:ForgotPasswordVMProtocol{
     var client: ClientProtocol
     
     required init(client: ClientProtocol = Client.shared) {

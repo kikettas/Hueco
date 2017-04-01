@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NewProductSecondStepV: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+final class NewProductSecondStepV: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var disposeBag:DisposeBag!
     var model:NewProductSecondStepVMProtocol!
@@ -44,7 +44,6 @@ class NewProductSecondStepV: UIViewController, UIPickerViewDelegate, UIPickerVie
 // MARK: - UIViewController
 
 extension NewProductSecondStepV{
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickers()

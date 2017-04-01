@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol NewProductSecondStepVMProtocol {
+protocol NewProductSecondStepVMProtocol:class {
     var client:ClientProtocol { get }
     var currencies:[String] { get }
     var productTypes:[String] { get }
@@ -18,7 +18,7 @@ protocol NewProductSecondStepVMProtocol {
     func publishProduct(name:String, category:ProductCategory,price:Float, slots:Int, description:String, currency:String, completion:@escaping ClientCompletion<Void>)
 }
 
-class NewProductSecondStepVM:NewProductSecondStepVMProtocol{
+final class NewProductSecondStepVM:NewProductSecondStepVMProtocol{
     var client: ClientProtocol
     var currencies: [String]
     var productTypes: [String]

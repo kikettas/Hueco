@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol LoginVMProtocol{
+protocol LoginVMProtocol:class{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
     func logIn(withEmail:String,password:String, completion: @escaping ClientCompletion<Void>)
 }
 
-class LoginVM: LoginVMProtocol{
+final class LoginVM: LoginVMProtocol{
     var client: ClientProtocol
     
     required init(client: ClientProtocol = Client.shared) {

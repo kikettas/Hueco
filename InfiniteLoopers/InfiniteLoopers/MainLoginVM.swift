@@ -10,7 +10,7 @@ import Foundation
 import FBSDKLoginKit
 import UIKit
 
-protocol MainLoginVMProtocol{
+protocol MainLoginVMProtocol:class{
     var client:ClientProtocol { get }
     
     init(client:ClientProtocol)
@@ -18,7 +18,7 @@ protocol MainLoginVMProtocol{
     func loginWithGoogle(from:UIViewController,completion: @escaping ClientCompletion<Void>)
 }
 
-class MainLoginVM:MainLoginVMProtocol{
+final class MainLoginVM:MainLoginVMProtocol{
     var client: ClientProtocol
     
     required init(client: ClientProtocol = Client.shared) {

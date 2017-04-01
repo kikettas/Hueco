@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import IGListKit
 
-class NotificationsV: UIViewController, IGListAdapterDataSource {
+final class NotificationsV: UIViewController, IGListAdapterDataSource {
 
     var disposeBag = DisposeBag()
     var model:NotificationsVMProtocol!

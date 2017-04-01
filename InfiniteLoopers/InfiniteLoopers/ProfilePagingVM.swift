@@ -10,10 +10,10 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol ProfilePagingVMProtocol{
+protocol ProfilePagingVMProtocol:class{
 
 }
 
-class ProfilePagingVM:ProfilePagingVMProtocol{
+final class ProfilePagingVM:ProfilePagingVMProtocol{
     
 }

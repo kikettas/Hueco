@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import ObjectMapper
 
-protocol ChatVMProtocol{
+protocol ChatVMProtocol:class{
     var newMessage:PublishSubject<Void> { get }
     var chatMessages:[ChatMessage] { get }
     var chat: Variable<Chat?> { get set }
@@ -22,7 +22,7 @@ protocol ChatVMProtocol{
     func sendMessage(withData data: ChatMessage)
 }
 
-class ChatVM:ChatVMProtocol{
+final class ChatVM:ChatVMProtocol{
     
     var disposeBag = DisposeBag()
     var chatReference: FIRDatabaseReference?

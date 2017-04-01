@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol NewProductPagingVMProtocol{
+protocol NewProductPagingVMProtocol:class{
     var newProductName:String { get set }
 }
 
-class NewProductPagingVM:NewProductPagingVMProtocol{
+final class NewProductPagingVM:NewProductPagingVMProtocol{
     var newProductName: String
     
     init(){

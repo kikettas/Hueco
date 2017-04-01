@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol NewProductFinishedVMProtocol{
+protocol NewProductFinishedVMProtocol:class{
     
 }
 
-class NewProductFinishedVM:NewProductFinishedVMProtocol{
+final class NewProductFinishedVM:NewProductFinishedVMProtocol{
     
 }

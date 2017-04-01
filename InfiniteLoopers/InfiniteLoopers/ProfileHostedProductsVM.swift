@@ -14,7 +14,7 @@ protocol ProfileHostedProductsVMProtocol:PaginatedCollectionModel{
     
 }
 
-class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
+final class ProfileHostedProductsVM:ProfileHostedProductsVMProtocol{
     
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!

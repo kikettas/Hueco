@@ -63,7 +63,6 @@ class Client: ClientProtocol {
         self.itemsPerPage = 10
     }
     
-    
     func refreshAccessToken(completion: @escaping (String?, ClientError?) -> ()) {
         if let user = FIRAuth.auth()?.currentUser{
             user.getTokenForcingRefresh(true){ idToken, error in
@@ -102,7 +101,7 @@ extension DataRequest{
                     print("✅ Success request: ➡️ \(response.request!)")
                     callback(.success(response.result.value as? JSON ?? [:]))
                 }else{
-                    print("❌ Failure (\(response.response?.statusCode)) request: ➡️ \(response.request!)")
+                    print("❌ Failure (\(response.response?.statusCode ?? -1)) request: ➡️ \(response.request!)")
                     do{
                     if let data = response.data, let jsonError:JSON = try JSONSerialization.jsonObject(with: data, options: []) as? JSON{
                         let error = ClientError.parseErrorFromAPI(message: jsonError["message"] as? String ?? "")

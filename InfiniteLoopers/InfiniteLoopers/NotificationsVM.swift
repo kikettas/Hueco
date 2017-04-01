@@ -12,7 +12,7 @@ import RxSwift
 import IGListKit
 import FirebaseDatabase
 
-protocol NotificationsVMProtocol{
+protocol NotificationsVMProtocol:class{
     var dataSource:Variable<[Any]> { get }
     var reloadData:BehaviorSubject<Bool> { get }
     
@@ -24,7 +24,7 @@ protocol NotificationsVMProtocol{
 }
 
 
-class NotificationsVM:NotificationsVMProtocol{
+final class NotificationsVM:NotificationsVMProtocol{
     var client:Client
     var dataSource: Variable<[Any]>
     var disposeBag = DisposeBag()

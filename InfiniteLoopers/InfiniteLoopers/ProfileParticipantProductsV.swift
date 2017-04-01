@@ -12,7 +12,7 @@ import RxSwift
 
 private let reuseIdentifier = "ProductCell"
 
-class ProfileParticipantProductsV: ProductPresenterController {
+final class ProfileParticipantProductsV: ProductPresenterController {
     
     var viewOrigin:CGPoint!
     var emptyView:EmptyCollectionBackgroundView!

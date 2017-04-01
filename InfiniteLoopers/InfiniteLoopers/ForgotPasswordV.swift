@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class ForgotPasswordV: UIViewController {
+final class ForgotPasswordV: UIViewController {
     
     var disposeBag = DisposeBag()
     var model:ForgotPasswordVMProtocol!

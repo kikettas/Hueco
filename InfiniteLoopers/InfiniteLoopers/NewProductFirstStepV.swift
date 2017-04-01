@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NewProductFirstStepV: UIViewController {
+final class NewProductFirstStepV: UIViewController {
     
     var disposeBag:DisposeBag!
     var model:NewProductFirstStepVMProtocol!
@@ -34,10 +34,8 @@ class NewProductFirstStepV: UIViewController {
 // MARK: - UIViewController
 
 extension NewProductFirstStepV{
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         nextButton
             .rx
             .tap.observeOn(MainScheduler.instance)

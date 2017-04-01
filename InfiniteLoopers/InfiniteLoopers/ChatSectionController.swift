@@ -9,7 +9,7 @@
 import UIKit
 import IGListKit
 
-class ChatSectionController: IGListSectionController, IGListSectionType {
+final class ChatSectionController: IGListSectionController, IGListSectionType {
     var chats:ChatSectionDataSource!
     var didSelectChat:((Int) -> ())!
     
@@ -52,7 +52,7 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
     
 }
 
-class ChatSectionDataSource:IGListDiffable{
+final class ChatSectionDataSource:IGListDiffable{
     let items:[Chat]
     
     init(chats:[Chat]){

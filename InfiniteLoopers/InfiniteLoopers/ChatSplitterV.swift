@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatSplitterV: UISplitViewController, UISplitViewControllerDelegate {
+final class ChatSplitterV: UISplitViewController, UISplitViewControllerDelegate {
 
     var chatsV:ChatsV!
     var chatV:ChatV!
@@ -22,9 +22,6 @@ class ChatSplitterV: UISplitViewController, UISplitViewControllerDelegate {
         self.tabBarItem = UITabBarItem(title: NSLocalizedString("chats", comment: "Chats tab title"), image: UIImage(named: "ic_chat_tab_unselected"), selectedImage: UIImage(named: "ic_chat_tab_selected"))
         self.title = NSLocalizedString("chats", comment: "Chats view title")
     }
-    
-
-
 }
 
 // MARK: - UISplitViewController
@@ -34,13 +31,11 @@ extension ChatSplitterV{
         super.viewDidLoad()
         self.delegate = self
         self.edgesForExtendedLayout = []
-
         
         chatsV = ChatsV(model: ChatsVM())
         chatV = ChatV(model: ChatVM(chat: nil))
         
         preferredDisplayMode = .allVisible
-        
         viewControllers = [UINavigationController(rootViewController: chatsV),UINavigationController(rootViewController: chatV)]
     }
     

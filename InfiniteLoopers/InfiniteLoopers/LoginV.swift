@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class LoginV: UIViewController {
+final class LoginV: UIViewController {
     
     var disposeBag = DisposeBag()
     var model:LoginVMProtocol!
@@ -66,8 +66,8 @@ extension LoginV{
         isPasswordCheckHidden.asObservable().bindTo(passwordCheck.rx.isHidden).addDisposableTo(disposeBag)
         
         Observable.combineLatest(isEmailCheckHidden, isPasswordCheckHidden){
-                return ($0.0 || $0.1)
-        }.distinctUntilChanged().bindTo(loginButton.rx.isHidden).addDisposableTo(disposeBag)
+            return ($0.0 || $0.1)
+            }.distinctUntilChanged().bindTo(loginButton.rx.isHidden).addDisposableTo(disposeBag)
         
         NotificationCenter.default.rx.notification(Notification.Name.UIKeyboardWillShow).subscribe(onNext:{ notification in
             self.loginButtonBottomConstraint.constant = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
@@ -108,7 +108,7 @@ extension LoginV{
                     return
                 }
                 self.loadingView = self.view.addLoadingView(isBlurred:true)
-
+                
                 self.model.logIn(withEmail: self.emailTF.text!, password: self.passwordTF.text!){_, error in
                     self.loadingView.removeFromSuperview()
                     if let error = error{
@@ -119,7 +119,6 @@ extension LoginV{
                 }
             }
             .addDisposableTo(disposeBag)
-        
     }
 }
 

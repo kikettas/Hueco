@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol PaginatedCollectionModel{
+protocol PaginatedCollectionModel:class{
     
     var didRefresh:(() -> ())! { get set }
     var onLoadMore:(() -> ())! { get set }

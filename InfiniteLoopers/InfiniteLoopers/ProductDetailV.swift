@@ -12,7 +12,7 @@ import RxSwift
 import RxOptional
 import Swarkn
 
-class ProductDetailV: UIViewController, UICollectionViewDataSource {
+final class ProductDetailV: UIViewController, UICollectionViewDataSource {
     
     var model:ProductDetailVMProtocol!
     var disposeBag = DisposeBag()

@@ -13,7 +13,7 @@ import RxOptional
 import Kingfisher
 import Swarkn
 
-class EditProfileV: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+final class EditProfileV: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var disposeBag = DisposeBag()
     var model:EditProfileVMProtocol!
@@ -113,10 +113,6 @@ extension EditProfileV{
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         imagePicker.sourceType = sourceType
-//        imagePicker.modalPresentationStyle = .popover
-//        if(IS_IPAD){
-//            imagePicker.popoverPresentationController?.sourceView = self.view
-//        }
         self.present(imagePicker, animated: true, completion: nil)
     }
     

@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol NewProductFirstStepVMProtocol{
+protocol NewProductFirstStepVMProtocol:class{
 }
 
-class NewProductFirstStepVM:NewProductFirstStepVMProtocol{
+final class NewProductFirstStepVM:NewProductFirstStepVMProtocol{
     
     init(){
     }

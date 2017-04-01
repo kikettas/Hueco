@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class NewProductFinishedV: UIViewController {
+final class NewProductFinishedV: UIViewController {
     
     var disposeBag:DisposeBag!
     var model:NewProductFinishedVMProtocol!
@@ -31,7 +31,6 @@ class NewProductFinishedV: UIViewController {
 // MARK: - UIViewController
 
 extension NewProductFinishedV{
-    
     override func viewDidLoad() {
         closeButton
             .rx
@@ -51,5 +50,4 @@ extension NewProductFinishedV{
                 }
             }.addDisposableTo(disposeBag)
     }
-
 }

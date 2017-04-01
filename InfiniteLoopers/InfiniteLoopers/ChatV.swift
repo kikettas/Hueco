@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class ChatV: JSQMessagesViewController, UITextFieldDelegate {
+final class ChatV: JSQMessagesViewController, UITextFieldDelegate {
     
     var model:ChatVMProtocol!
     var disposeBag = DisposeBag()

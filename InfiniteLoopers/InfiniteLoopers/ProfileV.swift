@@ -13,7 +13,7 @@ import Swarkn
 import FirebaseAuth
 import Kingfisher
 
-class ProfileV: UIViewController, UIPageViewControllerDelegate {
+final class ProfileV: UIViewController, UIPageViewControllerDelegate {
     
     let disposeBag = DisposeBag()
     var model:ProfileVMProtocol!
@@ -40,8 +40,6 @@ class ProfileV: UIViewController, UIPageViewControllerDelegate {
 
 
 // MARK: - UIViewController
-
-
 
 extension ProfileV{
     override func viewDidLoad() {

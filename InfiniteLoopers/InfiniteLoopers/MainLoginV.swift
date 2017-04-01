@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class MainLoginV: UIViewController, GIDSignInUIDelegate {
+final class MainLoginV: UIViewController, GIDSignInUIDelegate {
     
     var disposeBag = DisposeBag()
     var model:MainLoginVMProtocol!

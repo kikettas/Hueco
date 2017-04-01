@@ -15,7 +15,7 @@ protocol SearchVMProtocol:PaginatedCollectionModel{
     
 }
 
-class SearchVM:SearchVMProtocol{
+final class SearchVM:SearchVMProtocol{
     var dataSource: Variable<[Any]>
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!

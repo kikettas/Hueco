@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import Swarkn
 
-class CreateAccountV: UIViewController {
+final class CreateAccountV: UIViewController {
     
     var disposeBag = DisposeBag()
     var model:CreateAccountVMProtocol!
@@ -45,7 +45,6 @@ extension CreateAccountV{
         super.viewDidLoad()
         setupTextFields()
         setupButtons()
-        
     }
     
     func setupTextFields(){
@@ -106,7 +105,6 @@ extension CreateAccountV{
     }
     
     func setupButtons(){
-        
         goBackButton
             .rx
             .tap

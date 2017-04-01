@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol ProfileVMProtocol {
+protocol ProfileVMProtocol:class {
     
     var client:ClientProtocol { get }
     var image:Variable<String> { get }
@@ -21,7 +21,7 @@ protocol ProfileVMProtocol {
     func logOut(completion: @escaping ClientCompletion<Void>)
 }
 
-class ProfileVM:ProfileVMProtocol{
+final class ProfileVM:ProfileVMProtocol{
     
     var client: ClientProtocol
     var disposeBag = DisposeBag()

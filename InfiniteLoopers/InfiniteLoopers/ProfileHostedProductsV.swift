@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class ProfileHostedProductsV: ProductPresenterController {
+final class ProfileHostedProductsV: ProductPresenterController {
     
     var viewOrigin:CGPoint!
     var emptyView:EmptyCollectionBackgroundView!

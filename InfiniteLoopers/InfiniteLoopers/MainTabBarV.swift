@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarV: UITabBarController, UITabBarControllerDelegate {
+final class MainTabBarV: UITabBarController, UITabBarControllerDelegate {
     
     var model:MainTabBarVMProtocol!
     

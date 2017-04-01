@@ -11,11 +11,10 @@ import Kingfisher
 import RxCocoa
 import RxSwift
 
-class SearchV: ProductPresenterController,UISearchControllerDelegate {
+final class SearchV: ProductPresenterController,UISearchControllerDelegate {
     
     var searchController: UISearchController!
     var emptyView:EmptyCollectionBackgroundView!
-
     
     convenience init(model:SearchVMProtocol) {
         self.init(nibName: nil, bundle: nil)

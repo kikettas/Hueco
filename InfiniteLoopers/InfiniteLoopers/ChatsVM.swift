@@ -13,13 +13,13 @@ import RxCocoa
 import RxSwift
 import IGListKit
 
-protocol ChatsVMProtocol{
+protocol ChatsVMProtocol:class{
     var client:ClientProtocol { get }
     var dataSource:Variable<[Any]> { get set}
     var reloadData:BehaviorSubject<Bool> { get }
 }
 
-class ChatsVM:ChatsVMProtocol{
+final class ChatsVM:ChatsVMProtocol{
     var disposeBag = DisposeBag()
     var dataSource: Variable<[Any]> = Variable([])
     var client: ClientProtocol

@@ -14,7 +14,7 @@ protocol ProfileParticipantProductsVMProtocol:PaginatedCollectionModel{
     var transactionIDs:[String] { get set }
 }
 
-class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
+final class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
     
     var didRefresh: (() -> ())!
     var onLoadMore: (() -> ())!
