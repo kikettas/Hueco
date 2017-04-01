@@ -23,10 +23,9 @@ protocol ClientProtocol {
     
     // API
     func chats(withChatIDs ids:[String]) -> Observable<Chat>
-    func changeJoinRequestStatus(joinRequest:JoinRequest, completion: @escaping  ClientCompletion<JoinRequest.JoinRequestStatus?>)
+    func changeTransactionStatus(transaction:Transaction, completion: @escaping  ClientCompletion<Transaction.TransactionStatus?>)
     func check(nickName:String, completion: @escaping ClientCompletion<Bool>)
     func createChat(ownID:String, sellerID: String, name:String, chatID:String?, productID:String, completion: @escaping ClientCompletion<Chat?>)
-    func joinRequest(withID id:String, completion: @escaping ClientCompletion<JoinRequest?>)
     func logIn(withEmail: String, password:String, completion:@escaping ClientCompletion<Void>)
     func logIn(withCredential: FIRAuthCredential, completion:@escaping ClientCompletion<Void>)
     func logInWithFacebook(from: UIViewController, completion:@escaping ClientCompletion<Void>)
@@ -40,7 +39,7 @@ protocol ClientProtocol {
     func sendResetPaswordTo(email:String, completion:@escaping ClientCompletion<Void>)
     func signOut(completion:@escaping ClientCompletion<Void>)
     func signUp(withEmail: String, password:String, nickName:String, completion:@escaping ClientCompletion<Void>)
-    func transaction(withID:String, completion:@escaping ClientCompletion<Transaction?>)
+    func transaction(withID id:String, completion: @escaping ClientCompletion<Transaction?>)
     func updateEmail(withEmail: String,completion:@escaping ClientCompletion<Void>)
     func updatePassword(withPassword: String,completion:@escaping ClientCompletion<Void>)
     func updateProfile(parameters:Parameters, completion: @escaping ClientCompletion<Void>)

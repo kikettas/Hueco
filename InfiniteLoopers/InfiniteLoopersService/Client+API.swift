@@ -21,18 +21,19 @@ import RxSwift
 
 extension Client{
     
-    func changeJoinRequestStatus(joinRequest: JoinRequest, completion: @escaping (JoinRequest.JoinRequestStatus?, ClientError?) -> ()) {
-        FIRDatabase.database().reference().child("join_requests").child(joinRequest.id).child("status").setValue(joinRequest.status.rawValue)
-        if joinRequest.status == .accepted{
-            self.createChat(ownID: joinRequest.owner.uid, sellerID: joinRequest.participant.uid, name: joinRequest.product.name, chatID: joinRequest.product.chat, productID: joinRequest.product.id){_, error in
+    func changeTransactionStatus(transaction: Transaction, completion: @escaping (Transaction.TransactionStatus?, ClientError?) -> ()) {
+        FIRDatabase.database().reference().child("transactions").child(transaction.id).child("status").setValue(transaction.status.rawValue)
+        if transaction.status == .accepted{
+            FIRDatabase.database().reference().child("products").child(transaction.product.id).child("participants").child(transaction.participant.uid).setValue(true)
+            self.createChat(ownID: transaction.owner.uid, sellerID: transaction.participant.uid, name: transaction.product.name, chatID: transaction.product.chat, productID: transaction.product.id){_, error in
                 if let error = error{
                     completion(nil, error)
                     return
                 }
-                completion(joinRequest.status, nil)
+                completion(transaction.status, nil)
             }
         }else{
-            completion(joinRequest.status, nil)
+            completion(transaction.status, nil)
         }
     }
     
@@ -103,7 +104,6 @@ extension Client{
                 completion(nil,ClientError.parseFirebaseError(errorCode: error._code) )
                 return
             }
-            FIRDatabase.database().reference().child("products").child(productID)
             FIRDatabase.database().reference().child("users").child(sellerID).child("chats").child(chatReference.key).setValue(true)
             FIRDatabase.database().reference().child("users").child(ownID).child("chats").child(chatReference.key).setValue(true){ error, dbreference in
                 if let error = error{
@@ -116,33 +116,33 @@ extension Client{
         }
     }
     
-    func joinRequest(withID id: String, completion: @escaping (JoinRequest?, ClientError?) -> ()) {
-        _ = FIRDatabase.database().reference().child("join_requests").child(id).observeSingleEvent(of: .value, with:{snapshot in
-            if let joinRequestJson = snapshot.value as? [String:Any]{
-                guard let joinRequest = JoinRequest(JSON:joinRequestJson) else{
+    func transaction(withID id: String, completion: @escaping (Transaction?, ClientError?) -> ()) {
+        _ = FIRDatabase.database().reference().child("transactions").child(id).observeSingleEvent(of: .value, with:{snapshot in
+            if let transactionJson = snapshot.value as? [String:Any]{
+                guard let transaction = Transaction(JSON:transactionJson) else{
                     completion(nil,ClientError.unknownError)
                     return
                 }
                 
-                self.user(withId: joinRequestJson["owner"] as! String){ user, error in
+                self.user(withId: transactionJson["owner"] as! String){ user, error in
                     guard let user = user else{
                     completion(nil,ClientError.unknownError)
                         return
                     }
-                    joinRequest.owner = user
-                    self.user(withId: joinRequestJson["participant"] as! String){ user, error in
+                    transaction.owner = user
+                    self.user(withId: transactionJson["participant"] as! String){ user, error in
                         guard let user = user else{
                             completion(nil,ClientError.unknownError)
                             return
                         }
-                        joinRequest.participant = user
-                        self.product(withID:joinRequestJson["product"] as! String){product, error in
+                        transaction.participant = user
+                        self.product(withID:transactionJson["product"] as! String){product, error in
                             guard let product = product else{
                                 completion(nil,ClientError.unknownError)
                                 return
                             }
-                            joinRequest.product = product
-                            completion(joinRequest, nil)
+                            transaction.product = product
+                            completion(transaction, nil)
                         }
                     }
                 }
@@ -150,24 +150,24 @@ extension Client{
         })
     }
     
-    func joinRequest(joinRequestID: String, completion: @escaping (JoinRequest?, ClientError?) -> ()) {
-        _ = FIRDatabase.database().reference().child("join_requests").child(joinRequestID).observeSingleEvent(of: .value, with:{snapshot in
-            if let joinRequestJson = snapshot.value as? [String:Any]{
-                guard let joinRequest = JoinRequest(JSON:joinRequestJson) else{
+    func transaction(transactionID: String, completion: @escaping (Transaction?, ClientError?) -> ()) {
+        _ = FIRDatabase.database().reference().child("transactions").child(transactionID).observeSingleEvent(of: .value, with:{snapshot in
+            if let transactionJson = snapshot.value as? [String:Any]{
+                guard let transaction = Transaction(JSON:transactionJson) else{
                     completion(nil, nil)
                     return
                 }
                 
-                self.user(withId: joinRequestJson["owner"] as! String){ user, error in
+                self.user(withId: transactionJson["owner"] as! String){ user, error in
                     guard let user = user else{ return }
-                    joinRequest.owner = user
-                    self.user(withId: joinRequestJson["participant"] as! String){ user, error in
+                    transaction.owner = user
+                    self.user(withId: transactionJson["participant"] as! String){ user, error in
                         guard let user = user else{ return }
-                        joinRequest.participant = user
-                        self.product(withID:joinRequestJson["product"] as! String){product, error in
+                        transaction.participant = user
+                        self.product(withID:transactionJson["product"] as! String){product, error in
                             guard let product = product else{ return }
-                            joinRequest.product = product
-                            completion(joinRequest, nil)
+                            transaction.product = product
+                            completion(transaction, nil)
                         }
                     }
                 }
@@ -309,29 +309,29 @@ extension Client{
     }
     
     func requestToJoin(ownerID: String, participantID: String, product: String, completion: @escaping (Void, ClientError?) -> ()) {
-        let joinRequestRef = FIRDatabase.database().reference().child("join_requests").childByAutoId()
-        var newJoinRequestJson = JoinRequest(id: joinRequestRef.key).toJSON()
-        newJoinRequestJson["owner"] = ownerID
-        newJoinRequestJson["participant"] = participantID
-        newJoinRequestJson["product"] = product
-        joinRequestRef.setValue(newJoinRequestJson, withCompletionBlock: { error, _ in
+        let transactionRef = FIRDatabase.database().reference().child("transactions").childByAutoId()
+        var newTransactionJson = Transaction(id: transactionRef.key).toJSON()
+        newTransactionJson["owner"] = ownerID
+        newTransactionJson["participant"] = participantID
+        newTransactionJson["product"] = product
+        transactionRef.setValue(newTransactionJson, withCompletionBlock: { error, _ in
             if let error = error{
                 completion((), ClientError.parseFirebaseError(errorCode: error._code))
                 return
             }
-            _ = FIRDatabase.database().reference().child("users").child(ownerID).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+            _ = FIRDatabase.database().reference().child("users").child(ownerID).child("transactions").child(transactionRef.key).setValue(true, withCompletionBlock: { error, _ in
                 if let error = error{
                     completion((), ClientError.parseFirebaseError(errorCode: error._code))
                     return
                 }
                 
-                _ = FIRDatabase.database().reference().child("users").child(participantID).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+                _ = FIRDatabase.database().reference().child("users").child(participantID).child("transactions").child(transactionRef.key).setValue(true, withCompletionBlock: { error, _ in
                     if let error = error{
                         completion((), ClientError.parseFirebaseError(errorCode: error._code))
                         return
                     }
                     
-                    _ = FIRDatabase.database().reference().child("products").child(product).child("join_requests").child(joinRequestRef.key).setValue(true, withCompletionBlock: { error, _ in
+                    _ = FIRDatabase.database().reference().child("products").child(product).child("transactions").child(transactionRef.key).setValue(true, withCompletionBlock: { error, _ in
                         if let error = error{
                             completion((), ClientError.parseFirebaseError(errorCode: error._code))
                             return
@@ -377,16 +377,6 @@ extension Client{
                         completion((),error as? ClientError)
                     }
                 }
-            }
-        }
-    }
-    
-    func transaction(withID: String, completion: @escaping (Transaction?, ClientError?) -> ()) {
-        FIRDatabase.database().reference().child("transactions").child(withID).observeSingleEvent(of: .value){(snapshot,x) in
-            if let transactionJson = snapshot.value as? [String:Any], let transaction = Transaction(JSON:transactionJson){
-                completion(transaction,nil)
-            }else{
-                completion(nil, ClientError.transactionNotFound)
             }
         }
     }

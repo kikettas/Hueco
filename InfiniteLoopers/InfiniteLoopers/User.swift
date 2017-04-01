@@ -23,10 +23,9 @@ class User:Mappable{
     var favoriteProducts:[Product]?
     var transactions:[Transaction]?
     var chatIDs:[String]?
-    var transactionIDs:[String]?
     var ratingIDs:[String]?
     var productIDs:[String]?
-    var joinRequestIDs:[String]?
+    var transactionIDs:[String]?
     var rating:Int!
     
     enum Gender:String{
@@ -78,10 +77,6 @@ extension User{
         
         if let products = map["products"].currentValue as? [String:Any]{
             productIDs = products.keys.map{$0}
-        }
-        
-        if let joinRequests = map["join_requests"].currentValue as? [String:Any]{
-            joinRequestIDs = joinRequests.keys.map{$0}
         }
     }
 }

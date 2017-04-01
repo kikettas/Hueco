@@ -80,7 +80,7 @@ extension NotificationsV{
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return JoinRequestSectionController(model:model)
+        return TransactionSectionController(model:model)
     }
     
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {

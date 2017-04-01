@@ -1,5 +1,5 @@
 //
-//  JoinRequestCollectionCellCollectionViewCell.swift
+//  TransactionCollectionCellCollectionViewCell.swift
 //  InfiniteLoopers
 //
 //  Created by Enrique del Pozo Gómez on 3/25/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JoinRequestCollectionCell: UICollectionViewCell {
+class TransactionCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var participantPicture: UIButton!
     @IBOutlet weak var requestText: UILabel!

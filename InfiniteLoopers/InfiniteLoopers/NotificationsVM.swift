@@ -16,10 +16,10 @@ protocol NotificationsVMProtocol{
     var dataSource:Variable<[Any]> { get }
     var reloadData:BehaviorSubject<Bool> { get }
     
-    func changeJoinRequestValue(joinRequest: JoinRequest, completion: @escaping ClientCompletion<JoinRequest.JoinRequestStatus?>)
+    func changeTransactionValue(transaction: Transaction, completion: @escaping ClientCompletion<Transaction.TransactionStatus?>)
     func initializeCollection(userID:String)
-    func initializeJoinRequestChangedReference(requestID:String)
-    func removeJoinRequest(joinRequestID:String)
+    func initializeTransactionChangedReference(transactionID:String)
+    func removeTransaction(transactionID:String)
     func resetObservers()
 }
 
@@ -29,9 +29,9 @@ class NotificationsVM:NotificationsVMProtocol{
     var dataSource: Variable<[Any]>
     var disposeBag = DisposeBag()
     var initialized:Bool = false
-    var joinRequestsRef:FIRDatabaseReference?
-    var joinRequestsAddedHandle:FIRDatabaseHandle?
-    var joinRequestsRemovededHandle:FIRDatabaseHandle?
+    var transactionsRef:FIRDatabaseReference?
+    var transactionsAddedHandle:FIRDatabaseHandle?
+    var transactionsRemovededHandle:FIRDatabaseHandle?
     var childReferences:[String:FIRDatabaseReference]?
     var childHandles:[String:FIRDatabaseHandle]?
     var reloadData: BehaviorSubject<Bool>
@@ -53,8 +53,8 @@ class NotificationsVM:NotificationsVMProtocol{
         }).addDisposableTo(disposeBag)
     }
     
-    func changeJoinRequestValue(joinRequest: JoinRequest, completion: @escaping (JoinRequest.JoinRequestStatus?, ClientError?) -> ()) {
-        client.changeJoinRequestStatus(joinRequest: joinRequest){status, error in
+    func changeTransactionValue(transaction: Transaction, completion: @escaping (Transaction.TransactionStatus?, ClientError?) -> ()) {
+        client.changeTransactionStatus(transaction: transaction){status, error in
             if let error = error{
                 completion(nil, error)
                 return
@@ -68,27 +68,27 @@ class NotificationsVM:NotificationsVMProtocol{
         childReferences = [:]
         childHandles = [:]
         
-        joinRequestsRef = FIRDatabase.database().reference().child("users").child(userID).child("join_requests")
-        joinRequestsAddedHandle = joinRequestsRef?.observe(.childAdded, with: { snapshot in
-            self.initializeJoinRequestChangedReference(requestID: snapshot.key)
+        transactionsRef = FIRDatabase.database().reference().child("users").child(userID).child("transactions")
+        transactionsAddedHandle = transactionsRef?.observe(.childAdded, with: { snapshot in
+            self.initializeTransactionChangedReference(transactionID: snapshot.key)
         })
         
-        joinRequestsRemovededHandle = joinRequestsRef?.observe(.childRemoved, with: { snapshot in
-            self.removeJoinRequest(joinRequestID: snapshot.key)
+        transactionsRemovededHandle = transactionsRef?.observe(.childRemoved, with: { snapshot in
+            self.removeTransaction(transactionID: snapshot.key)
         })
     }
     
-    func initializeJoinRequestChangedReference(requestID:String){
-        if childReferences?[requestID] == nil{
-            childReferences?[requestID] = FIRDatabase.database().reference().child("join_requests").child(requestID)
-            childHandles?[requestID] = childReferences?[requestID]?.observe(.value, with: { snapshot in
+    func initializeTransactionChangedReference(transactionID:String){
+        if childReferences?[transactionID] == nil{
+            childReferences?[transactionID] = FIRDatabase.database().reference().child("transactions").child(transactionID)
+            childHandles?[transactionID] = childReferences?[transactionID]?.observe(.value, with: { snapshot in
                 if let _ = snapshot.value as? JSON{
-                    self.client.joinRequest(withID: snapshot.key, completion: {joinRequest, error in
+                    self.client.transaction(withID: snapshot.key, completion: {transaction, error in
                         if let error = error{
                             print(error)
                             return
                         }
-                        self.dataSource.value.insert(joinRequest!, at: 0)
+                        self.dataSource.value.insert(transaction!, at: 0)
                         self.reloadData.onNext(true)
                     })
                 }
@@ -96,10 +96,10 @@ class NotificationsVM:NotificationsVMProtocol{
         }
     }
     
-    func removeJoinRequest(joinRequestID:String){
+    func removeTransaction(transactionID:String){
         var removeIndex:Int?
         for (index, element) in dataSource.value.enumerated(){
-            if let element = element as? JoinRequest, (element.id == joinRequestID){
+            if let element = element as? Transaction, (element.id == transactionID){
                 removeIndex = index
                 break
             }
@@ -112,13 +112,13 @@ class NotificationsVM:NotificationsVMProtocol{
     
     func resetObservers(){
         self.initialized = false
-        joinRequestsRef?.removeAllObservers()
+        transactionsRef?.removeAllObservers()
         childReferences?.forEach{
             $0.value.removeObserver(withHandle: childHandles![$0.key]!)
         }
-        joinRequestsRef = nil
-        joinRequestsAddedHandle = nil
-        joinRequestsRemovededHandle = nil
+        transactionsRef = nil
+        transactionsAddedHandle = nil
+        transactionsRemovededHandle = nil
         self.dataSource.value.removeAll()
         self.reloadData.onNext(true)
         

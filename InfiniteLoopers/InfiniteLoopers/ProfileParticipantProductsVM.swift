@@ -63,8 +63,8 @@ class ProfileParticipantProductsVM:ProfileParticipantProductsVMProtocol{
                                 return
                             }
                             
-                            if transaction!.participantID == AppManager.shared.userLogged.value?.uid{
-                                self.client.product(withID: transaction!.productID){ product, error in
+                            if transaction!.participant.uid == AppManager.shared.userLogged.value?.uid{
+                                self.client.product(withID: transaction!.product.id){ product, error in
                                     if let error = error{
                                         print(error)
                                         return

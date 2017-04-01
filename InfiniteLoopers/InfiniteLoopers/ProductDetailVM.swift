@@ -85,8 +85,9 @@ class ProductDetailVM:ProductDetailVMProtocol{
                             guard let `self` = self else {
                                 return
                             }
-                            
-                            self.participants.value.append(user)
+                            if !self.participants.value.contains(where: {$0?.uid == user?.uid}){
+                                self.participants.value.append(user)
+                            }
                         }
                     }
                 }
