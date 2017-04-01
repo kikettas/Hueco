@@ -82,7 +82,7 @@ PODS:
     - RxCocoa
     - RxSwift
   - RxSwift (3.2.0)
-  - Swarkn (0.1.10)
+  - Swarkn (0.1.11)
 
 DEPENDENCIES:
   - Alamofire
@@ -128,7 +128,7 @@ SPEC CHECKSUMS:
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
-  Swarkn: e19a087deb22aab4621c965b195dab5d199e2def
+  Swarkn: d9d1b788f29da32c6589d10460f947c0bb964418
 
 PODFILE CHECKSUM: 8eb4f027a1c0a7afd6c7a10aa49056754c18b8a9
 

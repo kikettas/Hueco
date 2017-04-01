@@ -37,7 +37,7 @@ class ChatSectionController: IGListSectionController, IGListSectionType {
         
         cell.userName.text = chats.items[index].name
         cell.userPhoto.setAvatarImage(urlString: chats.items[index].photo)
-        cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+        cell.userPhoto.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 0.5, cornerRadius: 5)
         cell.lastMessage.text = chats.items[index].lastMessage ?? ""
         return cell
     }

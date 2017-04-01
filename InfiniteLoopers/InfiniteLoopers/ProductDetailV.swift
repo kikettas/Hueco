@@ -70,7 +70,7 @@ extension ProductDetailV{
             self.productOwnerImage.setAvatarImage(urlString: avatar)
         }).addDisposableTo(disposeBag)
         
-        productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey.cgColor, width: 0.5)
+        productOwnerImage.setBorderAndRadius(color:UIColor.mainDarkGrey, width: 0.5)
     }
     
     func setupCollection(){

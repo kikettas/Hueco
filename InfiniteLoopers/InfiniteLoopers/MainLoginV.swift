@@ -42,9 +42,9 @@ extension MainLoginV{
     }
     
     func setupButtons(){
-        facebookButton.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0, cornerRadius: 5)
-        googleButton.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0, cornerRadius: 5)
-        emailButton.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 1, cornerRadius: 5)
+        facebookButton.setBorderAndRadius(color: UIColor.clear, width: 0, cornerRadius: 5)
+        googleButton.setBorderAndRadius(color: UIColor.clear, width: 0, cornerRadius: 5)
+        emailButton.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 1, cornerRadius: 5)
         closeButton
             .rx
             .tap

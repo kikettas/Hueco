@@ -68,8 +68,8 @@ extension EditProfileV{
     
     func setupChangePictureButton(){
         profilePicture.setAvatarImage(urlString: AppManager.shared.userLogged.value?.avatar)
-        profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
-        changePictureButton.setBackgroundImage(UIImage(color: UIColor(rgbValue: 0x000000, alpha: 0.3)), for: .highlighted)
+        profilePicture.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 0.5, cornerRadius: 5)
+        changePictureButton.setBackgroundImage(UIImage(color: UIColor(hexValue: 0x000000, alpha: 0.3)), for: .highlighted)
         changePictureButton.rx.tap.observeOn(MainScheduler.instance).bindNext {[unowned self] in
             self.showPictureSourceSelector()
             }.addDisposableTo(disposeBag)

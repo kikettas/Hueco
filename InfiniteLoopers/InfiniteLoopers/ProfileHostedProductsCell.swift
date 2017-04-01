@@ -21,7 +21,7 @@ class ProfileHostedProductsCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.setBorderAndRadius(color: UIColor.lightGray.cgColor, width: 0.5)
+        self.setBorderAndRadius(color: UIColor.lightGray, width: 0.5)
     }
 
 }

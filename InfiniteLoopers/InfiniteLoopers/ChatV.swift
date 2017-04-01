@@ -79,7 +79,7 @@ extension ChatV{
             button.kf.setImage(with: URL(string:photo ?? ""), for: .normal, placeholder: UIImage(named: "ic_avatar_placeholder"), options: [.processor(processor)])
         }.addDisposableTo(disposeBag)
         
-        button.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+        button.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 0.5, cornerRadius: 5)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: button)
     }
 }
@@ -122,7 +122,7 @@ extension ChatV{
             if let _ = error{
                 cell.avatarImageView.image = UIImage(named: "ic_avatar_placeholder")
             }
-            cell.avatarImageView.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+            cell.avatarImageView.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 0.5, cornerRadius: 5)
         }
         
         cell.avatarImageView.contentMode = .scaleAspectFill

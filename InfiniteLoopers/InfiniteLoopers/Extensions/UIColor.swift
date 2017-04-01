@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 extension UIColor{
-    static let mainRed = UIColor(rgbValue: 0xDF0000, alpha: 1)
-    static let mainRedTranslucent = UIColor(rgbValue: 0xDF0000, alpha:0.60)
-    static let mainDarkGrey = UIColor(rgbValue: 0x4A4A4A)
-    static let mainBackgroundColor = UIColor(rgbValue:0xEFEFF4)
-    static let mainErrorColor = UIColor(rgbValue: 0x5E6B87, alpha: 1)
+    static let mainRed = UIColor(hexValue: 0xDF0000, alpha: 1)
+    static let mainRedTranslucent = UIColor(hexValue: 0xDF0000, alpha:0.60)
+    static let mainDarkGrey = UIColor(hexValue: 0x4A4A4A)
+    static let mainBackgroundColor = UIColor(hexValue:0xEFEFF4)
+    static let mainErrorColor = UIColor(hexValue: 0x5E6B87, alpha: 1)
 }

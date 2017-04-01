@@ -44,10 +44,10 @@ class JoinRequestSectionController: IGListSectionController, IGListSectionType {
         cell.loadingIndicator.isHidden = true
 
         cell.participantPicture.setAvatarImage(urlString: joinRequest.owner.uid == AppManager.shared.userLogged.value?.uid ? joinRequest.participant.avatar : joinRequest.owner.avatar)
-        cell.participantPicture.setBorderAndRadius(color: UIColor.mainDarkGrey.cgColor, width: 0.5, cornerRadius: 5)
+        cell.participantPicture.setBorderAndRadius(color: UIColor.mainDarkGrey, width: 0.5, cornerRadius: 5)
         cell.requestText.attributedText = cellMessage()
-        cell.acceptButton.setBorderAndRadius(color: UIColor(rgbValue: 0x28CA86).cgColor, width: 1, cornerRadius: 5)
-        cell.rejectButton.setBorderAndRadius(color: UIColor.mainRedTranslucent.cgColor, width: 1, cornerRadius: 5)
+        cell.acceptButton.setBorderAndRadius(color: UIColor(hexValue: 0x28CA86), width: 1, cornerRadius: 5)
+        cell.rejectButton.setBorderAndRadius(color: UIColor.mainRedTranslucent, width: 1, cornerRadius: 5)
         
         cell.acceptButton.rx.tap.observeOn(MainScheduler.instance).bindNext {[weak self] in
             guard let `self` = self else {

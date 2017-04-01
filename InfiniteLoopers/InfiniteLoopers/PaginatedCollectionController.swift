@@ -72,7 +72,7 @@ extension PaginatedCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        self.collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor(rgbValue: 0x000000,alpha:0.15)
+        self.collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor(hexValue: 0x000000,alpha:0.15)
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {

@@ -41,7 +41,7 @@ class CustomAlertV: UIViewController {
 extension CustomAlertV{
     override func viewDidLoad() {
         super.viewDidLoad()
-        containerView.setBorderAndRadius(color: UIColor.clear.cgColor, width: 0, cornerRadius: 5)
+        containerView.setBorderAndRadius(color: UIColor.clear, width: 0, cornerRadius: 5)
         negativeButton.isHidden = negativeMessage == nil
         alertTitleLabel.isHidden = alertTitle == nil
         
