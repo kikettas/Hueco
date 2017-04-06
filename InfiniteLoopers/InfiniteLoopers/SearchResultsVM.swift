@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol SearchResultsVMProtocol {
+protocol SearchResultsVMProtocol:class {
     
 }
 
-class SearchResultsVM:SearchResultsVMProtocol{
+final class SearchResultsVM:SearchResultsVMProtocol{
     
 }

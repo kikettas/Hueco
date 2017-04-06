@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="onLoadMoreFooter" id="U6b-Vx-4bR" customClass="OnLoadMoreFooter" customModule="InfiniteLoopers" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4B3-LG-cK5">
+                    <rect key="frame" x="150" y="15" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="JD6-NL-Xbn"/>
+                        <constraint firstAttribute="width" constant="20" id="uqH-Kd-Gtc"/>
+                    </constraints>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="4B3-LG-cK5" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="7yl-R3-8Sr"/>
+                <constraint firstItem="4B3-LG-cK5" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="e8N-pB-AXa"/>
+            </constraints>
+            <connections>
+                <outlet property="onLoadMoreIndicator" destination="4B3-LG-cK5" id="gdX-XP-n2k"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

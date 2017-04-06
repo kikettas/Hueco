@@ -15,3 +15,49 @@
 "shared" = "Shared";
 "me" = "Me";
 "profile" = "Profile";
+"chats" = "Chats";
+"log_out" = "Log out";
+"edit_profile" = "Edit profile";
+"camera" = "Camera";
+"photo_gallery" = "Photo gallery";
+"male" = "Male";
+"female" = "Female";
+"pepe" = "pepito";
+"empty_notifications_message_not_logged" = "You need to log in first in order to start receiving notifications";
+"empty_chats_message_not_logged" = "You need to log in first in order to chat with other people";
+"empty_products_message" = "There are not available products at this moment";
+"empty_notifications_message" = "You do not have any notification yet";
+"empty_chats_message" = "You have not started any conversation yet. Start sharing with other people!";
+"empty_hosted_products" = "You have not started to share. Let's publish!";
+"empty_participated_products" = "You did not take part in any product yet";
+"join_in_button" = "Join in!";
+"no_description_provided" = "No description provided";
+"recover_password_mail_message" = "We have sent you an email with the instructions for recovering your password 📩";
+"join_request_message" = " has requested joining to ";
+"accept_for_joining" = "Do you accept that?";
+"rejected_join_request_message" = " was rejected to join ";
+"accepted_join_request_message" = " was accepted to join ";
+
+"you_requested_to_join" = "You requested to join ";
+"rejected_you_join_request_message" = " rejected you to join ";
+"accepted_you_join_request_message" = " accepted you to join ";
+
+
+/*
+ 
+ Errors
+ 
+ */
+
+"error_invalid_credentials" = "Email or password is incorrect";
+"error_unknown_error" = "There was an error... try again";
+"error_user_not_found" = "User not found";
+"error_account_disabled" = "Account disabled";
+"error_email_already_in_use" = "That email is already in use";
+"error_wrong_password" = "Wrong password";
+"error_weak_password" = "That password is too weak";
+"error_login_with_facebook" = "There was an error logging in with Facebook";
+"error_login_canceled" = "Log in was canceled";
+"error_invalid_email" = "That is not a valid email";
+"error_invalid_parameters" = "Invalid parameters";
+"error_transaction_not_found" = "Transaction not found";

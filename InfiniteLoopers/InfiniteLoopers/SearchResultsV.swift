@@ -16,7 +16,7 @@ class SearchResultsV: UITableViewController,UISearchResultsUpdating {
     }
     
     func setupViews(){
-        self.tableView.backgroundColor = UIColor(rgbValue: 0xFFFFFF, alpha: 0.35)
+        self.tableView.backgroundColor = UIColor(hexValue: 0xFFFFFF, alpha: 0.35)
         let blurEffect = UIBlurEffect(style: .regular)
         let effectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = effectView

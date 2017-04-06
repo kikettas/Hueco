@@ -9,10 +9,10 @@
 import Foundation
 
 
-protocol MainTabBarVMProtocol{
+protocol MainTabBarVMProtocol:class{
     
 }
 
-class MainTabBarVM:MainTabBarVMProtocol{
+final class MainTabBarVM:MainTabBarVMProtocol{
     
 }
